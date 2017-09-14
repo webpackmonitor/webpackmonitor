@@ -1,0 +1,19 @@
+{
+  "name": "webpackmonitor",
+  "version": "1.0.0",
+  "description": "A tool for monitoring webpack optimization metrics through the development process",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webpackmonitor/webpackmonitor.git"
+  },
+  "author": "Jon Roach, Balal Zuhair, Gordon Yu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/webpackmonitor/webpackmonitor/issues"
+  },
+  "homepage": "https://github.com/webpackmonitor/webpackmonitor#readme"
+}
