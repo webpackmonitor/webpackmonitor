@@ -1,3 +1,8 @@
 node_modules
+<<<<<<< HEAD
 build
 package-lock.json
+=======
+package-lock.json
+build
+>>>>>>> react-setup
