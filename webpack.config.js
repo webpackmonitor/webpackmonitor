@@ -1,7 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const MonitorStats = require('./plugin/monitor-stats');
-const statsFile = require('./monitor/stats.json');
 
 const PATHS = {
   app: path.join(__dirname, 'client/index.jsx'),
@@ -34,13 +33,12 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
-      title: 'Webpack Monitor',
+      title: 'Webpack onitor',
       appMountId: 'root',
     }),
-    // new MonitorStats(
-    //   '../monitor/stats.json',
-    //   { timings: true, source: false },
-    //   statsFile,
-    // ),
+    new MonitorStats({
+      target: '../monitor/stats.json',
+      jsonOpts: { timings: true, source: false },
+    }),
   ],
 };
