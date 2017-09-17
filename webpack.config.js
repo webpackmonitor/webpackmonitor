@@ -33,7 +33,7 @@ module.exports = {
     new HtmlWebpackPlugin({
       inject: false,
       template: require('html-webpack-template'),
-      title: 'Webpack onitor',
+      title: 'Webpack Monitor',
       appMountId: 'root',
     }),
     new MonitorStats({
