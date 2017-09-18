@@ -1,6 +1,6 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BuildRoutes from './BuildRoutes';
+import BuildRoutes from './BuildComponents/BuildRoutes';
 import Overview from './Overview';
 import Recommendations from './Recommendations';
 import Performance from './Performance';
