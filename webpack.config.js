@@ -1,6 +1,6 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MonitorStats = require('./plugin/monitor-stats');
+const MonitorStats = require('webpack-monitor');
 
 const PATHS = {
   app: path.join(__dirname, 'client/index.jsx'),
@@ -36,9 +36,6 @@ module.exports = {
       title: 'Webpack Monitor',
       appMountId: 'root',
     }),
-    new MonitorStats({
-      target: '../monitor/stats.json',
-      jsonOpts: { timings: true, source: false },
-    }),
+    new MonitorStats(),
   ],
 };
