@@ -50,7 +50,7 @@ module.exports = merge([
       new MonitorStats(),
     ],
   },
-  utils.extractCSS(),
+  // utils.extractCSS(),
   utils.purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
   }),

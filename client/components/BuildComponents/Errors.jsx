@@ -1,6 +1,6 @@
 import React from 'react';
 
-const build = require('./history.json');
+// const build = require('./history.json');
 
 const Errors = () => {
   let errors = build[16].errors;
