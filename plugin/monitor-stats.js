@@ -12,7 +12,10 @@ const fs = require('fs');
 const path = require('path');
 
 module.exports = class MonitorStats {
-  constructor(options) {
+  constructor(options = {
+    target: '../monitor/stats.json',
+    jsonOpts: { source: false },
+  }) {
     this.target = options.target;
     this.jsonOpts = options.jsonOpts;
     this.timeStamp = Date.now();
@@ -43,7 +46,6 @@ module.exports = class MonitorStats {
             stats.assets.length - 1 !== prev.assets.length ||
             stats.chunks.length !== prev.chunks.length
           ) {
-            console.log('building new stats');
             const parsed = parseStats(stats, target);
             data.push(parsed);
           }
