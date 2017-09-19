@@ -55,3 +55,9 @@ exports.extractVendorCode = () => ({
   ],
 });
 
+exports.uglifyJS = () => ({
+  plugins: [
+    new webpack.optimize.UglifyJsPlugin(),
+  ],
+});
+
