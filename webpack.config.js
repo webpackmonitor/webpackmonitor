@@ -27,6 +27,7 @@ module.exports = merge([
     },
     devServer: {
       historyApiFallback: true,
+      // contentBase: './build',
     },
     module: {
       rules: [
