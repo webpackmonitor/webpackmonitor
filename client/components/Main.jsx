@@ -1,8 +1,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BuildRoutes from './BuildRoutes';
+import BuildRoutes from './BuildComponents/BuildRoutes';
 import Overview from './Overview';
-import Recommendations from './Recommendations';
+import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
 
 const Main = () => (
@@ -10,8 +10,8 @@ const Main = () => (
     <Switch>
       <Route exact path="/" component={Overview} />
       <Route path="/builds" component={BuildRoutes} />
-      <Route path="/performance/:buildid" component={Performance} />
-      <Route path="/recommendations/:buildid" component={Recommendations} />
+      <Route path="/performance" component={Performance} />
+      <Route path="/recommendations" component={Recommendations} />
     </Switch>
   </main>
 );

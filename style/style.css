@@ -53,3 +53,11 @@ body {
 #percentage {
   font-size: 2.5em;
 }
+
+.recommendation {
+  padding: 10px;
+  margin: 10px;
+  border: 1px solid black;
+  width: 80%
+}
+

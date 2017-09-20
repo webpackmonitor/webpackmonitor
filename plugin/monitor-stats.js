@@ -1,18 +1,12 @@
-/*
-ISSUES
-**********************************
-1. Should the stats file be written as an asset? Probably not - YES IT SHOULD!
-2. FIXED BUT IT IS BIIIIG! Incorrect reporting of size - changing above may render that moot.
-3. FIXED: Imperfect checking for changes in bundle - hash does not change every time we need it to.
-4. DONE: Modularise! parsing could be pulled out of source() method at least.
-5. DONE: If there is no monitor/stats.json, create one!!
-*/
-const parseStats = require('./stats-parser');
+const parseStats = require('./parser');
 const fs = require('fs');
 const path = require('path');
 
 module.exports = class MonitorStats {
-  constructor(options) {
+  constructor(options = {
+    target: '../monitor/stats.json',
+    jsonOpts: { source: false },
+  }) {
     this.target = options.target;
     this.jsonOpts = options.jsonOpts;
     this.timeStamp = Date.now();
@@ -23,11 +17,10 @@ module.exports = class MonitorStats {
     const jsonOpts = this.jsonOpts;
     let data;
     let bytes;
-
-    if (!fs.existsSync(path.resolve(__dirname, target))) {
+    if (!fs.existsSync(path.resolve(__dirname, '..', target))) {
       data = [];
     } else {
-      data = JSON.parse(fs.readFileSync(path.resolve(__dirname, target), { encoding: 'utf8' }));
+      data = JSON.parse(fs.readFileSync(path.resolve(__dirname, '..', target), { encoding: 'utf8' }));
     }
 
     compiler.plugin('emit', (compilation, done) => {
@@ -43,13 +36,11 @@ module.exports = class MonitorStats {
             stats.assets.length - 1 !== prev.assets.length ||
             stats.chunks.length !== prev.chunks.length
           ) {
-            console.log('building new stats');
             const parsed = parseStats(stats, target);
             data.push(parsed);
           }
           result = JSON.stringify(data, null, 2);
           bytes = result.length;
-          console.log('Entry number: ', data.length);
           return result;
         },
 
