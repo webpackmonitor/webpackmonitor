@@ -10,42 +10,6 @@ const PATHS = {
   build: path.join(__dirname, 'build'),
 };
 
-<<<<<<< HEAD
-module.exports = {
-  entry: {
-    app: PATHS.app,
-  },
-  output: {
-    path: PATHS.build,
-    filename: '[name].js',
-  },
-  resolve: {
-    extensions: ['.js', 'json', '.jsx'],
-  },
-  devServer: {
-    historyApiFallback: true,
-    contentBase: "./build"
-  },
-  module: {
-    rules: [
-      {
-        test: /\.jsx$/,
-        loader: 'babel-loader',
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader']
-      }
-    ],
-  },
-  plugins: [
-    new MonitorStats({
-      target: '../monitor/stats.json',
-      jsonOpts: { timings: true, source: false },
-    }),
-  ],
-};
-=======
 
 module.exports = merge([
   {
@@ -93,4 +57,3 @@ module.exports = merge([
   utils.extractVendorCode(),
   // utils.uglifyJS(),
 ]);
->>>>>>> 59236909aa4b2bfa26727b64524df25521e01970
