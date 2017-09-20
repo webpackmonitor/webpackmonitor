@@ -11,7 +11,6 @@ const PATHS = {
 };
 
 
-
 module.exports = merge([
   {
     entry: {
@@ -55,5 +54,5 @@ module.exports = merge([
     paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
   }),
   utils.extractVendorCode(),
-  utils.uglifyJS(),
+  // utils.uglifyJS(),
 ]);
