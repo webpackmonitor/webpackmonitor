@@ -11,7 +11,6 @@ const PATHS = {
 };
 
 
-
 module.exports = merge([
   {
     entry: {
