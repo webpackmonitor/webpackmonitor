@@ -1,6 +1,6 @@
 import React from 'react';
 
-const build = require('./history.json');
+// const build = require('./history.json');
 
 const Assets = () => {
   const assets = build[16].assets;

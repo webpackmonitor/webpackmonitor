@@ -11,7 +11,6 @@ const PATHS = {
 };
 
 
-
 module.exports = merge([
   {
     entry: {
@@ -50,10 +49,10 @@ module.exports = merge([
       new MonitorStats(),
     ],
   },
-  utils.extractCSS(),
+  // utils.extractCSS(),
   utils.purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
   }),
   utils.extractVendorCode(),
-  utils.uglifyJS(),
+  // utils.uglifyJS(),
 ]);
