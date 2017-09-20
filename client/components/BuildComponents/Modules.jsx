@@ -1,6 +1,6 @@
 import React from 'react';
 
-const build = require('./history.json');
+// const build = require('./history.json');
 
 const Modules = () => {
   // const newData = build[15].chunks[0].modules;
@@ -132,7 +132,7 @@ const Modules = () => {
     }
     chunkArray.push(propObj);
   }
-  console.log(chunkArray)
+  // console.log(chunkArray)
 
   // console.log(currChunks)
   // const chunks = property.map(chunk => <ul key={chunk.key}>{chunk.chunk}</ul>);
