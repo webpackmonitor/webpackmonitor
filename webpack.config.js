@@ -20,6 +20,7 @@ module.exports = {
   },
   devServer: {
     historyApiFallback: true,
+    contentBase: "./build"
   },
   module: {
     rules: [
@@ -34,12 +35,6 @@ module.exports = {
     ],
   },
   plugins: [
-    new HtmlWebpackPlugin({
-      inject: false,
-      template: require('html-webpack-template'),
-      title: 'Webpack Monitor',
-      appMountId: 'root',
-    }),
     new MonitorStats({
       target: '../monitor/stats.json',
       jsonOpts: { timings: true, source: false },
