@@ -5,6 +5,12 @@ import Item from './Item';
 const currentBuild = build[build.length - 1];
 console.log(currentBuild);
 
+
+// TO DO!!!
+// --------
+
+// Need to pull all of this out and use the code in utils.js.
+// Better modularity and includes improved messaging.
 const getFileExt = (pathString) => {
   const splitName = pathString.split('.');
   return splitName[splitName.length - 1];
