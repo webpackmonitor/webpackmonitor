@@ -9,13 +9,15 @@ import StarburstContainer from './StarburstContainer';
 
 
 
-const Page = () => (
-  <div className="container">
-    <MainRangeSelection />
-    <Cards />
-    <MainContainer />
-    <StarburstContainer />
-  </div>
-);
+const Page = (props) => {
 
+  return (
+    <div className="container">
+      <MainRangeSelection />
+      <Cards build={props.build} />
+      <MainContainer build={props.build} />
+      <StarburstContainer build={props.build} />
+    </div>
+  );
+}
 export default Page;
