@@ -26,34 +26,45 @@ module.exports = merge([
     },
     devServer: {
       historyApiFallback: true,
-      // contentBase: './build',
+      contentBase: './build',
     },
     module: {
       rules: [
         {
-          test: /\.jsx$/,
+          test: /.jsx?$/,
           loader: 'babel-loader',
+          exclude: /node_modules/,
+          query: {
+            presets: ['es2015', 'react']
+          }
         },
         {
           test: /\.css$/,
           use: ['style-loader', 'css-loader'],
         },
       ],
+      loaders: [
+        {
+          test: /\.json$/,
+          loader: 'json-loader'
+        }
+      ]
     },
     plugins: [
-      new HtmlWebpackPlugin({
-        inject: false,
-        template: require('html-webpack-template'),
-        title: 'Webpack Monitor',
-        appMountId: 'root',
-      }),
+      // new HtmlWebpackPlugin({
+      //   inject: false,
+      //   template: require('html-webpack-template'),
+      //   title: 'Webpack Monitor',
+      //   appMountId: 'root',
+      // }),
       // new MonitorStats(),
     ],
+
   },
   // utils.extractCSS(),
   utils.purifyCSS({
     paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
   }),
-  utils.extractVendorCode(),
+  // utils.extractVendorCode(),
   // utils.uglifyJS(),
 ]);

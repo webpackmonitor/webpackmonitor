@@ -5,6 +5,7 @@ import Overview from './Overview';
 import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
 import build from './../.././monitor/stats.json';
+import Charts from './../lib/app';
 
 class Main extends React.Component {
   constructor() {
@@ -16,6 +17,7 @@ class Main extends React.Component {
       <main>
         <Switch>
           <Route exact path="/" render={() => <Overview build={this.state.build} />} />
+          <Route path="/charts" render={() => <Charts build={this.state.build} />} />
           <Route path="/builds" render={() => <BuildRoutes build={this.state.build} />} />
           <Route path="/performance" render={() => <Performance build={this.state.build} />} />
           <Route path="/recommendations" render={() => <Recommendations build={this.state.build} />} />
@@ -24,5 +26,4 @@ class Main extends React.Component {
     );
   }
 }
-
 export default Main;

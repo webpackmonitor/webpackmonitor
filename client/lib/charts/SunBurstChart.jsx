@@ -1,10 +1,10 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
-import "../../style/style.css";
+import "../../../style/style.css";
 // const MyTooltipComponent = require('my-tooltip-component');
 
-class Overview extends React.Component {
+class SunBurstChart extends React.Component {
     componentDidMount() {
         this.drawChart();
     }
@@ -18,13 +18,13 @@ class Overview extends React.Component {
     }
 
     drawChart() {
-        /*
-          D3 code to create our visualization by appending onto this.svg
+        /* 
+          D3 code to create our visualization by appending onto this.svg 
         */
 
         // Dimensions of sunburst.
-        var width = 400;
-        var height = 225;
+        var width = 630;
+        var height = 500;
         var radius = Math.min(width, height) / 2;
 
         // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
@@ -279,7 +279,7 @@ class Overview extends React.Component {
 
         // Take a 2-column CSV and transform it into a hierarchical structure suitable
         // for a partition layout. The first column is a sequence of step names, from
-        // root to leaf, separated by hyphens. The second column is a count of how
+        // root to leaf, separated by hyphens. The second column is a count of how 
         // often that sequence occurred.
         function buildHierarchy(csv) {
             var root = { "name": "root", "children": [] };
@@ -328,14 +328,14 @@ class Overview extends React.Component {
     render() {
         return (
             <div>
-                
+                {/* <h1>Overview</h1> */}
                 {/* <div ref={(elem) => { this.tooltipTarget = elem; }} /> */}
                 <div id="main">
                     <div id="sequence"></div>
                     <div id="chart">
-                        <svg width={400} height={225} className="#chart" ref={(elem) => { this.svg = elem; }}>
+                        <svg width={630} height={500} className="#chart" ref={(elem) => { this.svg = elem; }}>
                         </svg>
-
+                        
                         <div id="explanation">
                         <span id="percentage"></span><br/>
                         of your bundle size
@@ -358,4 +358,4 @@ class Overview extends React.Component {
     // }
 }
 
-export default Overview;
+export default SunBurstChart;
