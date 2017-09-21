@@ -4,8 +4,8 @@ import BuildRoutes from './BuildComponents/BuildRoutes';
 import Overview from './Overview';
 import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
+import Charts from './../charting/chartsApp';
 import build from './../.././monitor/stats.json';
-import Charts from './../lib/app';
 
 class Main extends React.Component {
   constructor() {
