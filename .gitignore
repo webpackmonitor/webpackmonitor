@@ -3,4 +3,3 @@ build
 package-lock.json
 .DS_Store
 monitor
-history.json

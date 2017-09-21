@@ -18,8 +18,8 @@ class Overview extends React.Component {
     }
 
     drawChart() {
-        /* 
-          D3 code to create our visualization by appending onto this.svg 
+        /*
+          D3 code to create our visualization by appending onto this.svg
         */
 
         // Dimensions of sunburst.
@@ -279,7 +279,7 @@ class Overview extends React.Component {
 
         // Take a 2-column CSV and transform it into a hierarchical structure suitable
         // for a partition layout. The first column is a sequence of step names, from
-        // root to leaf, separated by hyphens. The second column is a count of how 
+        // root to leaf, separated by hyphens. The second column is a count of how
         // often that sequence occurred.
         function buildHierarchy(csv) {
             var root = { "name": "root", "children": [] };
@@ -335,7 +335,7 @@ class Overview extends React.Component {
                     <div id="chart">
                         <svg width={400} height={225} className="#chart" ref={(elem) => { this.svg = elem; }}>
                         </svg>
-                        
+
                         <div id="explanation">
                         <span id="percentage"></span><br/>
                         of your bundle size
