@@ -16,11 +16,11 @@ class Main extends React.Component {
     return (
       <main>
         <Switch>
-          <Route exact path="/" render={() => <Overview build={this.state.build} />} />
-          <Route path="/charts" render={() => <Charts build={this.state.build} />} />
-          <Route path="/builds" render={() => <BuildRoutes build={this.state.build} />} />
-          <Route path="/performance" render={() => <Performance build={this.state.build} />} />
-          <Route path="/recommendations" render={() => <Recommendations build={this.state.build} />} />
+          <Route exact path="/" render={() => <Overview build={this.state} />} />
+          <Route path="/charts" render={() => <Charts build={this.state} />} />
+          <Route path="/builds" render={() => <BuildRoutes build={this.state} />} />
+          <Route path="/performance" render={() => <Performance build={this.state} />} />
+          <Route path="/recommendations" render={() => <Recommendations build={this.state} />} />
         </Switch>
       </main>
     );

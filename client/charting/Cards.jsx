@@ -63,7 +63,6 @@ class Cards extends React.Component {
   }
   render() {
     const cards = this.getData();
-
     return (
       <div className="row">
         {cards}
