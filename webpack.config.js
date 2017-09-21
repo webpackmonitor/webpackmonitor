@@ -58,9 +58,6 @@ module.exports = merge([
       //   appMountId: 'root',
       // }),
       // new MonitorStats(),
-
-
-
     ],
 
   },
