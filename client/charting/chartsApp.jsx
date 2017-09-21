@@ -14,9 +14,10 @@
    import { InsetShadow , Gradient } from './charts/utils/SVGDefs.jsx'
    import resizeMixin from './charts/utils/ReactMixins.jsx'
    import SunBurstChart from './charts/SunBurstChart.jsx'
-//    import EventEmitter from './EventEmitter.js'
-// import stats from "./stats.json"
-console.log('stats', stats)
+//    import Range from './Range'
+   import Cards from './Cards'
+
+
 var eventEmitter=new EventEmitter();
 
 var Range=React.createClass({
@@ -131,86 +132,87 @@ var MainRangeSelection=React.createClass({
     }
 });
 
-var Cards=React.createClass({
+console.log(Cards)
+// var Cards=React.createClass({
 
-    getInitialState:function(){
-        return {
-            defaultSelection:false
-        };
-    },
-    componentWillMount:function(){
-        eventEmitter.addListener("reload",this.reloadData);
+//     getInitialState:function(){
+//         return {
+//             defaultSelection:false
+//         };
+//     },
+//     componentWillMount:function(){
+//         eventEmitter.addListener("reload",this.reloadData);
 
-    },
-    componentWillUnmount:function(){
-        eventEmitter.removeListener("reload",this.reloadData);
+//     },
+//     componentWillUnmount:function(){
+//         eventEmitter.removeListener("reload",this.reloadData);
 
-    },
-    reloadData:function(defaultValue){
-        this.setState({defaultSelection:defaultValue});
-    },
-    getData:function(){
-        var color=['#53c79f','#64b0cc','#7a6fca','#ca6f96','#e58c72','#e5c072'];
-        var heading=['FUN Size','Chunks','Modules','Assets','Errors','Flag'];
+//     },
+//     reloadData:function(defaultValue){
+//         this.setState({defaultSelection:defaultValue});
+//     },
+//     getData:function(){
+//         var color=['#53c79f','#64b0cc','#7a6fca','#ca6f96','#e58c72','#e5c072'];
+//         var heading=['FUN Size','Chunks','Modules','Assets','Errors','Flag'];
 
-        var count=2000;
+//         var count=2000;
 
-        if(this.state.defaultSelection){
-            count=200;
-        }
+//         if(this.state.defaultSelection){
+//             count=200;
+//         }
 
-        var cards=color.map(function(d,i){
-            var style={
-                'backgroundColor':d
-            };
+//         var cards=color.map(function(d,i){
+//             var style={
+//                 'backgroundColor':d
+//             };
 
-            var up_down;
-            if(i%2==0){
-                up_down=(<span>&#8595;</span>);
-            }else{
-                up_down=(<span>&#8593;</span>);
-            }
+//             var up_down;
+//             if(i%2==0){
+//                 up_down=(<span>&#8595;</span>);
+//             }else{
+//                 up_down=(<span>&#8593;</span>);
+//             }
 
-            return (
-                <div className="col-xs-2 custom_padding margin-below-20" key={i}>
-                    <div className="card" style={style}>
-                        <div className="card_header">
-                            <div className="pull-left" >
-                                {heading[i]}
-                            </div>
-                            <div className="pull-right">
-                                {up_down}{" "}
-                                <span className="header_text">
-                                    {/* Note: Number for Card % */}
-                                    {Math.floor((Math.random() * 90) + 50)+'%'}
-                                </span>
-                            </div>
-                        </div>
-                        <hr className="hr-custom"/>
-                        <div className="card_body">
-                            {/* Note: Number for Card */}
-                            {Math.floor((Math.random() * count) + 3000)}
-                        </div>
-                    </div>
-                </div>
-            );
-        });
+//             return (
+//                 <div className="col-xs-2 custom_padding margin-below-20" key={i}>
+//                     <div className="card" style={style}>
+//                         <div className="card_header">
+//                             <div className="pull-left" >
+//                                 {heading[i]}
+//                             </div>
+//                             <div className="pull-right">
+//                                 {up_down}{" "}
+//                                 <span className="header_text">
+//                                     {/* Note: Number for Card % */}
+//                                     {Math.floor((Math.random() * 90) + 50)+'%'}
+//                                 </span>
+//                             </div>
+//                         </div>
+//                         <hr className="hr-custom"/>
+//                         <div className="card_body">
+//                             {/* Note: Number for Card */}
+//                             {Math.floor((Math.random() * count) + 3000)}
+//                         </div>
+//                     </div>
+//                 </div>
+//             );
+//         });
 
-        return cards;
-    },
-    render:function(){
-
-
-        var cards=this.getData();
+//         return cards;
+//     },
+//     render:function(){
 
 
-        return(
-            <div className="row">
-                {cards}
-            </div>
-        );
-    }
-});
+//         var cards=this.getData();
+
+
+//         return(
+//             <div className="row">
+//                 {cards}
+//             </div>
+//         );
+//     }
+// });
 
 var SubContainer=React.createClass({
     getInitialState:function(){

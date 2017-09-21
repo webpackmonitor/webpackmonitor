@@ -4,7 +4,7 @@ import BuildRoutes from './BuildComponents/BuildRoutes';
 import Overview from './Overview';
 import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
-import Charts from './../lib/app';
+import Charts from './../charting/chartsApp';
 
 const Main = () => (
   <main>
