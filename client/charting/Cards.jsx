@@ -1,7 +1,6 @@
-import React from 'react'
+import React from 'react';
 
 
-// var Cards=React.createClass({
 class Cards extends React.Component {
   // EVENT EMITTER
   // getInitialState:function(){
@@ -21,21 +20,16 @@ class Cards extends React.Component {
   //     this.setState({defaultSelection:defaultValue});
   // },
   getData() {
-    var color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
-    var heading = ['FUN Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Flag'];
-    // Count is used for random number generator
-    // var count=2000;
+    const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
+    const heading = ['FUN Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Flag'];
 
-    // if(this.state.defaultSelection){
-    //     count=200;
-    // }
 
-    var cards = color.map(function (d, i) {
-      var style = {
+    const cards = color.map(function (d, i) {
+      const style = {
         'backgroundColor': d
       };
 
-      var up_down;
+      let up_down;
       if (i % 2 == 0) {
         up_down = (<span>&#8595;</span>);
       } else {
@@ -52,16 +46,12 @@ class Cards extends React.Component {
               <div className="pull-right">
                 {up_down}{" "}
                 <span className="header_text">
-                  {/* Note: Number for Card % */}
-                  {/* {Math.floor((Math.random() * 90) + 50)+'%'} */}
                   10
                 </span>
               </div>
             </div>
             <hr className="hr-custom" />
             <div className="card_body">
-              {/* Note: Number for Card */}
-              {/* {Math.floor((Math.random() * count) + 3000)} */}
               10
             </div>
           </div>
@@ -72,7 +62,7 @@ class Cards extends React.Component {
     return cards;
   }
   render() {
-    var cards = this.getData();
+    const cards = this.getData();
 
     return (
       <div className="row">
@@ -81,8 +71,6 @@ class Cards extends React.Component {
     );
   }
 }
-// });
 
 
-
-export default Cards
+export default Cards;
