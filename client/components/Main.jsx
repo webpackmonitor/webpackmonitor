@@ -5,17 +5,25 @@ import Overview from './Overview';
 import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
 import Charts from './../charting/chartsApp';
+import build from './../.././monitor/stats.json';
 
-const Main = () => (
-  <main>
-    <Switch>
-      <Route exact path="/" component={Overview} />
-      <Route path="/charts" component={Charts} />
-      <Route path="/builds" component={BuildRoutes} />
-      <Route path="/performance" component={Performance} />
-      <Route path="/recommendations" component={Recommendations} />
-    </Switch>
-  </main>
-);
-
+class Main extends React.Component {
+  constructor() {
+    super();
+    this.state = { build };
+  }
+  render() {
+    return (
+      <main>
+        <Switch>
+          <Route exact path="/" render={() => <Overview build={this.state.build} />} />
+          <Route path="/charts" render={() => <Charts build={this.state.build} />} />
+          <Route path="/builds" render={() => <BuildRoutes build={this.state.build} />} />
+          <Route path="/performance" render={() => <Performance build={this.state.build} />} />
+          <Route path="/recommendations" render={() => <Recommendations build={this.state.build} />} />
+        </Switch>
+      </main>
+    );
+  }
+}
 export default Main;
