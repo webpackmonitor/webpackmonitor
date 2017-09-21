@@ -1,9 +1,8 @@
 import React from 'react';
 
-// const build = require('./history.json');
 
-const Errors = () => {
-  let errors = build[16].errors;
+const Errors = (props) => {
+  let errors = props.build.build[3].errors;
   const property = [];
   let errorNum = 0;
   if (!errors.length) errors = <ul>No Errors!</ul>;

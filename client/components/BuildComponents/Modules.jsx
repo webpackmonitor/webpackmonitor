@@ -1,10 +1,10 @@
 import React from 'react';
 
-// const build = require('./history.json');
 
-const Modules = () => {
+const Modules = (props) => {
   // const newData = build[15].chunks[0].modules;
-  const newData = build[15].chunks
+
+  const newData = props.build.build[3].chunks
 
   const chunkArray = [];
   for (let c = 0; c < newData.length; c += 1) {
@@ -108,7 +108,7 @@ const Modules = () => {
 
 
 
-    const currChunks = build[15].chunks;
+    const currChunks = props.build.build[15].chunks;
     const property = [];
     for (let i = 0; i < currChunks.length; i += 1) {
       const chunk = i + 1;

@@ -1,9 +1,8 @@
 import React from 'react';
 
-// const build = require('./history.json');
 
-const Assets = () => {
-  const assets = build[16].assets;
+const Assets = (props) => {
+  const assets = props.build.build[3].assets;
   const property = [];
   for (let i = 0; i < assets.length; i += 1) {
     const name = assets[i].name;

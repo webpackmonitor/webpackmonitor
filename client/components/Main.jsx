@@ -8,18 +8,17 @@ import build from './../.././monitor/stats.json';
 
 class Main extends React.Component {
   constructor() {
-    super()
-    this.state = { build }
+    super();
+    this.state = { build };
   }
   render() {
-    console.log(this.state.build)
-    return  (
+    return (
       <main>
         <Switch>
-          <Route exact path="/" component={Overview} />
-          <Route path="/builds" component={BuildRoutes} />
-          <Route path="/performance" component={Performance} />
-          <Route path="/recommendations" component={Recommendations} />
+          <Route exact path="/" render={() => <Overview build={this.state.build} />} />
+          <Route path="/builds" render={() => <BuildRoutes build={this.state.build} />} />
+          <Route path="/performance" render={() => <Performance build={this.state.build} />} />
+          <Route path="/recommendations" render={() => <Recommendations build={this.state.build} />} />
         </Switch>
       </main>
     );
