@@ -47,7 +47,7 @@ module.exports = merge([
         title: 'Webpack Monitor',
         appMountId: 'root',
       }),
-      new MonitorStats(),
+      // new MonitorStats(),
     ],
   },
   // utils.extractCSS(),
