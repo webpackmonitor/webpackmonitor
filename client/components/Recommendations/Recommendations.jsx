@@ -46,6 +46,7 @@ const options = [
     infoText: `You are currently outputting ${cssCount} css file(s)`,
     warningText: 'Consider splitting out your css from your js bundle if it\'s not already. Deploying CSS in a seperate file minimises the rist of FOUC and helps keep js file weight down',
     label: 'Add the \'extract CSS\' function to your webpack optimization library',
+    checked: false,
   },
   {
     name: 'jsQty',
@@ -53,6 +54,7 @@ const options = [
     infoText: `You are currently outputting ${jsCount} javascript files`,
     warningText: 'Consider splitting up your js files to improve initial render times',
     label: 'Add the \'extract Vendor code\' function to your webpack optimization library',
+    checked: false,
   },
   {
     name: 'jsSize',
@@ -61,6 +63,7 @@ const options = [
     infoText: `You are currently outputting ${jsBigCount} large (over 250kb) js files and ${jsHugeCount} huge (over 1MB) files`,
     warningText: 'Consider splitting code event further or at the very least make sure you minify!',
     label: 'Add the minify JS function toy our webpack optimization library',
+    checked: false,
   },
   {
     name: 'cssSize',
@@ -68,24 +71,65 @@ const options = [
     infoText: `You are outputting ${cssBigCount} css files over 250kb`,
     warningText: 'If you\'re outputting large CSS files your load times can suffer. You might be bundling a whole library but only using a portion of it.',
     label: 'Add minify and purify CSS functions to your webpack optimization library',
+    checked: false,
   },
 ];
 
-const items = options.map(option => (
-  <Item data={option} key={option.name} />
-));
-
 class Recommendations extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = { options };
+    this.handleSelectAll = this.handleSelectAll.bind(this);
+    this.handleUnselectAll = this.handleUnselectAll.bind(this);
+    this.handleChange = this.handleChange.bind(this);
+    this.handleSubmit = this.handleSubmit.bind(this);
+  }
+
+  handleSelectAll() {
+    const newState = this.state.options.map((option) => {
+      option.checked = true;
+      return option;
+    });
+    this.setState({ newState });
+  }
+
+  handleUnselectAll() {
+    const newState = this.state.options.map((option) => {
+      option.checked = '';
+      return option;
+    });
+    this.setState({ newState });
+  }
+
+  handleChange(e) {
+    const newState = this.state.options.map((option) => {
+      if (option.name === e.target.name) option.checked = !option.checked;
+      return option;
+    });
+    this.setState({ newState });
+  }
+
+  handleSubmit(e) {
+    e.preventDefault();
+    const selectedFunctions = this.state.options
+      .filter(option => option.checked)
+      .map(option => option.name);
+    console.log(selectedFunctions)
+  }
 
   render() {
+    const items = this.state.options.map(option => (
+      <Item data={option} key={option.name} handleChange={this.handleChange} />
+    ));
+
     return (
-      <div>
+      <div className="recommendation">
         <h3>Recommendations</h3>
         <button className="btn" onClick={this.handleSelectAll}>
           Select All
         </button>
-        <button className="btn" onClick={this.handleClearForm}>
-          Clear Form
+        <button className="btn" onClick={this.handleUnselectAll}>
+          Unselect All
         </button>
 
         <form className="reco-form" onSubmit={this.handleSubmit}>
