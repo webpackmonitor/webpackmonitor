@@ -9,7 +9,6 @@ import StarburstContainer from './StarburstContainer';
 const Page = (props) => {
   return (
     <div className="container">
-      {/* {console.log('wtf is this?', props.build)} */}
       <MainRangeSelection />
       <Cards build={props.build} activeBuild={props.activeBuild} />
       <MainContainer build={props.build} activeBuild={props.activeBuild} handleCircleClick={props.handleCircleClick}/>

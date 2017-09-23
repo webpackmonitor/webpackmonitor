@@ -6,7 +6,7 @@ import Range from './Range';
 
 import SunBurstChart from './charts/SunBurstChart.jsx';
 
-
+var eventEmitter = new EventEmitter();
 
 class StarburstContainer extends React.Component {
 
@@ -26,9 +26,12 @@ class StarburstContainer extends React.Component {
     this.reloadBarData();
     this.dataParser();
     // this.reloadPieData();
-    // eventEmitter.addListener("reload", this.reloadData);
+    eventEmitter.addListener("reload", this.reloadData);
   }
 
+  // componentDidUpdate(){
+  //   this.dataParser();
+  // }
   // componentWillUnmount() {
   //     eventEmitter.removeListener("reload", this.reloadData);
   // } 
@@ -60,23 +63,16 @@ class StarburstContainer extends React.Component {
     }
 
     //Note: dataBar
-    // console.log('dataBar', dataBar)
     this.setState({ dataBar: dataBar, defaultBar: defaultValue });
   }
 
   //THIS IS WHERE I PARSE THE DATA!
   dataParser() {
-    // console.log('1131231231231231', this.props.build)
-    // console.log('1131231231231232', this.props.build[0].assets)
-    // console.log('1131231231231233', this.props.build[1].chunks[0])
-
     const data = this.props.build
-    //loops through data array
-    // for (var i = 0; i < data.length; i++) {
-    // console.log('inside for loop', data[i])
+
     //loops through assets
     let i = this.props.activeBuild;
-    console.log('this.props.activeBuild', this.props.activeBuild)
+  
     // let i = 11
     let pathAry;
     let path;
@@ -102,13 +98,14 @@ class StarburstContainer extends React.Component {
 
       }
     }
-    // console.log('sunBurstData', sunBurstData)
-    this.setState({ sunBurstData: sunBurstData })
+
+    // this.setState({ sunBurstData: sunBurstData })
+    return sunBurstData
     // }
   }
 
   render() {
-
+    const sunBurstData = this.dataParser()
     const color = ['#53c79f', '#e58c72', '#7a6fca', '#ca6f96', '#64b0cc', '#e5c072'];
 
     const margin = {
@@ -127,7 +124,7 @@ class StarburstContainer extends React.Component {
             </PanelHeader>
             <div className="text-center">
               {/* {console.log('props in Sunburst Container', this.props.build)} */}
-              <SunBurstChart data={this.state.sunBurstData} />
+              <SunBurstChart data={sunBurstData} />
 
 
 
