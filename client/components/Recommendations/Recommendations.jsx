@@ -3,7 +3,7 @@ import build from './../../../monitor/stats.json';
 import Item from './Item';
 
 const currentBuild = build[build.length - 1];
-console.log(currentBuild);
+// console.log(currentBuild);
 
 
 // TO DO!!!
