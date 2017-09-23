@@ -7,6 +7,8 @@ import Performance from './Performance';
 import Charts from './../charting/chartsApp';
 import build from './../.././monitor/stats.json';
 
+var eventEmitter = new EventEmitter();
+
 class Main extends React.Component {
   constructor() {
     super();
