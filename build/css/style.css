@@ -1,6 +1,5 @@
 body {
     background-color: #2c313b;
-
     font-family: 'Roboto', sans-serif !important;
 }
 
@@ -241,12 +240,12 @@ body {
 
 #explanation {
   position: absolute;
-  top: 400px;
-  left: 500px;
+  top: 550px;
+  left: 520px;
   width: 140px;
   text-align: center;
-  color: #666;
-  z-index: -1;
+  color: #fff;
+  /* z-index: -1; */
 }
 
 #percentage {
