@@ -10,14 +10,31 @@ import build from './../.././monitor/stats.json';
 class Main extends React.Component {
   constructor() {
     super();
-    this.state = { build };
+    this.state = { build, activeBuild: build.length - 1 };
+    this.handleCircleClick = this.handleCircleClick.bind(this);
   }
+
+  handleCircleClick(e) {
+    const len = this.state.build.length;
+    const index = len - e.target.getAttribute('data-build') - 1;
+    this.setState({ activeBuild: index });
+  }
+
   render() {
     return (
       <main>
         <Switch>
           <Route exact path="/" render={() => <Overview build={this.state} />} />
-          <Route path="/charts" render={() => <Charts build={this.state} />} />
+          <Route
+            path="/charts"
+            render={() => (
+              <Charts
+                build={this.state.build}
+                activeBuild={this.state.activeBuild}
+                handleCircleClick={this.handleCircleClick}
+              />
+            )}
+          />
           <Route path="/builds" render={() => <BuildRoutes build={this.state} />} />
           <Route path="/performance" render={() => <Performance build={this.state} />} />
           <Route path="/recommendations" render={() => <Recommendations build={this.state} />} />
