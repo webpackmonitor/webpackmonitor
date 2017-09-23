@@ -121,7 +121,7 @@ class MainContainer extends React.Component {
             <PanelHeader title="Modules">
               <Range loadData={this.loadAreaChart} defaultSelection={this.state.defaultArea} />
             </PanelHeader>
-
+          
             <D3TimeAreaChart data={this.state.dataArea} xData="date" yData="count" type="type" margin={margin}
               yMaxBuffer={10} id="multi-area-chart" interpolations="basis">
               <yGrid orient="left" className="y-grid" ticks={5} />

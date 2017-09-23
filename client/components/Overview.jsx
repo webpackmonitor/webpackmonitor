@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
-import "../../style/style.css";
+// import "../../style/style.css";
 // const MyTooltipComponent = require('my-tooltip-component');
 
 class Overview extends React.Component {

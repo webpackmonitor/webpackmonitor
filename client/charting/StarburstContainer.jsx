@@ -2,7 +2,9 @@ import React from 'react';
 import Panel from './Panel';
 import PanelHeader from './PanelHeader';
 import Range from './Range';
-import StackChart from './charts/StackChart.jsx';
+// import StackChart from './charts/StackChart.jsx';
+
+import SunBurstChart from './charts/SunBurstChart.jsx';
 
 
 
@@ -12,14 +14,17 @@ class StarburstContainer extends React.Component {
     super(props);
     this.state = {
       defaultBar: false,
-      dataBar: []
+      dataBar: [],
+      sunBurstData: []
     }
+    this.dataParser = this.dataParser.bind(this)
   }
 
 
 
   componentWillMount() {
     this.reloadBarData();
+    this.dataParser();
     // this.reloadPieData();
     // eventEmitter.addListener("reload", this.reloadData);
   }
@@ -59,6 +64,46 @@ class StarburstContainer extends React.Component {
     this.setState({ dataBar: dataBar, defaultBar: defaultValue });
   }
 
+  //THIS IS WHERE I PARSE THE DATA!
+  dataParser() {
+    console.log('1131231231231231', this.props.build.build)
+    console.log('1131231231231232', this.props.build.build[0].assets)
+    console.log('1131231231231233', this.props.build.build[1].chunks[0])
+
+    const data = this.props.build.build
+    //loops through data array
+    // for (var i = 0; i < data.length; i++) {
+    // console.log('inside for loop', data[i])
+    //loops through assets
+    let i = 0;
+    let pathAry;
+    let path;
+    let sizeStr;
+    let sunBurstData = [];
+
+    // for (var j = 0; j < data[i].assets.length; j++) {
+    //   pathAry = data[i].assets[j].name
+    //   sizeStr = data[i].size.toString()
+    //   //Note: app.js is large
+    //   sunBurstData.push([pathAry, sizeStr])
+
+    // }
+    //loops through chunk
+
+    for (var k = 0; k < data[i].chunks.length; k++) {
+      // console.log(data[i])
+      for (var l = 0; l < data[i].chunks[k].modules.length; l++) {
+        pathAry = data[i].chunks[k].modules[l].name.split('/')
+        path = pathAry.slice(1, pathAry.length).join('-')
+        sizeStr = data[i].chunks[k].modules[l].size.toString()
+        sunBurstData.push([path, sizeStr])
+
+      }
+    }
+    console.log('sunBurstData', sunBurstData)
+    this.setState({ sunBurstData: sunBurstData })
+    // }
+  }
 
   render() {
 
@@ -79,12 +124,17 @@ class StarburstContainer extends React.Component {
               <Range loadData={this.reloadBarData} defaultSelection={this.state.defaultBar} />
             </PanelHeader>
             <div className="text-center">
-              <StackChart data={this.state.dataBar} xData="month" margin={margin}
+              {console.log('props in Sunburst Container', this.props.build)}
+              <SunBurstChart data={this.state.sunBurstData} />
+
+
+
+              {/* <StackChart data={this.state.dataBar} xData="month" margin={margin}
                 id="stacked-bar" keys={keys} color={color} twoColorScheme={true}>
                 <yGrid orient="left" className="y-grid" ticks={5} />
                 <xAxis orient="bottom" className="axis" ticks={5} />
                 <yAxis orient="left" className="axis" ticks={5} />
-              </StackChart>
+              </StackChart> */}
             </div>
           </Panel>
         </div>
