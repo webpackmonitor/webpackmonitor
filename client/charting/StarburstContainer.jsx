@@ -60,22 +60,24 @@ class StarburstContainer extends React.Component {
     }
 
     //Note: dataBar
-    console.log('dataBar', dataBar)
+    // console.log('dataBar', dataBar)
     this.setState({ dataBar: dataBar, defaultBar: defaultValue });
   }
 
   //THIS IS WHERE I PARSE THE DATA!
   dataParser() {
-    console.log('1131231231231231', this.props.build.build)
-    console.log('1131231231231232', this.props.build.build[0].assets)
-    console.log('1131231231231233', this.props.build.build[1].chunks[0])
+    // console.log('1131231231231231', this.props.build)
+    // console.log('1131231231231232', this.props.build[0].assets)
+    // console.log('1131231231231233', this.props.build[1].chunks[0])
 
-    const data = this.props.build.build
+    const data = this.props.build
     //loops through data array
     // for (var i = 0; i < data.length; i++) {
     // console.log('inside for loop', data[i])
     //loops through assets
-    let i = 0;
+    let i = this.props.activeBuild;
+    console.log('this.props.activeBuild', this.props.activeBuild)
+    // let i = 11
     let pathAry;
     let path;
     let sizeStr;
@@ -100,7 +102,7 @@ class StarburstContainer extends React.Component {
 
       }
     }
-    console.log('sunBurstData', sunBurstData)
+    // console.log('sunBurstData', sunBurstData)
     this.setState({ sunBurstData: sunBurstData })
     // }
   }
@@ -124,7 +126,7 @@ class StarburstContainer extends React.Component {
               <Range loadData={this.reloadBarData} defaultSelection={this.state.defaultBar} />
             </PanelHeader>
             <div className="text-center">
-              {console.log('props in Sunburst Container', this.props.build)}
+              {/* {console.log('props in Sunburst Container', this.props.build)} */}
               <SunBurstChart data={this.state.sunBurstData} />
 
 
