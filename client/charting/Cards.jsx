@@ -20,19 +20,19 @@ class Cards extends React.Component {
   //     this.setState({defaultSelection:defaultValue});
   // },
   getData() {
-    console.log(this.props.build.build[0].chunks)
+    // console.log(this.props.build[0].chunks)
 
-    const index = 3
+    const index = this.props.activeBuild;
 
     const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
     const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Largest File'];
 
-    const totalSize = Math.floor((this.props.build.build[index].size) / 1000);
-    const chunk = this.props.build.build[index].chunks;
+    const totalSize = Math.floor((this.props.build[index].size) / 1000);
+    const chunk = this.props.build[index].chunks;
     const chunksTotal = chunk.length;
     const modulesTotal = chunk.reduce((sum, value) => { return sum + value.modules.length }, 0)
-    const assetsTotal = this.props.build.build[index].assets.length;
-    const errorsTotal = this.props.build.build[index].errors.length;
+    const assetsTotal = this.props.build[index].assets.length;
+    const errorsTotal = this.props.build[index].errors.length;
     let biggestFile = null;
     let biggestFileSize = 0;
     // do we only want to look at the first chunk
@@ -52,12 +52,12 @@ class Cards extends React.Component {
     let cardDiff;
 
     if (index > 0) {
-      const sizeDiff = totalSize - Math.floor((this.props.build.build[index - 1].size) / 1000);
-      const chunkDiff = this.props.build.build[index - 1].chunks;
+      const sizeDiff = totalSize - Math.floor((this.props.build[index - 1].size) / 1000);
+      const chunkDiff = this.props.build[index - 1].chunks;
       const chunksDiff = chunksTotal - chunkDiff.length;
       const modulesDiff = modulesTotal - chunkDiff.reduce((sum, value) => { return sum + value.modules.length }, 0)
-      const assetsDiff = assetsTotal - this.props.build.build[index - 1].assets.length;
-      const errorsDiff = errorsTotal - this.props.build.build[index - 1].errors.length;
+      const assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
+      const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
       cardDiff = [`${sizeDiff}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile]
     }

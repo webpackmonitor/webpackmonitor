@@ -68,7 +68,7 @@ class SunBurstChart extends React.Component {
 
     //  d3.text("visit-sequences.csv", function (text) {
 
-    { console.log('SUNBURSTDATA13423432!!!', this.props.data) }
+    // { console.log('SUNBURSTDATA13423432!!!', this.props.data) }
     // var csv = d3.csvParseRows(text);
     // console.log('csv',csv)
     var json = buildHierarchy(this.props.data);
@@ -337,8 +337,8 @@ class SunBurstChart extends React.Component {
   render() {
     return (
       <div>
-        {console.log('props are in sunburst!', this.props)}
-        {console.log('SUNBURSTDATA!!!', this.props.data)}
+        {/* {console.log('props are in sunburst!', this.props)} */}
+        {/* {console.log('SUNBURSTDATA!!!', this.props.data)} */}
         {/* <h1>Overview</h1> */}
         {/* <div ref={(elem) => { this.tooltipTarget = elem; }} /> */}
         <div id="main">
