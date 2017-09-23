@@ -17,11 +17,6 @@ class D3TimeLineChart extends React.Component {
     this.w = this.state.width - (this.props.margin.left + this.props.margin.right);
     this.h = this.props.height - (this.props.margin.top + this.props.margin.bottom);
 
-    // this.xScale = d3.time.scale()
-    //   .domain(d3.extent(this.props.data, function (d) {
-    //     return d[_self.props.xData];
-    //   }))
-    //   .rangeRound([0, this.w]);
     this.xScale = d3.scale.linear()
       .domain(d3.extent(this.props.data, (d) => {
         return d[_self.props.xData];
