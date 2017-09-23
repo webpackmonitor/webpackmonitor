@@ -11,8 +11,5 @@ const PanelHeader = (props) => (
   </div>
 );
 
-PanelHeader.propTypes = {
-  title: React.PropTypes.string
-}
 
 export default PanelHeader;
