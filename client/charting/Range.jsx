@@ -51,7 +51,7 @@ class Range extends React.Component {
           <svg width="10" height="10">
             <circle cx="5" cy="5" r="5" fill={this.fill7} />
           </svg>
-          <span className="padding-left-5">100 days</span>
+          <span className="padding-left-5">10 days</span>
         </span>
         <span className="range-span">
           <svg width="10" height="10">

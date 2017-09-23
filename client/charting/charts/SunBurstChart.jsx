@@ -5,13 +5,26 @@ import * as d3 from "d3";
 // const MyTooltipComponent = require('my-tooltip-component');
 
 class SunBurstChart extends React.Component {
+  // componentDidMount() {
+  //   this.drawChart();
+  // }
+
   componentDidMount() {
     this.drawChart();
   }
 
-  shouldComponentUpdate() {
-    return false;
+  componentDidUpdate() {
+    // ReactDOM.unmountComponentAtNode(document.getElementById('#chart'));
+    // ReactDOM.unmountComponentAtNode(this.drawChart());
+    // d3.select(this.svg).remove();                          
+
+    
+    this.drawChart();
   }
+
+  // shouldComponentUpdate() {
+  //   return false;
+  // }
 
   componentWillUnmount() {
     // ReactDOM.unmountComponentAtNode(this.tooltipTarget);
@@ -46,7 +59,7 @@ class SunBurstChart extends React.Component {
 
     // Total size of all segments; we set this later, after loading the data.
     var totalSize = 0;
-
+    // d3.select(this.svg).remove();   
     var vis = d3.select(this.svg)
       .attr("width", width)
       .attr("height", height)
@@ -68,12 +81,11 @@ class SunBurstChart extends React.Component {
 
     //  d3.text("visit-sequences.csv", function (text) {
 
-    // { console.log('SUNBURSTDATA13423432!!!', this.props.data) }
+
     // var csv = d3.csvParseRows(text);
-    // console.log('csv',csv)
+    
     var json = buildHierarchy(this.props.data);
     createVisualization(json);
-    // console.log('json', json)
     // });
 
     // Main function to draw and set up the visualization, once we have the data.
@@ -337,8 +349,6 @@ class SunBurstChart extends React.Component {
   render() {
     return (
       <div>
-        {/* {console.log('props are in sunburst!', this.props)} */}
-        {/* {console.log('SUNBURSTDATA!!!', this.props.data)} */}
         {/* <h1>Overview</h1> */}
         {/* <div ref={(elem) => { this.tooltipTarget = elem; }} /> */}
         <div id="main">

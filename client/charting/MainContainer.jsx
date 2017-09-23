@@ -33,48 +33,82 @@ class MainContainer extends React.Component {
   // },
 
   loadLineChart(defaultValue) {
-
-    const parseDate = d3.time.format('%m-%d-%Y').parse;
+    // const parseDate = d3.time.format('%m-%d-%Y').parse;
     const stats = this.props.build;
     const statsLine = stats.map((build, i) => ({
-      build: stats.length - i,
+      build: stats.length - (stats.length - (i + 1)),
       count: build.size / 1000,
-      date: parseDate(moment().subtract(i, 'days').format('MM-DD-YYYY')),
+      // Don't think that this is needed:
+      // date: parseDate(moment().subtract(i, 'days').format('MM-DD-YYYY')),
     }));
 
     this.setState({ dataLine: statsLine, defaultLine: defaultValue });
   }
 
   loadAreaChart(defaultValue) {
-
     let count = 7;
     if (!defaultValue) {
-      count = 30;
+      count = 7;
     }
+
+    const assets = this.props.build.map(build => build.assets)
+    const assetSizes = assets.reduce((assets, build) => {
+      build.forEach((build) => {
+        // if (build.name in assets) assets[build.name].push(build.size);
+        assets[build.name] = [];
+      });
+      return assets;
+    }, {});
+    const assetList = Object.keys(assetSizes);
+    
+    assets.forEach((build) => {
+      build.forEach((asset) => {
+        assetSizes[asset.name].push(asset.size);
+      });
+      assetList.forEach((assetname) => {
+        if (!build.map(build => build.name).includes(assetname)) {
+           assetSizes[assetname].push(0)
+        };
+      })
+    });
+
+    console.log(assets);
+    console.log(assetSizes);
 
     const parseDate = d3.time.format("%m-%d-%Y").parse;
     let dataArea = [];
 
     for (let i = 0, j = 0; i < count; ++i, ++j) {
-
-      const d = { day: moment().subtract(j, 'days').format('MM-DD-YYYY'), count: Math.floor((Math.random() * 30) + 5), type: 'A' };
+      const d = {
+        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+        count: Math.floor((Math.random() * 30) + 5),
+        // Type A is the sand color
+        type: 'A'
+      };
       d.date = parseDate(d.day);
       dataArea[i] = d;
     }
+
     for (let i = count, j = 0; i < count * 2; ++i, ++j) {
-
-      const d = { day: moment().subtract(j, 'days').format('MM-DD-YYYY'), count: Math.floor((Math.random() * 40) + 200), type: 'B' };
+      const d = {
+        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+        count: Math.floor((Math.random() * 40) + 200),
+        type: 'B',
+      };
       d.date = parseDate(d.day);
       dataArea[i] = d;
     }
-    for (let i = count * 2, j = 0; i < count * 3; ++i, ++j) {
 
-      const d = { day: moment().subtract(j, 'days').format('MM-DD-YYYY'), count: Math.floor((Math.random() * 50) + 30), type: 'C' };
+    for (let i = count * 2, j = 0; i < count * 3; ++i, ++j) {
+      const d = {
+        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+        count: Math.floor((Math.random() * 50) + 30),
+        type: 'C',
+      };
       d.date = parseDate(d.day);
       dataArea[i] = d;
     }
     this.setState({ dataArea: dataArea, defaultArea: defaultValue });
-
   }
 
   render() {
@@ -84,7 +118,7 @@ class MainContainer extends React.Component {
       <div className="row">
         <div className="col-md-6 custom_padding" >
           <Panel>
-            <PanelHeader title="Modules">
+            <PanelHeader title="Assets">
               <Range loadData={this.loadAreaChart} defaultSelection={this.state.defaultArea} />
             </PanelHeader>
 

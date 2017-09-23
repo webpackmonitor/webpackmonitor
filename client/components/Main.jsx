@@ -7,6 +7,8 @@ import Performance from './Performance';
 import Charts from './../charting/chartsApp';
 import build from './../.././monitor/stats.json';
 
+var eventEmitter = new EventEmitter();
+
 class Main extends React.Component {
   constructor() {
     super();
@@ -16,8 +18,8 @@ class Main extends React.Component {
 
   handleCircleClick(e) {
     const len = this.state.build.length;
-    const index = e.target.getAttribute('data-build');
-    this.setState({ activeBuild: index });
+    const index = len - e.target.getAttribute('data-build');
+    this.setState({ activeBuild: len - index });
   }
 
   render() {

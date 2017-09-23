@@ -21,7 +21,7 @@ body {
     margin-bottom: 10px;
     background-color: #3f5175;
     border-radius:4px;
-    height: 400px;
+    /* height: 400px; */
     box-shadow: 1px 1px 1px -1px rgba(100,100,100,.5);
 }
 
@@ -200,8 +200,11 @@ body {
 /* StarBurst CSS */
 
 #main {
-  float: left;
-  width: 750px;
+  /* float: left; */
+  /* width: 750px; */
+  margin-left: auto;
+  margin-right: auto;
+  padding-bottom: 40px;
 }
 
 #sidebar {
@@ -210,7 +213,7 @@ body {
 }
 
 #sequence {
-  width: 600px;
+  width: 800px;
   height: 70px;
 }
 
@@ -224,7 +227,12 @@ body {
 }
 
 #chart {
-  position: relative;
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+    /* justify-content: center; */
+    /* z-index: 10; */
 }
 
 #chart path {
