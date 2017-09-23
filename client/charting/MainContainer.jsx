@@ -99,6 +99,7 @@ class MainContainer extends React.Component {
               interpolations="basis"
               handleCircleClick={this.props.handleCircleClick}
             >
+
               <yGrid orient="left" className="y-grid" ticks={5} />
               <xAxis orient="bottom" className="axis" tickFormat="%d/%m" ticks={4} />
               <yAxis orient="left" className="axis" ticks={5} />
