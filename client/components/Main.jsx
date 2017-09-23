@@ -10,14 +10,13 @@ import build from './../.././monitor/stats.json';
 class Main extends React.Component {
   constructor() {
     super();
-    this.state = { build, activeBuild: 11 };
+    this.state = { build, activeBuild: 0 };
     this.handleCircleClick = this.handleCircleClick.bind(this);
   }
 
   handleCircleClick(e) {
     const len = this.state.build.length;
     const index = e.target.getAttribute('data-build');
-    console.log('index', index)
     this.setState({ activeBuild: index });
   }
 
