@@ -18,9 +18,8 @@ class Main extends React.Component {
 
   handleCircleClick(e) {
     const len = this.state.build.length;
-    const index = e.target.getAttribute('data-build');
-    this.setState({ activeBuild: index });
-    eventEmitter.emitEvent("reload",[!this.state.defaultSelection]);
+    const index = len - e.target.getAttribute('data-build');
+    this.setState({ activeBuild: len - index });
   }
 
   render() {
