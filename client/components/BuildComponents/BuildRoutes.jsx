@@ -7,7 +7,7 @@ import Dashboard from './Dashboard';
 const BuildRoutes = props => (
   <Switch>
     <Route exact path="/builds" component={BuildsAll} />
-    <Route exact path="/builds/dashboard/:buildid" render={() => <Dashboard build={props} />} />
+    <Route exact path="/builds/dashboard/:buildid" render={() => <Dashboard build={props.build} />} />
     <Route path="/builds/:buildid" component={BuildSingle} />
   </Switch>
 );
