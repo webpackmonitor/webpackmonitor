@@ -34,7 +34,7 @@ class StarburstContainer extends React.Component {
   // }
   // componentWillUnmount() {
   //     eventEmitter.removeListener("reload", this.reloadData);
-  // } 
+  // }
 
   // reloadData(defaultValue) {
   //     this.reloadBarData(defaultValue);
@@ -72,7 +72,7 @@ class StarburstContainer extends React.Component {
 
     //loops through assets
     let i = this.props.activeBuild;
-  
+
     // let i = 11
     let pathAry;
     let path;

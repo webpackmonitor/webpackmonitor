@@ -16,9 +16,9 @@ class SunBurstChart extends React.Component {
   componentDidUpdate() {
     // ReactDOM.unmountComponentAtNode(document.getElementById('#chart'));
     // ReactDOM.unmountComponentAtNode(this.drawChart());
-    // d3.select(this.svg).remove();                          
+    // d3.select(this.svg).remove();
 
-    
+
     this.drawChart();
   }
 
@@ -31,8 +31,8 @@ class SunBurstChart extends React.Component {
   }
 
   drawChart() {
-    /* 
-      D3 code to create our visualization by appending onto this.svg 
+    /*
+      D3 code to create our visualization by appending onto this.svg
     */
 
     // Dimensions of sunburst.
@@ -59,7 +59,7 @@ class SunBurstChart extends React.Component {
 
     // Total size of all segments; we set this later, after loading the data.
     var totalSize = 0;
-    // d3.select(this.svg).remove();   
+    // d3.select(this.svg).remove();
     var vis = d3.select(this.svg)
       .attr("width", width)
       .attr("height", height)
@@ -83,7 +83,7 @@ class SunBurstChart extends React.Component {
 
 
     // var csv = d3.csvParseRows(text);
-    
+
     var json = buildHierarchy(this.props.data);
     createVisualization(json);
     // });
@@ -300,7 +300,7 @@ class SunBurstChart extends React.Component {
 
     // Take a 2-column CSV and transform it into a hierarchical structure suitable
     // for a partition layout. The first column is a sequence of step names, from
-    // root to leaf, separated by hyphens. The second column is a count of how 
+    // root to leaf, separated by hyphens. The second column is a count of how
     // often that sequence occurred.
     function buildHierarchy(csv) {
       var root = { "name": "root", "children": [] };
