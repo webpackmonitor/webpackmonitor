@@ -120,7 +120,7 @@ class StarburstContainer extends React.Component {
         <div className="col-md-12 custom_padding" >
           <Panel>
             <PanelHeader title="Individual Components">
-              <Range loadData={this.reloadBarData} defaultSelection={this.state.defaultBar} />
+              {/* <Range loadData={this.reloadBarData} defaultSelection={this.state.defaultBar} /> */}
             </PanelHeader>
             <div className="text-center">
               {/* {console.log('props in Sunburst Container', this.props.build)} */}

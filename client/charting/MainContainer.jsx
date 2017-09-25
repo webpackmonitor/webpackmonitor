@@ -6,61 +6,33 @@ import PanelHeader from './PanelHeader';
 import Range from './Range';
 import D3TimeAreaChart from './charts/AreaChart';
 import D3TimeLineChart from './charts/LineChart';
+import Key from './Key';
 
 class MainContainer extends React.Component {
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      // defaultLine: false,
-      // defaultArea: false,
-      // // dataLine: true,
-      // dataArea: true
-    };
-  }
 
   componentWillMount() {
     this.loadLineChart();
     this.loadAreaChart();
-    // eventEmitter.addListener("reload",this.reloadData);
   }
-  // componentWillUnmount:function(){
-  //     eventEmitter.removeListener("reload",this.reloadData);
-  // },
-  // reloadData:function(defaultValue){
-  //     this.loadLineChart(defaultValue);
-  //     this.loadAreaChart(defaultValue);
-  // },
 
-  loadLineChart(defaultValue) {
-    // const parseDate = d3.time.format('%m-%d-%Y').parse;
+  loadLineChart() {
     const stats = this.props.build;
-    const statsLine = stats.map((build, i) => ({
+    const dataLine = stats.map((build, i) => ({
       build: stats.length - (stats.length - (i + 1)),
       count: build.size / 1000,
-      // Don't think that this is needed:
-      // date: parseDate(moment().subtract(i, 'days').format('MM-DD-YYYY')),
     }));
-
-    this.setState({ dataLine: statsLine, defaultLine: defaultValue });
+    this.setState({ dataLine });
   }
 
-  loadAreaChart(defaultValue) {
-    let count = 7;
-    if (!defaultValue) {
-      count = 7;
-    }
-
+  loadAreaChart() {
     const assets = this.props.build.map(build => build.assets)
     const assetSizes = assets.reduce((assets, build) => {
       build.forEach((build) => {
-        // if (build.name in assets) assets[build.name].push(build.size);
         assets[build.name] = [];
       });
       return assets;
     }, {});
     const assetList = Object.keys(assetSizes);
-    
     assets.forEach((build) => {
       build.forEach((asset) => {
         assetSizes[asset.name].push(asset.size);
@@ -68,70 +40,60 @@ class MainContainer extends React.Component {
       assetList.forEach((assetname) => {
         if (!build.map(build => build.name).includes(assetname)) {
            assetSizes[assetname].push(0)
-        };
-      })
+        }
+      });
     });
+    const sortedKeys = assetList.sort((a, b) => {
+      const sum1 = assetSizes[a].reduce((sum, size) => sum + size);
+      const sum2 = assetSizes[b].reduce((sum, size) => sum + size);
+      return sum2 - sum1;
+    }).slice(0, 3);
 
-    console.log(assets);
-    console.log(assetSizes);
+    const dataArea = sortedKeys.reduce((da, asset, i) => {
+      return da.concat(assetSizes[asset].map((build, j) => ({
+        count: build / 1000,
+        name: asset,
+        type: String.fromCharCode(65 + i),
+        build: j + 1,
+      })));
+    }, []);
+    console.log(dataArea)
+    this.setState({ dataArea });
+  }
 
-    const parseDate = d3.time.format("%m-%d-%Y").parse;
-    let dataArea = [];
-
-    for (let i = 0, j = 0; i < count; ++i, ++j) {
-      const d = {
-        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-        count: Math.floor((Math.random() * 30) + 5),
-        // Type A is the sand color
-        type: 'A'
-      };
-      d.date = parseDate(d.day);
-      dataArea[i] = d;
-    }
-
-    for (let i = count, j = 0; i < count * 2; ++i, ++j) {
-      const d = {
-        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-        count: Math.floor((Math.random() * 40) + 200),
-        type: 'B',
-      };
-      d.date = parseDate(d.day);
-      dataArea[i] = d;
-    }
-
-    for (let i = count * 2, j = 0; i < count * 3; ++i, ++j) {
-      const d = {
-        day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-        count: Math.floor((Math.random() * 50) + 30),
-        type: 'C',
-      };
-      d.date = parseDate(d.day);
-      dataArea[i] = d;
-    }
-    this.setState({ dataArea: dataArea, defaultArea: defaultValue });
+  getKeyData() {
+    return this.state.dataArea
+    .sort((a, b) => b.build - a.build)
+    .slice(0, 3)
+    .map((build) => {
+      let fill;
+      if (build.type === 'A') fill = "#e58c72";
+      if (build.type === 'B') fill = "#53c79f";
+      if (build.type === 'C') fill = "#ca6f96";
+      return { name: build.name, fill };
+    });
   }
 
   render() {
     const margin = { top: 20, right: 30, bottom: 20, left: 50 };
-    
+    const keyData = this.getKeyData().reverse();
     return (
       <div className="row">
         <div className="col-md-6 custom_padding" >
           <Panel>
-            <PanelHeader title="Assets">
-              <Range loadData={this.loadAreaChart} defaultSelection={this.state.defaultArea} />
+            <PanelHeader title="Assets (kb)">
+              <Key loadData={this.loadLineChart} keyData={keyData} />
             </PanelHeader>
 
             <D3TimeAreaChart
               data={this.state.dataArea}
-              xData="date"
+              xData="build"
               yData="count"
               type="type"
               margin={margin}
               yMaxBuffer={10}
               id="multi-area-chart"
               interpolations="basis"
-              handleCircleClick={this.props.handleCircleClick}
             >
 
               <yGrid orient="left" className="y-grid" ticks={5} />
@@ -146,8 +108,8 @@ class MainContainer extends React.Component {
 
         <div className="col-md-6 custom_padding" >
           <Panel>
-            <PanelHeader title="Bundle Size Over Time">
-              <Range loadData={this.loadLineChart} defaultSelection={this.state.defaultLine} />
+            <PanelHeader title="Total Build Size (kb)">
+
             </PanelHeader>
             <D3TimeLineChart
               data={this.state.dataLine}
@@ -177,4 +139,41 @@ class MainContainer extends React.Component {
   }
 }
 
-export default MainContainer
+export default MainContainer;
+
+
+// RANDOM CHART GENERATOR:
+// -----------------------
+// let dataArea = [];
+  // const parseDate = d3.time.format('%m-%d-%Y').parse;
+
+  // for (let i = 0, j = 0; i < count; ++i, ++j) {
+  //   const d = {
+  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+  //     count: Math.floor((Math.random() * 30) + 5),
+  //     // Type A is the sand color
+  //     type: 'A'
+  //   };
+  //   d.date = parseDate(d.day);
+  //   dataArea[i] = d;
+  // }
+
+  // for (let i = count, j = 0; i < count * 2; ++i, ++j) {
+  //   const d = {
+  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+  //     count: Math.floor((Math.random() * 40) + 200),
+  //     type: 'B',
+  //   };
+  //   d.date = parseDate(d.day);
+  //   dataArea[i] = d;
+  // }
+
+  // for (let i = count * 2, j = 0; i < count * 3; ++i, ++j) {
+  //   const d = {
+  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
+  //     count: Math.floor((Math.random() * 50) + 30),
+  //     type: 'C',
+  //   };
+  //   d.date = parseDate(d.day);
+  //   dataArea[i] = d;
+  // }
