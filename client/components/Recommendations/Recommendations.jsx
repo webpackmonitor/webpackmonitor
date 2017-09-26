@@ -149,4 +149,3 @@ class Recommendations extends React.Component {
 }
 
 export default Recommendations;
-
