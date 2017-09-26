@@ -1,7 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BuildsAll from './BuildsAll';
-import BuildSingle from './BuildSingle';
 import Dashboard from './Dashboard';
 
 const BuildRoutes = props => (
