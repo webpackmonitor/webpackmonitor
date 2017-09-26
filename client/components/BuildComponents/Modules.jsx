@@ -22,25 +22,25 @@ const Modules = (props) => {
   }
 
   function buildHierarchy2(pay) {
-    var root = { "filename": "root", "children": [] };
+    const root = { "filename": "root", "children": [] };
     for (let i = 0; i < pay.length; i++) {
-      let sequence = pay[i][1];
-      let size = pay[i][2];
-      let chunk = pay[i][0];
-      let percent = pay[i][3];
-      let key = pay[i][4];
+      const sequence = pay[i][1];
+      const size = pay[i][2];
+      const chunk = pay[i][0];
+      const percent = pay[i][3];
+      const key = pay[i][4];
       if (isNaN(size)) continue;
-      let parts = sequence.split("-");
+      const parts = sequence.split('-');
       let currentNode = root;
-      for (let j = 0; j < parts.length; j++) {
-        let children = currentNode["children"];
-        let nodeName = parts[j];
-        var childNode;
+      for (let j = 0; j < parts.length; j += 1) {
+        const children = currentNode['children'];
+        const nodeName = parts[j];
+        let childNode;
         if (j + 1 < parts.length) {
           // Not yet at the end of the sequence; move down the tree.
           let foundChild = false;
-          for (let k = 0; k < children.length; k++) {
-            if (children[k]["filename"] == nodeName) {
+          for (let k = 0; k < children.length; k += 1) {
+            if (children[k]['filename'] === nodeName) {
               childNode = children[k];
               foundChild = true;
               break;
@@ -48,18 +48,17 @@ const Modules = (props) => {
           }
           // If we don't already have a child node for this branch, create it.
           if (!foundChild) {
-            childNode = { "filename": nodeName, "children": [] };
+            childNode = { 'filename': nodeName, 'children': [] };
             children.push(childNode);
           }
           currentNode = childNode;
         } else {
           // Reached the end of the sequence; create a leaf node.
-          childNode = { "filename": nodeName, "size": size, 'chunk': chunk, 'percent': percent, 'id': key };
+          childNode = { 'filename': nodeName, 'size': size, 'chunk': chunk, 'percent': percent, 'id': key };
           children.push(childNode);
         }
       }
     }
-    console.log('i am root now', root)
     return root;
   }
 
