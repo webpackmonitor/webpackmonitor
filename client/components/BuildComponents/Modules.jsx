@@ -2,8 +2,6 @@ import React from 'react';
 
 
 const Modules = (props) => {
-  // const newData = build[15].chunks[0].modules;
-
   const newData = props.build.build[3].chunks
 
   const chunkArray = [];
@@ -82,7 +80,6 @@ const Modules = (props) => {
           newProp.push({ fileName, name });
         }
       }
-      // console.log(treeArr[i])
     }
 
     const divArr = [];
@@ -104,8 +101,6 @@ const Modules = (props) => {
         propObj[curr.name] = holder;
       }
     });
-    // console.log(propObj)
-
 
 
     const currChunks = props.build.build[15].chunks;
