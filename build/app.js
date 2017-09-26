@@ -36797,7 +36797,8 @@ var Cards = function (_React$Component) {
       var color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
       var heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Largest File'];
 
-      var totalSize = Math.floor(this.props.build[index].size / 1000);
+      // find totals of all cards
+      var totalSize = this.props.build[index].size;
       var chunk = this.props.build[index].chunks;
       var chunksTotal = chunk.length;
       var modulesTotal = chunk.reduce(function (sum, value) {
@@ -36808,6 +36809,7 @@ var Cards = function (_React$Component) {
       var biggestFile = null;
       var biggestFileSize = 0;
 
+      // biggestFile in first chunk
       var module = chunk[0].modules;
       for (var j = 0; j < module.length; j += 1) {
         if (module[j].size > biggestFileSize) {
@@ -36817,11 +36819,11 @@ var Cards = function (_React$Component) {
         }
       }
 
-      var cardData = [totalSize + 'KB', chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
       var cardDiff = void 0;
-
+      // difference between current build and previous build
       if (index > 0) {
-        var sizeDiff = totalSize - Math.floor(this.props.build[index - 1].size / 1000);
+        var sizeDiff = (totalSize - this.props.build[index - 1].size) / totalSize * 100;
+        var sizePercent = sizeDiff.toFixed(2);
         var chunkDiff = this.props.build[index - 1].chunks;
         var chunksDiff = chunksTotal - chunkDiff.length;
         var modulesDiff = modulesTotal - chunkDiff.reduce(function (sum, value) {
@@ -36830,25 +36832,23 @@ var Cards = function (_React$Component) {
         var assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
         var errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
-        cardDiff = [sizeDiff + '%', chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile];
+        cardDiff = [sizePercent + '%', chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile];
       } else cardDiff = [0, 0, 0, 0, 0, biggestFile];
+
+      // unit conversion for totalSize and biggestFileSize
+      if (totalSize.toString().length < 4) totalSize = totalSize + 'B';
+      if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = Math.floor(totalSize / 1000) + 'KB';
+      if (totalSize.toString().length > 6) totalSize = Math.floor(totalSize / 1000000) + 'MB';
+      if (biggestFileSize.toString().length < 4) biggestFileSize = biggestFileSize + 'B';
+      if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = Math.floor(biggestFileSize / 1000) + 'KB';
+      if (biggestFileSize.toString().length > 6) biggestFileSize = Math.floor(biggestFileSize / 1000000) + 'MB';
+
+      var cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
 
       var cards = color.map(function (d, i) {
         var style = {
           'backgroundColor': d
         };
-
-        var up_down = void 0;
-        if (cardDiff[i] > 0) up_down = _react2.default.createElement(
-          'span',
-          null,
-          '\u2193'
-        );
-        if (cardDiff[i] === 0 || !Number.isInteger(cardDiff[i])) up_down = _react2.default.createElement('span', null);else up_down = _react2.default.createElement(
-          'span',
-          null,
-          '\u2191'
-        );
 
         return _react2.default.createElement(
           'div',
@@ -36867,8 +36867,6 @@ var Cards = function (_React$Component) {
               _react2.default.createElement(
                 'div',
                 { className: 'pull-right' },
-                up_down,
-                " ",
                 _react2.default.createElement(
                   'span',
                   { className: 'header_text' },
@@ -37925,8 +37923,8 @@ var SunBurstChart = function (_React$Component) {
   }, {
     key: 'drawChart',
     value: function drawChart() {
-      /* 
-        D3 code to create our visualization by appending onto this.svg 
+      /*
+        D3 code to create our visualization by appending onto this.svg
       */
 
       // Dimensions of sunburst.
@@ -38136,7 +38134,7 @@ var SunBurstChart = function (_React$Component) {
 
       // Take a 2-column CSV and transform it into a hierarchical structure suitable
       // for a partition layout. The first column is a sequence of step names, from
-      // root to leaf, separated by hyphens. The second column is a count of how 
+      // root to leaf, separated by hyphens. The second column is a count of how
       // often that sequence occurred.
       function buildHierarchy(csv) {
         var root = { "name": "root", "children": [] };
@@ -51905,7 +51903,6 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 var Dashboard = function Dashboard(props) {
   // need to pass default props
   // const id = props.match.params.buildid;
-  console.log('props from dashboard: ', props);
   return _react2.default.createElement(
     'div',
     null,
@@ -51914,9 +51911,9 @@ var Dashboard = function Dashboard(props) {
       { id: 'dash' },
       'Dashboard for '
     ),
-    _react2.default.createElement(_Modules2.default, { build: props.build }),
-    _react2.default.createElement(_Assets2.default, { build: props.build }),
-    _react2.default.createElement(_Errors2.default, { build: props.build })
+    _react2.default.createElement(_Modules2.default, { build: props.build.build }),
+    _react2.default.createElement(_Assets2.default, { build: props.build.build }),
+    _react2.default.createElement(_Errors2.default, { build: props.build.build })
   );
 };
 
@@ -51933,8 +51930,6 @@ Object.defineProperty(exports, "__esModule", {
   value: true
 });
 
-var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; };
-
 var _react = __webpack_require__(3);
 
 var _react2 = _interopRequireDefault(_react);
@@ -51942,159 +51937,73 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Modules = function Modules(props) {
-  // const newData = build[15].chunks[0].modules;
+  var currChunks = props.build[0].chunks;
+  var property = [];
+  for (var i = 0; i < currChunks.length; i += 1) {
+    var chunk = i + 1;
+    var total = currChunks[i].size;
 
-  var newData = props.build.build[3].chunks;
+    var modules = currChunks[i].modules;
+    for (var j = 0; j < modules.length; j += 1) {
 
-  var chunkArray = [];
+      var pathName = modules[j].name.split('/');
+      var path = pathName.slice(1, pathName.length).join('-');
+      var size = modules[j].size;
+      // const size = modules[j].size.toString();
 
-  var _loop = function _loop(c) {
-    var newChunk = newData[c].modules;
-
-    var paths = [];
-    for (var i = 0; i < newChunk.length; i += 1) {
-      var newJ = newChunk[i].name.split('/');
-      newJ.shift();
-      paths.push(newJ.join('/'));
+      var percent = Math.round(size / total * 100);
+      var key = modules[j].id;
+      property.push([chunk, path, size, percent, key]);
     }
-
-    var treepath = function () {
-      var buildTree = function buildTree(tree, parts) {
-        var lastDir = 'root';
-        var dirPath = '';
-
-        parts.forEach(function (part) {
-          var name = part.trim();
-
-          // In case we have a single `/`
-          if (!name || !!name.match(/^\/$/)) {
-            return;
-          }
-
-          // It's a directory
-          if (name.indexOf('.') === -1) {
-            lastDir = name;
-            dirPath += lastDir + ', /';
-
-            if (!tree[name]) {
-              tree[name] = {
-                path: dirPath,
-                files: []
-              };
-            }
-          } else {
-            // It's a file
-            tree[lastDir].files.push(name);
-          }
-        });
-      };
-
-      return function init(paths) {
-        if (!paths || !Array.isArray(paths)) {
-          throw new TypeError('Expected paths to be an array of strings but received:, ' + (typeof paths === 'undefined' ? 'undefined' : _typeof(paths)));
-        }
-
-        var tree = {
-          root: {
-            path: '',
-            files: []
-          }
-        };
-
-        paths.forEach(function (path) {
-          buildTree(tree, path.split('/'));
-        });
-
-        return tree;
-      };
-    }();
-
-    var newProp = [];
-    var tree = treepath(paths);
-    var treeArr = Object.values(tree);
-    for (var _i = 0; _i < treeArr.length; _i += 1) {
-      if (treeArr[_i].files) {
-        var name = treeArr[_i].path.split(',');
-        name = name[0];
-        var fileArr = treeArr[_i].files;
-        for (var j = 0; j < fileArr.length; j += 1) {
-          var fileName = fileArr[j];
-          newProp.push({ fileName: fileName, name: name });
-        }
-      }
-      // console.log(treeArr[i])
-    }
-
-    var divArr = [];
-    var parentDiv = newProp.map(function (pDiv) {
-      if (divArr.indexOf(pDiv.name) === -1) {
-        divArr.push(pDiv.name);
-        return _react2.default.createElement('div', { id: '' + pDiv.name });
-      }
-      // return null;
-    });
-    var propObj = {};
-    newProp.forEach(function (curr) {
-      if (!propObj[curr.name]) {
-        var arr = new Array('' + curr.fileName);
-        propObj[curr.name] = arr;
-      } else {
-        var holder = propObj[curr.name];
-        holder.push(curr.fileName);
-        propObj[curr.name] = holder;
-      }
-    });
-    // console.log(propObj)
-
-
-    var currChunks = props.build.build[15].chunks;
-    var property = [];
-    for (var _i2 = 0; _i2 < currChunks.length; _i2 += 1) {
-      var chunk = _i2 + 1;
-      var modules = currChunks[_i2].modules;
-      var total = currChunks[_i2].size;
-      for (var _j = 0; _j < modules.length; _j += 1) {
-        var _name = modules[_j].name.split('/');
-        _name = _name[_name.length - 1];
-        var size = modules[_j].size;
-        var percent = Math.round(size / total * 100);
-        var key = _j + size + percent;
-        property.push({ chunk: chunk, name: _name, size: size, percent: percent, key: key });
-      }
-    }
-    for (var _key in propObj) {
-      for (var _j2 = 0; _j2 < propObj[_key].length; _j2 += 1) {
-        for (var _i3 = 0; _i3 < property.length; _i3 += 1) {
-          if (propObj[_key][_j2] === property[_i3].name) propObj[_key][_j2] = property[_i3];
-        }
-      }
-    }
-    chunkArray.push(propObj);
-  };
-
-  for (var c = 0; c < newData.length; c += 1) {
-    _loop(c);
   }
-  // console.log(chunkArray)
 
-  // console.log(currChunks)
-  // const chunks = property.map(chunk => <ul key={chunk.key}>{chunk.chunk}</ul>);
-  // const names = property.map(name => <ul key={name.key}>{name.name}</ul>);
-  // const sizes = property.map(size => <ul key={size.key}>{size.size}</ul>);
-  // const percents = property.map(percent => <ul key={percent.key}>{percent.percent}</ul>);
+  function buildHierarchy2(pay) {
+    var root = { "filename": "root", "children": [] };
+    for (var _i = 0; _i < pay.length; _i++) {
+      var sequence = pay[_i][1];
+      var _size = pay[_i][2];
+      var _chunk = pay[_i][0];
+      var _percent = pay[_i][3];
+      var _key = pay[_i][4];
+      if (isNaN(_size)) continue;
+      var parts = sequence.split('-');
+      var currentNode = root;
+      for (var _j = 0; _j < parts.length; _j += 1) {
+        var children = currentNode['children'];
+        var nodeName = parts[_j];
+        var childNode = void 0;
+        if (_j + 1 < parts.length) {
+          // Not yet at the end of the sequence; move down the tree.
+          var foundChild = false;
+          for (var k = 0; k < children.length; k += 1) {
+            if (children[k]['filename'] === nodeName) {
+              childNode = children[k];
+              foundChild = true;
+              break;
+            }
+          }
+          // If we don't already have a child node for this branch, create it.
+          if (!foundChild) {
+            childNode = { 'filename': nodeName, 'children': [] };
+            children.push(childNode);
+          }
+          currentNode = childNode;
+        } else {
+          // Reached the end of the sequence; create a leaf node.
+          childNode = { 'filename': nodeName, 'size': _size, 'chunk': _chunk, 'percent': _percent, 'id': _key };
+          children.push(childNode);
+        }
+      }
+    }
+    return root;
+  }
+
+  var mydata = buildHierarchy2(property);
 
   return _react2.default.createElement(
     'div',
     { style: { display: 'inline-block', width: '50%', verticalAlign: 'top' } },
-    _react2.default.createElement(
-      'div',
-      { style: { display: 'inline-block', margin: '2%' } },
-      _react2.default.createElement(
-        'h1',
-        null,
-        'Name'
-      )
-    )
+    _react2.default.createElement('div', { style: { display: 'inline-block', margin: '2%' } })
   );
 };
 
@@ -52118,7 +52027,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Assets = function Assets(props) {
-  var assets = props.build.build[3].assets;
+  var assets = props.build[3].assets;
   var property = [];
   for (var i = 0; i < assets.length; i += 1) {
     var name = assets[i].name;
@@ -52192,7 +52101,7 @@ var _react2 = _interopRequireDefault(_react);
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Errors = function Errors(props) {
-  var errors = props.build.build[3].errors;
+  var errors = props.build[3].errors;
   var property = [];
   var errorNum = 0;
   if (!errors.length) errors = _react2.default.createElement(
