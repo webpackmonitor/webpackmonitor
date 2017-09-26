@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Errors = (props) => {
-  let errors = props.build.build[3].errors;
+  let errors = props.build[3].errors;
   const property = [];
   let errorNum = 0;
   if (!errors.length) errors = <ul>No Errors!</ul>;
