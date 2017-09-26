@@ -1,13 +1,9 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BuildRoutes from './BuildComponents/BuildRoutes';
-import Overview from './Overview';
-import Recommendations from './Recommendations/Recommendations';
-import Performance from './Performance';
-import Charts from './../charting/chartsApp';
-import build from './../.././monitor/stats.json';
-// console.log(process.env.NODE_ENV);
-// var eventEmitter = new EventEmitter();
+import Recommendations from './recoComponents/Recommendations';
+import Charts from './chartComponents/chartsApp';
+import build from './../monitor/stats.json';
+import Dashboard from './BuildComponents/Dashboard'
 
 class Main extends React.Component {
   constructor() {
@@ -17,7 +13,7 @@ class Main extends React.Component {
   }
 
   // componentDidMount() {
-  //   fetch('/getstats')
+  //   fetch(‘/getstats’)
   //     .then(res => res.json())
   //     .then((build) => {
   //       this.setState({ build, activeBuild: build.length - 1 });
@@ -34,9 +30,8 @@ class Main extends React.Component {
     return (
       <main>
         <Switch>
-          <Route exact path="/" render={() => <Overview build={this.state} />} />
           <Route
-            path="/charts"
+            exact path="/"
             render={() => (
               <Charts
                 build={this.state.build}
@@ -45,8 +40,7 @@ class Main extends React.Component {
               />
             )}
           />
-          <Route path="/builds" render={() => <BuildRoutes build={this.state} />} />
-          <Route path="/performance" render={() => <Performance build={this.state} />} />
+          <Route path="/builds" render={() => <Dashboard build={this.state.build} activeBuild={this.state.activeBuild} />} />
           <Route path="/recommendations" render={() => <Recommendations build={this.state} />} />
         </Switch>
       </main>
