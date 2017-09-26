@@ -6,7 +6,7 @@ import Recommendations from './Recommendations/Recommendations';
 import Performance from './Performance';
 import Charts from './../charting/chartsApp';
 import build from './../.././monitor/stats.json';
-
+// console.log(process.env.NODE_ENV);
 // var eventEmitter = new EventEmitter();
 
 class Main extends React.Component {
@@ -15,6 +15,14 @@ class Main extends React.Component {
     this.state = { build, activeBuild: build.length - 1 };
     this.handleCircleClick = this.handleCircleClick.bind(this);
   }
+
+  // componentDidMount() {
+  //   fetch('/getstats')
+  //     .then(res => res.json())
+  //     .then((build) => {
+  //       this.setState({ build, activeBuild: build.length - 1 });
+  //     });
+  // }
 
   handleCircleClick(e) {
     const len = this.state.build.length;
@@ -45,4 +53,5 @@ class Main extends React.Component {
     );
   }
 }
+
 export default Main;
