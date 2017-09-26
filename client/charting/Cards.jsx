@@ -37,12 +37,12 @@ class Cards extends React.Component {
     let biggestFileSize = 0;
 
     // biggestFile in first chunk
-      let module = chunk[0].modules;
-      for (let j = 0; j < module.length; j += 1) {
-        if (module[j].size > biggestFileSize) {
-          biggestFileSize = module[j].size;
-          biggestFile = module[j].name.split('/')
-          biggestFile = biggestFile.splice(biggestFile.length - 1).join('')
+    const module = chunk[0].modules;
+    for (let j = 0; j < module.length; j += 1) {
+      if (module[j].size > biggestFileSize) {
+        biggestFileSize = module[j].size;
+        biggestFile = module[j].name.split('/');
+        biggestFile = biggestFile.splice(biggestFile.length - 1).join('');
       }
     }
 
@@ -57,18 +57,18 @@ class Cards extends React.Component {
       const assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
       const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
-      cardDiff = [sizePercent, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile]
+      cardDiff = [`${sizePercent}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile];
     }
 
-    else  cardDiff = [0, 0, 0, 0, 0, biggestFile]
+    else cardDiff = [0, 0, 0, 0, 0, biggestFile];
 
     // unit conversion for totalSize and biggestFileSize
     if (totalSize.toString().length < 4) totalSize = `${totalSize}B`;
-    if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize/1000)}KB`;
-    if (totalSize.toString().length > 6) totalSize = `${Math.floor(totalSize/1000000)}MB`;
+    if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
+    if (totalSize.toString().length > 6) totalSize = `${Math.floor(totalSize / 1000000)}MB`;
     if (biggestFileSize.toString().length < 4) biggestFileSize = `${biggestFileSize}B`;
-    if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = `${Math.floor(biggestFileSize/1000)}KB`;
-    if (biggestFileSize.toString().length > 6) biggestFileSize = `${Math.floor(biggestFileSize/1000000)}MB`;
+    if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = `${Math.floor(biggestFileSize / 1000)}KB`;
+    if (biggestFileSize.toString().length > 6) biggestFileSize = `${Math.floor(biggestFileSize / 1000000)}MB`;
 
 
     const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
@@ -79,11 +79,6 @@ class Cards extends React.Component {
         'backgroundColor': d
       };
 
-      let up_down;
-      if (cardDiff[i] > 0) up_down = (<span>&#8595;</span>);
-      if (cardDiff[i] === 0 || !Number.isInteger(cardDiff[i])) up_down = (<span></span>);
-      else up_down = (<span>&#8593;</span>);
-      cardDiff[0] = `${cardDiff[0]}%`
 
       return (
         <div className="col-xs-2 custom_padding margin-below-20" key={i}>
@@ -93,9 +88,8 @@ class Cards extends React.Component {
                 {heading[i]}
               </div>
               <div className="pull-right">
-                {up_down}{" "}
                 <span className="header_text">
-                    {cardDiff[i]}
+                  {cardDiff[i]}
                 </span>
               </div>
             </div>
