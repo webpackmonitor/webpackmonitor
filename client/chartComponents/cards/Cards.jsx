@@ -2,25 +2,8 @@ import React from 'react';
 
 
 class Cards extends React.Component {
-  // EVENT EMITTER
-  // getInitialState:function(){
-  //     return {
-  //         defaultSelection:false
-  //     };
-  // },
-  // componentWillMount:function(){
-  //     eventEmitter.addListener("reload",this.reloadData);
 
-  // },
-  // componentWillUnmount:function(){
-  //     eventEmitter.removeListener("reload",this.reloadData);
-
-  // },
-  // reloadData:function(defaultValue){
-  //     this.setState({defaultSelection:defaultValue});
-  // },
   getData() {
-    // console.log(this.props.build[0].chunks)
 
     const index = this.props.activeBuild;
 
@@ -35,20 +18,17 @@ class Cards extends React.Component {
     const errorsTotal = this.props.build[index].errors.length;
     let biggestFile = null;
     let biggestFileSize = 0;
-    // do we only want to look at the first chunk
-    // for (let i = 0; i < chunk.length; i += 1) {
-      let module = chunk[0].modules;
-      for (let j = 0; j < module.length; j += 1) {
-        if (module[j].size > biggestFileSize) {
-          biggestFileSize = module[j].size;
-          biggestFile = module[j].name.split('/')
-          biggestFile = biggestFile.splice(biggestFile.length - 1).join('')
+
+    let module = chunk[0].modules;
+    for (let j = 0; j < module.length; j += 1) {
+      if (module[j].size > biggestFileSize) {
+        biggestFileSize = module[j].size;
+        biggestFile = module[j].name.split('/')
+        biggestFile = biggestFile.splice(biggestFile.length - 1).join('')
       }
     }
-  // };
-    // work on unit conversion for size
-    // if (biggestFileSize.length)
-    const cardData = [`${totalSize}KB`,chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
+
+    const cardData = [`${totalSize}KB`, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
     let cardDiff;
 
     if (index > 0) {
@@ -61,7 +41,7 @@ class Cards extends React.Component {
 
       cardDiff = [`${sizeDiff}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile]
     }
-    else  cardDiff = [0, 0, 0, 0, 0, biggestFile]
+    else cardDiff = [0, 0, 0, 0, 0, biggestFile]
 
 
 
@@ -85,7 +65,7 @@ class Cards extends React.Component {
               <div className="pull-right">
                 {up_down}{" "}
                 <span className="header_text">
-                    {cardDiff[i]}
+                  {cardDiff[i]}
                 </span>
               </div>
             </div>

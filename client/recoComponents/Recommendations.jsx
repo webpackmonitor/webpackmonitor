@@ -1,5 +1,5 @@
 import React from 'react';
-import build from './../../../monitor/stats.json';
+import build from './../../monitor/stats.json';
 import Item from './Item';
 
 const currentBuild = build[build.length - 1];
