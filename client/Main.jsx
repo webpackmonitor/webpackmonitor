@@ -1,6 +1,5 @@
 import React from 'react';
 import { Switch, Route } from 'react-router-dom';
-import BuildRoutes from './BuildComponents/BuildRoutes';
 import Recommendations from './recoComponents/Recommendations';
 import Charts from './chartComponents/chartsApp';
 import build from './../monitor/stats.json';
