@@ -1,9 +1,8 @@
 import React from 'react';
 // import * as d3 from 'd3';
 
-import Panel from './Panel';
-import PanelHeader from './PanelHeader';
-import Range from './Range';
+import Panel from './../common/Panel';
+import PanelHeader from './../common/PanelHeader';
 import D3TimeAreaChart from './charts/AreaChart';
 import D3TimeLineChart from './charts/LineChart';
 import Key from './Key';
@@ -140,40 +139,3 @@ class MainContainer extends React.Component {
 }
 
 export default MainContainer;
-
-
-// RANDOM CHART GENERATOR:
-// -----------------------
-// let dataArea = [];
-  // const parseDate = d3.time.format('%m-%d-%Y').parse;
-
-  // for (let i = 0, j = 0; i < count; ++i, ++j) {
-  //   const d = {
-  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-  //     count: Math.floor((Math.random() * 30) + 5),
-  //     // Type A is the sand color
-  //     type: 'A'
-  //   };
-  //   d.date = parseDate(d.day);
-  //   dataArea[i] = d;
-  // }
-
-  // for (let i = count, j = 0; i < count * 2; ++i, ++j) {
-  //   const d = {
-  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-  //     count: Math.floor((Math.random() * 40) + 200),
-  //     type: 'B',
-  //   };
-  //   d.date = parseDate(d.day);
-  //   dataArea[i] = d;
-  // }
-
-  // for (let i = count * 2, j = 0; i < count * 3; ++i, ++j) {
-  //   const d = {
-  //     day: moment().subtract(j, 'days').format('MM-DD-YYYY'),
-  //     count: Math.floor((Math.random() * 50) + 30),
-  //     type: 'C',
-  //   };
-  //   d.date = parseDate(d.day);
-  //   dataArea[i] = d;
-  // }

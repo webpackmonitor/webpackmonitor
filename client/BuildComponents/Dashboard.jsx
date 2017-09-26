@@ -10,9 +10,9 @@ const Dashboard = (props) => {
   return (
     <div>
       <h1 id="dash">Dashboard for </h1>
-      <Modules build={props.build.build}/>
-      <Assets build={props.build.build}/>
-      <Errors build={props.build.build}/>
+      <Modules build={props.build}/>
+      <Assets build={props.build}/>
+      <Errors build={props.build}/>
     </div>
   );
 };

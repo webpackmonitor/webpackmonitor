@@ -2,23 +2,7 @@ import React from 'react';
 
 
 class Cards extends React.Component {
-  // EVENT EMITTER
-  // getInitialState:function(){
-  //     return {
-  //         defaultSelection:false
-  //     };
-  // },
-  // componentWillMount:function(){
-  //     eventEmitter.addListener("reload",this.reloadData);
 
-  // },
-  // componentWillUnmount:function(){
-  //     eventEmitter.removeListener("reload",this.reloadData);
-
-  // },
-  // reloadData:function(defaultValue){
-  //     this.setState({defaultSelection:defaultValue});
-  // },
   getData() {
 
     const index = this.props.activeBuild;

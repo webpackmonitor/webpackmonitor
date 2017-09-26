@@ -1,7 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import * as d3 from "d3";
-// const MyTooltipComponent = require('my-tooltip-component');
 
 class SunBurstChart extends React.Component {
 
@@ -12,14 +11,6 @@ class SunBurstChart extends React.Component {
   componentDidUpdate() {
     d3.select(this.svg).selectAll("g").remove();
     this.drawChart();
-  }
-
-  // shouldComponentUpdate() {
-  //   return false;
-  // }
-
-  componentWillUnmount() {
-    // ReactDOM.unmountComponentAtNode(this.tooltipTarget);
   }
 
   drawChart() {
@@ -47,7 +38,6 @@ class SunBurstChart extends React.Component {
       "end": "#bbbbbb"
     };
 
-    // const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072']
     let color = function () {
       let ctr = 0;
       const hex = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072']
@@ -64,10 +54,9 @@ class SunBurstChart extends React.Component {
 
     let loopColors = color()
 
-
     // Total size of all segments; we set this later, after loading the data.
     var totalSize = 0;
-    // d3.select(this.svg).remove();
+
     var vis = d3.select(this.svg)
       .attr("width", width)
       .attr("height", height)
@@ -87,22 +76,14 @@ class SunBurstChart extends React.Component {
     // Use d3.text and d3.csvParseRows so that we do not need to have a header
     // row, and can receive the csv as an array of arrays.
 
-    //  d3.text("visit-sequences.csv", function (text) {
-
-
-    // var csv = d3.csvParseRows(text);
-
     var json = buildHierarchy(this.props.data);
     createVisualization(json);
-    // });
 
     // Main function to draw and set up the visualization, once we have the data.
     function createVisualization(json) {
 
       // Basic setup of page elements.
       initializeBreadcrumbTrail();
-      // drawLegend();
-      // d3.select("#togglelegend").on("click", toggleLegend);
 
       // Bounding circle underneath the sunburst, to make it easier to detect
       // when the mouse leaves the parent g.
@@ -128,7 +109,6 @@ class SunBurstChart extends React.Component {
         .attr("display", function (d) { return d.depth ? null : "none"; })
         .attr("d", arc)
         .attr("fill-rule", "evenodd")
-        // .style("fill", function (d) { return colors[d.data.name]; })
         .style("fill", function (d) { return loopColors() })
         .style("opacity", 1)
         .on("mouseover", mouseover);
@@ -217,10 +197,6 @@ class SunBurstChart extends React.Component {
       if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
         points.push(b.t + "," + (b.h / 2));
       }
-      // console.log(d.data.name)
-    // if (i === d.length) { // Leftmost breadcrumb; don't include 6th vertex.
-    //   points.push(b.t + "," + (b.h / 2));
-    // }
       return points.join(" ");
     }
 
@@ -251,13 +227,22 @@ class SunBurstChart extends React.Component {
 
       // Merge enter and update selections; set position for all nodes.
       entering.merge(trail).attr("transform", function (d, i) {
-        // console.log(b)
-        return "translate(" + i * (b.w + b.s + 30) + ", 0)";   //POSITIONING OF WORDS
+        if (i === 0) {
+          return "translate(" + i * (b.w + b.s + d.data.name.length) + ", 0)"
+        } else {
+          // console.log(80 + d.data.name.length)
+          return "translate(" + i + (b.w + d.data.name.length) + ", 0)";   //POSITIONING OF WORDS
+        }
       });
 
       // Now move and update the percentage at the end.
+      var nodeAryFlat = '';
+      for (var i = 0; i < nodeArray.length; i++) {
+        nodeAryFlat = nodeAryFlat + ' ' + nodeArray[i].data.name
+      }
+
       d3.select("#trail").select("#endlabel")
-        .attr("x", (nodeArray.length + 5.5) * (b.w + b.s))  //CONTROLS WHERE THE PERCENTAGE IS LOCATED
+        .attr("x", (nodeAryFlat.length) * 16)  //CONTROLS WHERE THE PERCENTAGE IS LOCATED
         .attr("y", b.h / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
@@ -268,48 +253,6 @@ class SunBurstChart extends React.Component {
         .style("visibility", "");
 
     }
-
-    // function drawLegend() {
-
-    //   // Dimensions of legend item: width, height, spacing, radius of rounded rect.
-    //   var li = {
-    //     w: 75, h: 30, s: 3, r: 3
-    //   };
-
-    //   var legend = d3.select("#legend").append("svg:svg")
-    //     .attr("width", li.w)
-    //     .attr("height", d3.keys(colors).length * (li.h + li.s));
-
-    //   var g = legend.selectAll("g")
-    //     .data(d3.entries(colors))
-    //     .enter().append("svg:g")
-    //     .attr("transform", function (d, i) {
-    //       return "translate(0," + i * (li.h + li.s) + ")";
-    //     });
-
-    //   g.append("svg:rect")
-    //     .attr("rx", li.r)
-    //     .attr("ry", li.r)
-    //     .attr("width", li.w)
-    //     .attr("height", li.h)
-    //     .style("fill", function (d) { return d.value; });
-
-    //   g.append("svg:text")
-    //     .attr("x", li.w / 2)
-    //     .attr("y", li.h / 2)
-    //     .attr("dy", "0.35em")
-    //     .attr("text-anchor", "middle")
-    //     .text(function (d) { return d.key; });
-    // }
-
-    // function toggleLegend() {
-    //   var legend = d3.select("#legend");
-    //   if (legend.style("visibility") == "hidden") {
-    //     legend.style("visibility", "");
-    //   } else {
-    //     legend.style("visibility", "hidden");
-    //   }
-    // }
 
     // Take a 2-column CSV and transform it into a hierarchical structure suitable
     // for a partition layout. The first column is a sequence of step names, from
@@ -354,16 +297,12 @@ class SunBurstChart extends React.Component {
       }
       return root;
     };
-    // At some point we render a child, say a tooltip
-    // const tooltipData = ...
-    // this.renderTooltip([50, 100], tooltipData);
+
   }
 
   render() {
     return (
       <div>
-        {/* <h1>Overview</h1> */}
-        {/* <div ref={(elem) => { this.tooltipTarget = elem; }} /> */}
         <div id="main">
           <div id="sequence"></div>
           <div id="chart">
@@ -373,23 +312,13 @@ class SunBurstChart extends React.Component {
             <div id="explanation">
               <span id="percentage"></span><br />
               of your bundle size
-                        </div>
+            </div>
 
           </div>
         </div>
       </div>
     );
   }
-
-  // renderTooltip(coordinates, tooltipData) {
-  //   const tooltipComponent = (
-  //     <MyTooltipComponent
-  //       coordinates={coordinates}
-  //       data={tooltipData} />
-  //   );
-
-  //   ReactDOM.render(tooltipComponent, this.tooltipTarget);
-  // }
 }
 
 export default SunBurstChart;
