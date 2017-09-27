@@ -5,26 +5,26 @@ import Charts from './chartComponents/chartsApp';
 import Dashboard from './BuildComponents/Dashboard';
 
 // comment for production ---------
-import build from './../monitor/stats.json';
+// import build from './../monitor/stats.json';
 // --------------------------
 
 class Main extends React.Component {
   constructor() {
     super();
     // comment for production --------------
-    this.state = { build, activeBuild: build.length - 1 };
+    // this.state = { build, activeBuild: build.length - 1 };
     // ------------------------------------
     this.handleCircleClick = this.handleCircleClick.bind(this);
   }
 
   // comment for development ------------------
-  // componentDidMount() {
-  //   fetch('/getstats')
-  //     .then(res => res.json())
-  //     .then((build) => {
-  //       this.setState({ build, activeBuild: build.length - 1 });
-  //     });
-  // }
+  componentDidMount() {
+    fetch('/getstats')
+      .then(res => res.json())
+      .then((build) => {
+        this.setState({ build, activeBuild: build.length - 1 });
+      });
+  }
   // ------------------------------------------
 
   handleCircleClick(e) {
