@@ -1,10 +1,9 @@
 const path = require('path');
-const HtmlWebpackPlugin = require('html-webpack-plugin');
-const MonitorStats = require('webpack-monitor');
 const merge = require('webpack-merge');
 const glob = require('glob');
 const utils = require('./webpack.utils.js');
 const webpack = require('webpack');
+const WebpackMonitor = require('./plugin/npm-module/monitor');
 
 const PATHS = {
   app: path.join(__dirname, 'client/index.jsx'),
@@ -13,17 +12,13 @@ const PATHS = {
 
 
 module.exports = (env) => {
-  console.log(env);
   const common = merge([
     {
       entry: {
         // vendor: ['react', 'react-dom'],
         app: PATHS.app,
       },
-      output: {
-        path: PATHS.build,
-        filename: '[name].js',
-      },
+      
       resolve: {
         extensions: ['.js', 'json', '.jsx'],
       },
@@ -38,8 +33,8 @@ module.exports = (env) => {
             loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
-              presets: ['es2015', 'react']
-            }
+              presets: ['es2015', 'react'],
+            },
           },
           {
             test: /\.css$/,
@@ -49,19 +44,10 @@ module.exports = (env) => {
         loaders: [
           {
             test: /\.json$/,
-            loader: 'json-loader'
-          }
-        ]
+            loader: 'json-loader',
+          },
+        ],
       },
-      plugins: [
-        // new HtmlWebpackPlugin({
-        //   inject: false,
-        //   template: require('html-webpack-template'),
-        //   title: 'Webpack Monitor',
-        //   appMountId: 'root',
-        // }),
-        // new MonitorStats(),
-      ],
     },
     // utils.extractCSS(),
     utils.purifyCSS({
@@ -70,12 +56,41 @@ module.exports = (env) => {
     // utils.extractVendorCode(),
     // utils.uglifyJS(),
   ]);
-  const production = {
+
+  const development = {
+    output: {
+      path: PATHS.build,
+      filename: '[name].js',
+    },
     plugins: [
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
+      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('development') }),
     ],
   };
 
-  if (env === 'production') return merge([common, production]);
+  const launch = {
+    output: {
+      path: path.join(__dirname, 'plugin/npm-module/build'),
+      filename: 'app.js',
+    },
+    plugins: [
+      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
+      new WebpackMonitor({ launch: true }),
+    ],
+  };
+
+  const confirm = {
+    output: {
+      path: path.join(__dirname, 'plugin/npm-module/build'),
+      filename: 'app.js',
+    },
+    plugins: [
+      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
+      new WebpackMonitor(),
+    ],
+  };
+
+  if (env === 'development') return merge([common, development]);
+  if (env === 'confirm') return merge([common, confirm]);
+  if (env === 'launch') return merge([common, launch]);
   return common;
 };
