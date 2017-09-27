@@ -117,6 +117,7 @@ body {
 
 .axis text {
     font-size: 12px;
+    stroke: #96A0A7
 }
 
 .y-grid .tick{

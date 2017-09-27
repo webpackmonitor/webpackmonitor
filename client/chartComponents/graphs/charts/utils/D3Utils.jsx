@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import * as d3 from "d3";
 
 module.exports = {
 
@@ -17,18 +18,25 @@ module.exports = {
 
     componentDidUpdate() { this.renderAxis(); },
     componentDidMount() {
+      // console.log(props)
       this.renderAxis();
     },
-    
+
     renderAxis() {
 
-      this.axis = d3.svg.axis()
-        .scale(this.props.scale)
-        .orient(this.props.orient)
-        .ticks(this.props.ticks);
-
+      if (this.props.orient === 'left') {
+        this.axis = d3.axisLeft()
+          .scale(this.props.scale)
+          // .orient(this.props.orient)
+          .ticks(this.props.ticks);
+      } else {
+        this.axis = d3.axisBottom()
+          .scale(this.props.scale)
+          // .orient(this.props.orient)
+          .ticks(this.props.ticks);
+      }
       // if (this.props.tickFormat != null && this.props.axisType === 'x')
-      //   this.axis.tickFormat(d3.time.format(this.props.tickFormat));
+      // this.axis.tickFormat(d3.time.format(this.props.tickFormat));
 
       const node = ReactDOM.findDOMNode(this);
       d3.select(node).call(this.axis);
@@ -36,7 +44,7 @@ module.exports = {
 
     render() {
       const translate = `translate(0,${this.props.h})`;
-      
+
 
       return (
         <g className={this.props.className} transform={this.props.axisType === 'x' ? translate : ''} />
@@ -62,9 +70,9 @@ module.exports = {
     componentDidMount: function () { this.renderGrid(); },
     renderGrid: function () {
 
-      this.grid = d3.svg.axis()
+      this.grid = d3.axisLeft()
         .scale(this.props.scale)
-        .orient(this.props.orient)
+        // .orient(this.props.orient)
         .ticks(this.props.ticks)
         .tickSize(-this.props.len, 0, 0)
         .tickFormat("");
@@ -174,7 +182,7 @@ module.exports = {
 
       var circles = data.map(function (d, i) {
         return (
-          <circle 
+          <circle
             onClick={_self.props.handleCircleClick}
             className="dot"
             r={_self.props.r}
