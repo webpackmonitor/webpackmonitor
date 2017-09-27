@@ -1,90 +1,13 @@
 import React from 'react';
-import build from './../../monitor/stats.json';
+// import build from './../../monitor/stats.json';
 import Item from './Item';
 
-const currentBuild = build[build.length - 1];
+// const currentBuild = build[build.length - 1];
 // console.log(currentBuild);
-
-
-// TO DO!!!
-// --------
-
-// Need to pull all of this out and use the code in utils.js.
-// Better modularity and includes improved messaging.
-const getFileExt = (pathString) => {
-  const splitName = pathString.split('.');
-  return splitName[splitName.length - 1];
-};
-
-const countFileTypes = stats => (
-  stats.assets.reduce((count, asset) => {
-    const ext = getFileExt(asset.name);
-    if (count[ext]) count[ext] += 1;
-    else count[ext] = 1;
-    return count;
-  }, {})
-);
-
-const assetsBig = currentBuild.assets
-  .filter(asset => asset.size > 250000)
-  .map(asset => ({ name: asset.name, size: asset.size }));
-
-const assetsHuge = currentBuild.assets
-  .filter(asset => asset.size > 1000000)
-  .map(asset => ({ name: asset.name, size: asset.size }));
-
-const jsCount = countFileTypes(currentBuild).js || 0;
-const cssCount = countFileTypes(currentBuild).css || 0;
-const jsBigCount = assetsBig.filter(asset => getFileExt(asset.name) === 'js').length;
-const jsHugeCount = assetsHuge.filter(asset => getFileExt(asset.name) === 'js').length;
-const cssBigCount = assetsBig.filter(asset => getFileExt(asset.name) === 'css').length;
-
-const isVendor = currentBuild.assets.reduce((isVendor, asset) => {
-  if (isVendor) return isVendor;
-  if (asset.name.includes('vendor')) isVendor = true;
-  return isVendor;
-}, false);
-
-const options = [
-  {
-    name: 'cssQty',
-    cssCount,
-    infoText: `You are currently outputting ${cssCount} css file(s)`,
-    warningText: 'Consider splitting out your css from your js bundle if it\'s not already. Deploying CSS in a seperate file minimises the rist of FOUC and helps keep js file weight down',
-    label: 'Add the \'extract CSS\' function to your webpack optimization library',
-    checked: false,
-  },
-  {
-    name: 'jsQty',
-    jsCount,
-    infoText: `You are currently outputting ${jsCount} javascript files`,
-    warningText: 'Consider splitting up your js files to improve initial render times',
-    label: 'Add the \'extract Vendor code\' function to your webpack optimization library',
-    checked: false,
-  },
-  {
-    name: 'jsSize',
-    jsBigCount,
-    jsHugeCount,
-    infoText: `You are currently outputting ${jsBigCount} large (over 250kb) js files and ${jsHugeCount} huge (over 1MB) files`,
-    warningText: 'Consider splitting code event further or at the very least make sure you minify!',
-    label: 'Add the minify JS function toy our webpack optimization library',
-    checked: false,
-  },
-  {
-    name: 'cssSize',
-    cssBigCount,
-    infoText: `You are outputting ${cssBigCount} css files over 250kb`,
-    warningText: 'If you\'re outputting large CSS files your load times can suffer. You might be bundling a whole library but only using a portion of it.',
-    label: 'Add minify and purify CSS functions to your webpack optimization library',
-    checked: false,
-  },
-];
 
 class Recommendations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { options };
     this.handleSelectAll = this.handleSelectAll.bind(this);
     this.handleUnselectAll = this.handleUnselectAll.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -123,8 +46,69 @@ class Recommendations extends React.Component {
     console.log(selectedFunctions)
   }
 
+  getFileExt(pathString) {
+    const splitName = pathString.split('.');
+    return splitName[splitName.length - 1];
+  }
+
+  countFileTypes(stats) {
+    return stats.assets.reduce((count, asset) => {
+      const ext = this.getFileExt(asset.name);
+      if (count[ext]) count[ext] += 1;
+      else count[ext] = 1;
+      return count;
+    }, {});
+  }
+
   render() {
-    const items = this.state.options.map(option => (
+    const currentBuild = this.props.build[this.props.activeBuild];
+    const jsCount = this.countFileTypes(currentBuild).js || 0;
+    const cssCount = this.countFileTypes(currentBuild).css || 0;
+    
+    const jsBigCount = currentBuild.assets
+      .filter(asset => asset.size > 250000)
+      .map(asset => ({ name: asset.name, size: asset.size }))
+      .filter(asset => this.getFileExt(asset.name) === 'js').length;
+    const cssBigCount = currentBuild.assets
+      .filter(asset => asset.size > 250000)
+      .map(asset => ({ name: asset.name, size: asset.size }))
+      .filter(asset => this.getFileExt(asset.name) === 'css').length;
+    const options = [
+      {
+        name: 'cssQty',
+        cssCount,
+        infoText: `You are currently outputting ${cssCount} css file(s)`,
+        warningText: 'Consider splitting out your css from your js bundle if it\'s not already. Deploying CSS in a seperate file minimises the rist of FOUC and helps keep js file weight down',
+        label: 'Add the \'extract CSS\' function to your webpack optimization library',
+        checked: false,
+      },
+      {
+        name: 'jsQty',
+        jsCount,
+        infoText: `You are currently outputting ${jsCount} javascript files`,
+        warningText: 'Consider splitting up your js files to improve initial render times',
+        label: 'Add the \'extract Vendor code\' function to your webpack optimization library',
+        checked: false,
+      },
+      {
+        name: 'jsSize',
+        jsBigCount,
+        infoText: `You are currently outputting ${jsBigCount} large (over 250kb) js files`,
+        warningText: 'Consider splitting code event further or at the very least make sure you minify!',
+        label: 'Add the minify JS function toy our webpack optimization library',
+        checked: false,
+      },
+      {
+        name: 'cssSize',
+        cssBigCount,
+        infoText: `You are outputting ${cssBigCount} css files over 250kb`,
+        warningText: 'If you\'re outputting large CSS files your load times can suffer. You might be bundling a whole library but only using a portion of it.',
+        label: 'Add minify and purify CSS functions to your webpack optimization library',
+        checked: false,
+      },
+    ];
+
+    const items = options.map(option => (
       <Item data={option} key={option.name} handleChange={this.handleChange} />
     ));
 
