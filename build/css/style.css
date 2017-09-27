@@ -117,6 +117,7 @@ body {
 
 .axis text {
     font-size: 12px;
+    stroke: #96A0A7
 }
 
 .y-grid .tick{
@@ -253,8 +254,14 @@ body {
 }
 
 .recommendation {
+  background-color: #3f5175;
+  color: #64b0cc;
   padding: 10px;
   margin: 10px;
   border: 1px solid black;
-  width: 80%
+  width: 80%;
+}
+
+.btn {
+  background-color: #fff !important;
 }

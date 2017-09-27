@@ -1,5 +1,5 @@
 import React from 'react';
-// import * as d3 from 'd3';
+import * as d3 from 'd3';
 
 import Panel from './../common/Panel';
 import PanelHeader from './../common/PanelHeader';
@@ -56,7 +56,7 @@ class MainContainer extends React.Component {
         build: j + 1,
       })));
     }, []);
-    console.log(dataArea)
+    // console.log(dataArea)
     this.setState({ dataArea });
   }
 

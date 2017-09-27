@@ -2,7 +2,7 @@ import React from 'react';
 
 
 const Assets = (props) => {
-  const assets = props.build.build[3].assets;
+  const assets = props.build[3].assets;
   const property = [];
   for (let i = 0; i < assets.length; i += 1) {
     const name = assets[i].name;
