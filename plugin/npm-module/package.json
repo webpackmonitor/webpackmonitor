@@ -1,0 +1,12 @@
+{
+  "name": "webpack-monitor",
+  "version": "1.0.3",
+  "description": "Collect stats on your builds",
+  "author": "Jon Roach, Gordon Yu, Balal Zuhair",
+  "license": "MIT",
+  "main": "monitor.js",
+  "dependencies": {
+    "express": "^4.15.5",
+    "opener": "^1.4.3"
+  }
+}
