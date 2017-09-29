@@ -74,7 +74,7 @@ module.exports = (env) => {
     },
     plugins: [
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
-      new WebpackMonitor({ launch: true }),
+      new WebpackMonitor({ launch: true, capture: false }),
     ],
   };
 
@@ -85,7 +85,7 @@ module.exports = (env) => {
     },
     plugins: [
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
-      new WebpackMonitor(),
+      new WebpackMonitor({ capture: true }),
     ],
   };
 
