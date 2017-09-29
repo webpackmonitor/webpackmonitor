@@ -1,8 +1,9 @@
 import React from 'react';
-
+import Panel from './../chartComponents/common/Panel';
+import PanelHeader from './../chartComponents/common/PanelHeader';
 
 const Errors = (props) => {
-  let errors = props.build[3].errors;
+  let errors = props.build[7].errors;
   const property = [];
   let errorNum = 0;
   if (!errors.length) errors = <ul>No Errors!</ul>;
@@ -15,13 +16,17 @@ const Errors = (props) => {
     }
     errors = property.map(error => <ul key={error.key}>{error.error}</ul>);
   }
-  errorNum = `Errors: ${errorNum}`;
+  errorNum = <li><div className="col-sm-4">Errors: {errorNum}</div></li>;
 
   return (
-    <div style={{ display: 'inline-block', width: '50%' }}>
-      <h1 id="Errors">Errors</h1>
+    <div>
+      <Panel>
+      <PanelHeader title='Errors' />
+      <ul>
       {errorNum}
+      </ul>
       {errors}
+      </Panel>
     </div>
   );
 };

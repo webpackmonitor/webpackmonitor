@@ -49,6 +49,7 @@
     "d3": "^4.10.2",
     "lodash.unionby": "^4.8.0",
     "react": "^15.6.1",
+    "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.2.2"
   }

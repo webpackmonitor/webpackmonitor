@@ -1,13 +1,21 @@
 import React from 'react';
 // import build from './../../monitor/stats.json';
 import Item from './Item';
+import ProgressBar from './ProgressBar.jsx'
+import Panel from './../chartComponents/common/Panel'
+import PanelHeader from './../chartComponents/common/PanelHeader'
 
 // const currentBuild = build[build.length - 1];
 // console.log(currentBuild);
 
+const totalSize = 500000
+let purifyCSSSize = 0;
+let minifySize = 0;
+
 class Recommendations extends React.Component {
   constructor(props) {
     super(props);
+    this.state = { options, totalSize, purifyCSSSize, minifySize };
     this.handleSelectAll = this.handleSelectAll.bind(this);
     this.handleUnselectAll = this.handleUnselectAll.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -35,6 +43,7 @@ class Recommendations extends React.Component {
       if (option.name === e.target.name) option.checked = !option.checked;
       return option;
     });
+    // console.log('newState',newState)
     this.setState({ newState });
   }
 
@@ -111,21 +120,36 @@ class Recommendations extends React.Component {
     const items = options.map(option => (
       <Item data={option} key={option.name} handleChange={this.handleChange} />
     ));
-
+// console.log('props', this.props.build)
+// console.log('state', this.state.options)
     return (
-      <div className="recommendation">
-        <h3>Recommendations</h3>
-        <button className="btn" onClick={this.handleSelectAll}>
-          Select All
+      <div className="container">
+        <div className="col-md-12 custom_padding">
+          <Panel>
+            {/* <ProgressBar build={this.props.build[this.props.build.length-1]} /> */}
+            <ProgressBar props={this.state.options} />
+
+          </Panel>
+          <Panel>
+
+            <PanelHeader title="Recommendations" />
+
+            <button className="btn" onClick={this.handleSelectAll}>
+              Select All
         </button>
-        <button className="btn" onClick={this.handleUnselectAll}>
-          Unselect All
+            <button className="btn" onClick={this.handleUnselectAll}>
+              Unselect All
         </button>
 
-        <form className="reco-form" onSubmit={this.handleSubmit}>
-          {items}
-          <input type="submit" value="Submit" />
-        </form>
+            <form className="reco-form" onSubmit={this.handleSubmit}>
+              <div className="recommendations">
+              {items}
+              </div>
+              <input type="submit" value="Submit" />
+            </form>
+
+          </Panel>
+        </div>
       </div>
     );
   }

@@ -4,6 +4,7 @@ import Main from './Main';
 import MainProd from './MainProd';
 
 const App = () => {
+
   const env = process.env.NODE_ENV;
   if (env === 'development') {
     return (

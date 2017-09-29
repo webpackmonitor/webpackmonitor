@@ -7,7 +7,7 @@ const Item = (props) => {
   const data = props.data;
   
   return (
-    <div className={`recommendation ${data.checked ? 'selected' : ''}`} >
+    <div className={`recommendation ${data.checked ? 'selected' : ''}`} id="fileNames" >
       <Info text={data.infoText} />
       <Warning text={data.warningText} disabled={data.warnDisabled} />
       <Checkbox
