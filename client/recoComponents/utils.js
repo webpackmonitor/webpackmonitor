@@ -1,4 +1,4 @@
-const build = require('./../../../monitor/stats.json');
+// const build = require('./../../../monitor/stats.json');
 
 const currentBuild = build[build.length - 1];
 

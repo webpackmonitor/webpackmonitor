@@ -52,11 +52,10 @@ class MainContainer extends React.Component {
       return da.concat(assetSizes[asset].map((build, j) => ({
         count: build / 1000,
         name: asset,
-        type: String.fromCharCode(65 + i),
+        type: String.fromCharCode(67 - i),
         build: j + 1,
       })));
     }, []);
-    // console.log(dataArea)
     this.setState({ dataArea });
   }
 
