@@ -15,7 +15,7 @@ let minifySize = 0;
 class Recommendations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { options, totalSize, purifyCSSSize, minifySize };
+    this.state = {totalSize, purifyCSSSize, minifySize };
     this.handleSelectAll = this.handleSelectAll.bind(this);
     this.handleUnselectAll = this.handleUnselectAll.bind(this);
     this.handleChange = this.handleChange.bind(this);
