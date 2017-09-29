@@ -1,35 +1,46 @@
-body {
+/* html {
+    box-sizing: border-box;
+  }
+  *, *:before, *:after {
+    box-sizing: inherit;
+  } */
+
+/* ok */
+body {    
     background-color: #2c313b;
     font-family: 'Roboto', sans-serif !important;
 }
 
-
+/* ok */
 .custom_padding{
     padding-left: 5px !important;
     padding-right: 5px !important;
-
 }
-
+/* ok */
 .card{
     height: 125px;
     border-radius: 2px;
     font-weight: 300;
 }
 
+/* ok */
 .bg{
     margin-bottom: 10px;
     background-color: #3f5175;
     border-radius:4px;
     /* height: 400px; */
     box-shadow: 1px 1px 1px -1px rgba(100,100,100,.5);
+    padding: 10px 0;
+    
 }
 
-
+/* What's this used for????? */
 .shadow {
     -webkit-filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
     filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
 }
 
+/* Line for Cards */
 .hr-custom {
     border: 0;
     height: 1px;
@@ -38,8 +49,8 @@ body {
     -background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, 0.5), rgba(0, 0, 0, 0));
 }
 
-.panel-header
-{
+/* ok */
+.panel-header {
     height:50px;
     background-color: #3f5175;
     border-radius: 2px 2px 0 0;
@@ -47,66 +58,70 @@ body {
     padding:10px 20px 10px 20px;
     margin-bottom: 20px;
 }
-
+/* 
 .range-custom{
     padding-bottom: 10px;
     padding-left: 5px;
-}
+} */
 
+/* I don't think this is used!?!?? */
 .range-custom-child{
     line-height:30px;
 }
 
+/* Used in Key.jsx... what is key jsx do? */
 .range-span{
     color:#7f7f85;
     padding-right:10px;
 }
 
+/* Used in Key.jsx... what is key jsx do? */
 .padding-left-5{
     padding-left: 5px;
 }
-
+/* Card styling */
 .card_header {
     padding: 10px 10px 5px 10px;
     color: #ffffff;
 }
 
+/* Card styling */
 .card_body{
     text-align: center;
     color:#ffffff;
     font-size: 3em;
     font-weight: 400;
 }
-
+/* Panel header titles */
 .panel-title{
     color:#f8fdff;
     font-size: 1.5em;
     font-weight: 300;
 }
 
+/* Panekl header styling.... does little */
 .line-height-30{
     line-height: 30px;
 }
 
+/* Spacing under cards */
 .margin-below-20{
     margin-bottom: 20px;
 }
 
-
-
+/* Line Graph styling */
 .line {
     fill: none;
     stroke: #53c79f;
     stroke-width: 3px;
-
-
 }
 
+/* Used in main container... alters color of axis slightly */
 .axis {
     fill: #a3a3a7;
 }
 
-
+/* Not used?? */
 .axis path,
 .axis line {
     fill: none;
@@ -115,11 +130,13 @@ body {
 
 }
 
+/* Not used? */
 .axis text {
     font-size: 12px;
     stroke: #96A0A7
 }
 
+/* Used in Main Container */
 .y-grid .tick{
     stroke: #ececed;
     opacity: 1;
@@ -134,43 +151,47 @@ body {
 
 }
 
+/* Used for D3 dots */
 .dot{
     fill:#FFFFFF;
     stroke:#53c79f;
     stroke-width:2px;
 
 }
-
+/* Used in Main Container */
 .area{
     opacity: .8    ;
     stroke: #fff;
     stroke-width:2px;
 }
-
+/* Used in main container */
 .tooltip-bg{
     fill:#000;
     opacity:0.7;
 }
 
+/* Used in main container */
 .tooltip-text1{
     font-size:15px;
     fill:#ffffff;
 }
-
+/* Not used? */
 .tooltip-text2{
     font-size:20px;
     fill:#a9f3ff;
 }
 
+/* Used in Starburst container */
 .text-center{
     text-align: center;
 }
 
+/* Not used? */
 .padding-top-10 {
     padding-top: 10px;
 }
 
-
+/* ok */
 @media screen and (max-width: 1000px) {
     .card_header{
         font-size: .8em;
@@ -183,14 +204,14 @@ body {
 
 
 }
-
+/* ok */
 @media screen and (max-width: 750px) {
     .header_text{
         -display: none;
     }
 }
 
-
+/* Used in Key */
 .filter-selection{
     cursor: pointer;
 }
@@ -198,7 +219,7 @@ body {
 
 
 /* StarBurst CSS */
-
+/* ok */
 #main {
   /* float: left; */
   /* width: 750px; */
@@ -206,26 +227,27 @@ body {
   margin-right: auto;
   padding-bottom: 40px;
 }
-
+/* not used? */
 #sidebar {
   float: right;
   width: 100px;
 }
-
+/* ok */
 #sequence {
   width: 800px;
   height: 70px;
 }
 
+/* definiately not used */
 #legend {
   padding: 10px 0 0 3px;
 }
-
+/* not used? */
 #sequence text, #legend text {
   font-weight: 600;
   fill: #fff;
 }
-
+/* ok */
 #chart {
     width: 100%;
     margin-left: auto;
@@ -238,7 +260,7 @@ body {
 #chart path {
   stroke: #fff;
 }
-
+/* ok */
 #explanation {
   position: absolute;
   top: 550px;
@@ -248,20 +270,45 @@ body {
   color: #fff;
   /* z-index: -1; */
 }
-
+/* ok */
 #percentage {
   font-size: 2.5em;
 }
 
-.recommendation {
-  background-color: #3f5175;
-  color: #64b0cc;
-  padding: 10px;
-  margin: 10px;
-  border: 1px solid black;
-  width: 80%;
-}
 
+
+
+
+/* CSS THAT WE WROTE */
+/* Used in Recommendations */
 .btn {
   background-color: #fff !important;
+}
+
+
+/* Used in items */
+#fileNames {
+     /* list-style-type: none; */
+    padding: 5px 100px 50px 100px;
+    color: #ececed;
+
+}
+
+/* Used in recommendations */
+#recommendations {
+    /* list-style-type: none; */
+   padding: 5px 100px 50px 100px;
+   color: #ececed;
+
+}
+
+/* Used in progress bar */
+#progress {
+  /* float: left; */
+  /* width: 750px; */
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 100px;
+  margin-bottom: 100px;
+  padding-bottom: 40px;
 }

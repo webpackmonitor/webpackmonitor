@@ -40,7 +40,7 @@ class Main extends React.Component {
   }
 
   renderApp() {
-    console.log(this.state.build);
+    // console.log(this.state.build);
     return (
       <main>
         <Switch>
