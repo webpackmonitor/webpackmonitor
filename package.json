@@ -9,7 +9,8 @@
     "start": "webpack-dev-server --env development",
     "build": "webpack --env development",
     "confirm": "webpack --env confirm",
-    "launch": "webpack --env launch"
+    "launch": "webpack --env launch",
+    "trial": "webpack --env trial"
   },
   "repository": {
     "type": "git",
@@ -44,7 +45,9 @@
     "webpack-monitor": "^1.0.3"
   },
   "dependencies": {
+    "colors": "^1.1.2",
     "d3": "^4.10.2",
+    "lodash.unionby": "^4.8.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
