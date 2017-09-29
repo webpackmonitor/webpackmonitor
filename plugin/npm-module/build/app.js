@@ -37177,10 +37177,10 @@ var Cards = function (_React$Component) {
       // unit conversion for totalSize and biggestFileSize
       if (totalSize.toString().length < 4) totalSize = totalSize + 'B';
       if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = Math.floor(totalSize / 1000) + 'KB';
-      if (totalSize.toString().length > 6) totalSize = Math.floor(totalSize / 1000000) + 'MB';
+      if (totalSize.toString().length > 6) totalSize = (totalSize / 1000000).toFixed(2) + 'MB';
       if (biggestFileSize.toString().length < 4) biggestFileSize = biggestFileSize + 'B';
       if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = Math.floor(biggestFileSize / 1000) + 'KB';
-      if (biggestFileSize.toString().length > 6) biggestFileSize = Math.floor(biggestFileSize / 1000000) + 'MB';
+      if (biggestFileSize.toString().length > 6) biggestFileSize = (biggestFileSize / 1000000).toFixed(2) + 'MB';
 
       var cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
 
