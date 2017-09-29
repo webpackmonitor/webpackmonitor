@@ -56,8 +56,6 @@ class MainContainer extends React.Component {
         build: j + 1,
       })));
     }, []);
-    console.log(sortedKeys)
-    console.log(dataArea)
     this.setState({ dataArea });
   }
 
