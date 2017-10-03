@@ -2,7 +2,7 @@ import React from 'react';
 import Modules from './Modules';
 import Assets from './Assets';
 import Errors from './Errors';
-import Cards from './../chartComponents/cards/Cards'
+import Cards from './../chartComponents/cards/Cards';
 
 
 const Dashboard = (props) => {
@@ -12,9 +12,9 @@ const Dashboard = (props) => {
     <div className="container">
       {/* <h1 className="bg">Dashboard for </h1> */}
       <Cards build={props.build} activeBuild={props.activeBuild} />
-      <Assets build={props.build}/>
-      <Errors build={props.build}/>
-      <Modules build={props.build}/>
+      <Assets build={props.build} activeBuild={props.activeBuild} />
+      <Errors build={props.build} activeBuild={props.activeBuild} />
+      <Modules build={props.build} activeBuild={props.activeBuild} />
     </div>
   );
 };

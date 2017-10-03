@@ -3,7 +3,7 @@ import Panel from './../chartComponents/common/Panel';
 import PanelHeader from './../chartComponents/common/PanelHeader';
 
 const Assets = (props) => {
-  const assets = props.build[3].assets;
+  const assets = props.build[props.activeBuild].assets;
   const property = [];
   for (let i = 0; i < assets.length; i += 1) {
     const name = assets[i].name;
@@ -26,13 +26,15 @@ const Assets = (props) => {
   // const sizes = property.map(size => <li key={size.key}>{size.size}</li>);
 
   return (
-    <div>
-      <Panel>
-        <PanelHeader title="Assets" />
+    <div className="row">
+      <div className="col-md-12 custom_padding">
+        <Panel>
+          <PanelHeader title="Assets" />
           <ul>
             {nameSize}
           </ul>
-      </Panel>
+        </Panel>
+      </div>
     </div>
   );
 };
