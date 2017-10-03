@@ -26,7 +26,7 @@ class Main extends React.Component {
 
   renderLoader() {
     return (
-      <p>Loading...</p>
+      <div className="loader">Loading...</div>
     );
   }
 

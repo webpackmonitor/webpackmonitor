@@ -3,7 +3,7 @@ import Panel from './../chartComponents/common/Panel';
 import PanelHeader from './../chartComponents/common/PanelHeader';
 
 const Errors = (props) => {
-  let errors = props.build[7].errors;
+  let errors = props.build[props.activeBuild].errors;
   const property = [];
   let errorNum = 0;
   if (!errors.length) errors = <ul>No Errors!</ul>;

@@ -3,7 +3,7 @@ import Panel from './../chartComponents/common/Panel';
 import PanelHeader from './../chartComponents/common/PanelHeader';
 
 const Assets = (props) => {
-  const assets = props.build[3].assets;
+  const assets = props.build[props.activeBuild].assets;
   const property = [];
   for (let i = 0; i < assets.length; i += 1) {
     const name = assets[i].name;

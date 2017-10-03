@@ -8,7 +8,7 @@ class Cards extends React.Component {
     const index = this.props.activeBuild;
 
     const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
-    const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Largest File'];
+    const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Current Build'];
 
     // find totals of all cards
     let totalSize = this.props.build[index].size
@@ -41,7 +41,7 @@ class Cards extends React.Component {
       const assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
       const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
-      cardDiff = [`${sizePercent}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile];
+      cardDiff = [`${sizePercent}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff];
     }
 
     else cardDiff = [0, 0, 0, 0, 0, biggestFile];
@@ -55,7 +55,7 @@ class Cards extends React.Component {
     if (biggestFileSize.toString().length > 6) biggestFileSize = `${(biggestFileSize / 1000000).toFixed(2)}MB`;
 
 
-    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
+    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, index + 1];
 
 
     const cards = color.map((d, i) => {
