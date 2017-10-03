@@ -20,9 +20,9 @@ const Errors = (props) => {
 
   return (
     <div className="row">
-      <div className="col-md-12 custom_padding">
+      <div className="col-md-12 custom_padding" >
         <Panel>
-          <PanelHeader title="Errors" />
+          <PanelHeader title='Errors' />
           <ul>
             {errorNum}
           </ul>

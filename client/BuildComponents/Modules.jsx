@@ -58,6 +58,7 @@ const Modules = (props) => {
   }
 
   const fileTable = dirFinalArray.map((directory) => {
+
     const fileListItems = directory[1].map(file => (
       <li key={`${file.filename}${file.size}`}>
         <div className="col-sm-4">
