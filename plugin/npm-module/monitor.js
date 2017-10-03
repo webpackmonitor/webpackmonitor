@@ -36,7 +36,7 @@ module.exports = class MonitorStats {
         .forEach((file) => {
           const source = compilation.assets[file].source();
           const minified = source.split(/\r\n|\r|\n/).length < 25;
-          const miniSize = minified ? false : babel.transform(source, { compact: true }).code.length;
+          const miniSize = minified ? false : babel.transform(source, { compact: false }).code.length;
           const obj = {
             name: file,
             minified,
@@ -47,7 +47,7 @@ module.exports = class MonitorStats {
       cb();
     });
 
-    // CHECK UNPURE CSS
+    // // CHECK UNPURE CSS
     compiler.plugin('emit', (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
