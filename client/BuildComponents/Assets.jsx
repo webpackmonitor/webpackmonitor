@@ -14,25 +14,27 @@ const Assets = (props) => {
   const nameSize = property.map(properties => {
     return (
       <li>
-        <div key={properties.key} className="col-sm-4"> 
+        <div key={properties.key} className="col-sm-4">
           {properties.name}
-          </div>
-          <div key={properties.key + 1000} className="col-sm-4"> 
-            {properties.size}
-            </div>
-            </li>
-            )
-          })
+        </div>
+        <div key={properties.key + 1000} className="col-sm-4">
+          {properties.size}
+        </div>
+      </li>
+    )
+  })
   // const sizes = property.map(size => <li key={size.key}>{size.size}</li>);
 
   return (
-    <div>
-      <Panel>
-        <PanelHeader title="Assets" />
+    <div className="row">
+      <div className="col-md-12 custom_padding" >
+        <Panel>
+          <PanelHeader title="Assets" />
           <ul>
             {nameSize}
           </ul>
-      </Panel>
+        </Panel>
+      </div>
     </div>
   );
 };

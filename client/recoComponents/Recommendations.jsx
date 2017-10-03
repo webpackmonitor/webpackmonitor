@@ -15,7 +15,7 @@ let minifySize = 0;
 class Recommendations extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {totalSize, purifyCSSSize, minifySize };
+    this.state = { totalSize, purifyCSSSize, minifySize };
     this.handleSelectAll = this.handleSelectAll.bind(this);
     this.handleUnselectAll = this.handleUnselectAll.bind(this);
     this.handleChange = this.handleChange.bind(this);
@@ -73,7 +73,7 @@ class Recommendations extends React.Component {
     const currentBuild = this.props.build[this.props.activeBuild];
     const jsCount = this.countFileTypes(currentBuild).js || 0;
     const cssCount = this.countFileTypes(currentBuild).css || 0;
-    
+
     const jsBigCount = currentBuild.assets
       .filter(asset => asset.size > 250000)
       .map(asset => ({ name: asset.name, size: asset.size }))
@@ -120,35 +120,38 @@ class Recommendations extends React.Component {
     const items = options.map(option => (
       <Item data={option} key={option.name} handleChange={this.handleChange} />
     ));
-// console.log('props', this.props.build)
-// console.log('state', this.state.options)
+    // console.log('props', this.props.build)
+    // console.log('state', this.state.options)
     return (
+
       <div className="container">
-        <div className="col-md-12 custom_padding">
-          <Panel>
-            {/* <ProgressBar build={this.props.build[this.props.build.length-1]} /> */}
-            <ProgressBar props={this.state.options} />
+        <div className="row">
+          <div className="col-md-12 custom_padding">
+            <Panel>
+              {/* <ProgressBar build={this.props.build[this.props.build.length-1]} /> */}
+              <ProgressBar props={this.state.options} />
 
-          </Panel>
-          <Panel>
+            </Panel>
+            <Panel>
 
-            <PanelHeader title="Recommendations" />
+              <PanelHeader title="Recommendations" />
 
-            <button className="btn" onClick={this.handleSelectAll}>
-              Select All
+              <button className="btn" onClick={this.handleSelectAll}>
+                Select All
         </button>
-            <button className="btn" onClick={this.handleUnselectAll}>
-              Unselect All
+              <button className="btn" onClick={this.handleUnselectAll}>
+                Unselect All
         </button>
 
-            <form className="reco-form" onSubmit={this.handleSubmit}>
-              <div className="recommendations">
-              {items}
-              </div>
-              <input type="submit" value="Submit" />
-            </form>
+              <form className="reco-form" onSubmit={this.handleSubmit}>
+                <div className="recommendations">
+                  {items}
+                </div>
+                <input type="submit" value="Submit" />
+              </form>
 
-          </Panel>
+            </Panel>
+          </div>
         </div>
       </div>
     );

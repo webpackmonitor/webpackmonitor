@@ -65,45 +65,46 @@ const Modules = (props) => {
 
   const fileTable = dirFinalArray.map((directory) => {
     const fileListItems = directory[1].map((file) => {
+      return (
+
+        <li>
+          <div className="col-sm-4">
+            {file.filename}
+          </div>
+          <div className="col-sm-4">
+            {file.size}
+          </div>
+          <div className="col-sm-4">
+            {file.percentage}
+          </div>
+        </li>
+
+
+      )
+    })
     return (
-
-      <li>
-        <div className="col-sm-4">
-          {file.filename}
-        </div>
-        <div className="col-sm-4">
-          {file.size}
-        </div>
-        <div className="col-sm-4">
-          {file.percentage}
-        </div>
-      </li>
-
-
-    )
-  })
-    return (
+      <div className="row">
         <div className="bgs">
-        <Panel>
-        <PanelHeader title={directory[0]}/>
-          <ul id='fileNames'>
-            {fileListItems}
-          </ul>
+          <Panel>
+            <PanelHeader title={directory[0]} />
+            <ul id='fileNames'>
+              {fileListItems}
+            </ul>
           </Panel>
+        </div>
       </div>
-      
     );
   })
   // const menue = uniqueArray.map((files) => <a>{files}</a>)
-  
+
   return (
     <div className="col-md-12 custom_padding">
       {/* {menue} */}
       {fileTable}
-      </div>
+    </div>
   );
 
-console.log('table', fileTable)
+  console.log('table', fileTable)
 
   // console.log('dirFinalArray', dirFinalArray)
   // console.log('dirFinalArray[0]', dirFinalArray[0])

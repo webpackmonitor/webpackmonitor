@@ -19,14 +19,16 @@ const Errors = (props) => {
   errorNum = <li><div className="col-sm-4">Errors: {errorNum}</div></li>;
 
   return (
-    <div>
-      <Panel>
-      <PanelHeader title='Errors' />
-      <ul>
-      {errorNum}
-      </ul>
-      {errors}
-      </Panel>
+    <div className="row">
+      <div className="col-md-12 custom_padding" >
+        <Panel>
+          <PanelHeader title='Errors' />
+          <ul>
+            {errorNum}
+          </ul>
+          {errors}
+        </Panel>
+      </div>
     </div>
   );
 };

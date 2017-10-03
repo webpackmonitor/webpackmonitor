@@ -75,7 +75,6 @@ class SunBurstChart extends React.Component {
 
     // Use d3.text and d3.csvParseRows so that we do not need to have a header
     // row, and can receive the csv as an array of arrays.
-
     var json = buildHierarchy(this.props.data);
     createVisualization(json);
 
@@ -122,7 +121,6 @@ class SunBurstChart extends React.Component {
 
     // Fade all but the current sequence, and show it in the breadcrumb trail.
     function mouseover(d) {
-
       var percentage = (100 * d.value / totalSize).toPrecision(3);
       var percentageString = percentage + "%";
       if (percentage < 0.1) {
@@ -131,14 +129,25 @@ class SunBurstChart extends React.Component {
 
       d3.select("#percentage")
         .text(percentageString);
+      //ADDED FILE NAME
+      d3.select("#filename")
+        .text(d.data.name)
+
+      //ADDED FILE SIZE
+      d3.select("#filesize")
+        .text(d.value / 1000)
 
       d3.select("#explanation")
         .style("visibility", "");
 
+
       var sequenceArray = d.ancestors().reverse();
       sequenceArray.shift(); // remove root node from the array
-      updateBreadcrumbs(sequenceArray, percentageString);
+      let trickArray = sequenceArray.slice(0)
 
+      for (var i = 1; i < trickArray.length + 1; i++) {
+        updateBreadcrumbs(trickArray.slice(0, i), percentageString);
+      }
       // Fade all the segments.
       d3.selectAll("#chart").selectAll("path")
         .style("opacity", 0.3);
@@ -180,6 +189,7 @@ class SunBurstChart extends React.Component {
         .attr("width", width)
         .attr("height", 50)
         .attr("id", "trail");
+
       // Add the label at the end, for the percentage.
       trail.append("svg:text")
         .attr("id", "endlabel")
@@ -190,9 +200,9 @@ class SunBurstChart extends React.Component {
     function breadcrumbPoints(d, i) {
       var points = [];
       points.push("0,0");
-      points.push(b.w + d.data.name.length * 7 + ",0");  //CONTROLS THE SHAPE OF THE POLYGON
-      points.push(b.w + d.data.name.length * 7 + b.t + "," + (b.h / 2));
-      points.push(b.w + d.data.name.length * 7 + "," + b.h);
+      points.push(b.w + d.data.name.length * 7.5 + ",0");  //CONTROLS THE SHAPE OF THE POLYGON
+      points.push(b.w + d.data.name.length * 7.5 + b.t + "," + (b.h / 2));
+      points.push(b.w + d.data.name.length * 7.5 + "," + b.h);
       points.push("0," + b.h);
       if (i > 0) { // Leftmost breadcrumb; don't include 6th vertex.
         points.push(b.t + "," + (b.h / 2));
@@ -225,24 +235,30 @@ class SunBurstChart extends React.Component {
         .attr("text-anchor", "start")
         .text(function (d) { return d.data.name; });
 
-      // Merge enter and update selections; set position for all nodes.
-      entering.merge(trail).attr("transform", function (d, i) {
-        if (i === 0) {
-          return "translate(" + i * (b.w + b.s + d.data.name.length) + ", 0)"
-        } else {
-          // console.log(80 + d.data.name.length)
-          return "translate(" + i + (b.w + d.data.name.length) + ", 0)";   //POSITIONING OF WORDS
-        }
-      });
-
       // Now move and update the percentage at the end.
       var nodeAryFlat = '';
+
       for (var i = 0; i < nodeArray.length; i++) {
         nodeAryFlat = nodeAryFlat + ' ' + nodeArray[i].data.name
       }
 
+      var nodeAryFlatLength = 0;
+      var nodeAryFlatLengthPercentage = 0;
+      for (var i = 1; i < nodeArray.length; i++) {
+        nodeAryFlatLength = nodeAryFlatLength + b.w + nodeArray[i - 1].data.name.length * 7.5 + b.t
+        nodeAryFlatLengthPercentage = nodeAryFlatLength + b.w + nodeArray[i].data.name.length * 7.5 + b.t + 15
+      }
+
+      entering.attr("transform", function (d, i) {
+        if (i === 0) {
+          return "translate(0, 0)"
+        } else {
+          return "translate(" + nodeAryFlatLength + ", 0)";   //POSITIONING OF WORDS
+        }
+      });
+
       d3.select("#trail").select("#endlabel")
-        .attr("x", (nodeAryFlat.length) * 16)  //CONTROLS WHERE THE PERCENTAGE IS LOCATED
+        .attr("x", (nodeAryFlatLengthPercentage))  //CONTROLS WHERE THE PERCENTAGE IS LOCATED
         .attr("y", b.h / 2)
         .attr("dy", "0.35em")
         .attr("text-anchor", "start")
@@ -270,7 +286,7 @@ class SunBurstChart extends React.Component {
         var currentNode = root;
         for (var j = 0; j < parts.length; j++) {
           var children = currentNode["children"];
-          var nodeName = parts[j];
+          var nodeName = parts[j].split('_').join('-');
           var childNode;
           if (j + 1 < parts.length) {
             // Not yet at the end of the sequence; move down the tree.
@@ -310,8 +326,12 @@ class SunBurstChart extends React.Component {
             </svg>
 
             <div id="explanation">
+              <span id="filename"></span><br />
               <span id="percentage"></span><br />
-              of your bundle size
+              of your bundle
+              <div>
+                Size: <span id="filesize"></span> kb <br />
+              </div>
             </div>
 
           </div>
