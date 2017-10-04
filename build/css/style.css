@@ -439,3 +439,34 @@ li a:hover {
 main {
   margin-top: 95px;
 }
+
+
+/* PanelTable */
+
+.panel {
+  color: black;
+  margin-bottom: 20px;
+  background-color: white;
+  border: 1px solid #3f5175;
+  border-radius: 4px;
+  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+}
+
+.panel-default>.panel-heading {
+  color: #333;
+  background-color: #3f5175;
+  border-color: #3f5175;
+}
+
+.panel-heading {
+  padding: 10px 15px;
+  border-bottom: 1px solid transparent;
+  border-top-left-radius: 3px;
+  border-top-right-radius: 3px;
+}
+
+
+table{
+  table-layout: fixed;
+}
