@@ -13,10 +13,15 @@ class SunBurstChart extends React.Component {
     this.drawChart();
   }
 
+  // shouldComponentUpdate() {
+  //   return false; // This prevents future re-renders of this component
+  // }
+
   drawChart() {
     /*
       D3 code to create our visualization by appending onto this.svg
     */
+
 
     // Dimensions of sunburst.
     var width = 900;
@@ -63,6 +68,10 @@ class SunBurstChart extends React.Component {
       .append("svg:g")
       .attr("id", "container")
       .attr("transform", "translate(" + width / 2 + "," + height / 2 + ")");
+
+
+    d3.select("#explanation")
+      .style("visibility", "hidden");
 
     var partition = d3.partition()
       .size([2 * Math.PI, radius * radius]);

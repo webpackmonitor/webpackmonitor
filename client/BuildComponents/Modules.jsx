@@ -1,7 +1,8 @@
 import React from 'react';
 import Panel from './../chartComponents/common/Panel';
 import PanelHeader from './../chartComponents/common/PanelHeader';
-
+import { Table, OverlayTrigger, Tooltip } from 'react-bootstrap';
+import { Panel as PanelTable } from 'react-bootstrap';
 
 const Modules = (props) => {
 
@@ -59,28 +60,57 @@ const Modules = (props) => {
 
   const fileTable = dirFinalArray.map((directory) => {
 
+    // const fileListItems = directory[1].map(file => (
+    //   <li key={`${file.filename}${file.size}`}>
+    //     <div className="col-sm-4">
+    //       {file.filename}
+    //     </div>
+    //     <div className="col-sm-4">
+    //       {file.size}
+    //     </div>
+    //     <div className="col-sm-4">
+    //       {file.percentage}
+    //     </div>
+    //   </li>
+    // ));
+
     const fileListItems = directory[1].map(file => (
-      <li key={`${file.filename}${file.size}`}>
-        <div className="col-sm-4">
-          {file.filename}
-        </div>
-        <div className="col-sm-4">
-          {file.size}
-        </div>
-        <div className="col-sm-4">
-          {file.percentage}
-        </div>
-      </li>
+      <tr>
+        <td>{file.filename}</td>
+        <td>{file.size}</td>
+        <td>{file.percentage}</td>
+      </tr>
     ));
 
+    const tooltip = (
+      <Tooltip id="tooltip"><strong>Click path to collapse</strong></Tooltip>
+    );
+
+
     return (
-      <div className="bgs" key={directory[0]}>
-        <Panel>
-          <PanelHeader title={directory[0]} />
-          <ul id="fileNames">
-            {fileListItems}
-          </ul>
-        </Panel>
+      <div /* className="bgs" */ key={directory[0]}>
+        {/* <Panel> */}
+        {/* <PanelHeader title={directory[0]} /> */}
+        {/* <ul id="fileNames"> */}
+        <OverlayTrigger placement="top" overlay={tooltip}>
+          <PanelTable collapsible defaultExpanded header={directory[0]}>
+            <Table hover>
+              <thead>
+                <tr>
+                  <th>File Name</th>
+                  <th>Size Name</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fileListItems}
+              </tbody>
+            </Table >
+          </PanelTable>
+        </OverlayTrigger>
+
+        {/* </ul> */}
+        {/* </Panel> */}
       </div>
 
     );
