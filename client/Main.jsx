@@ -4,29 +4,14 @@ import Recommendations from './recoComponents/Recommendations';
 import Charts from './chartComponents/chartsApp';
 import Dashboard from './BuildComponents/Dashboard';
 
-import build from './../monitor/stats.json';
-
 class Main extends React.Component {
-  constructor() {
-    super();
-    this.state = { build, activeBuild: build.length - 1 };
-    this.handleCircleClick = this.handleCircleClick.bind(this);
-  }
-
-  handleCircleClick(e) {
-    const len = this.state.build.length;
-    const index = len - e.target.getAttribute('data-build');
-    this.setState({ activeBuild: len - index });
-  }
-
   renderLoader() {
     return (
-      <p>Loading...</p>
+      <div className="loader">Loading...</div>
     );
   }
 
   renderApp() {
-    // console.log(this.state.build);
     return (
       <main>
         <Switch>
@@ -34,24 +19,23 @@ class Main extends React.Component {
             exact path="/"
             render={() => (
               <Charts
-                build={this.state.build}
-                activeBuild={this.state.activeBuild}
-                handleCircleClick={this.handleCircleClick}
+                build={this.props.build}
+                activeBuild={this.props.activeBuild}
+                handleCircleClick={this.props.handleCircleClick}
               />
             )}
           />
-          <Route path="/builds" render={() => <Dashboard build={this.state.build} activeBuild={this.state.activeBuild} />} />
-          <Route path="/recommendations" render={() => <Recommendations build={this.state.build} activeBuild={this.state.activeBuild} />} />
+          <Route path="/builds" render={() => <Dashboard build={this.props.build} activeBuild={this.props.activeBuild} />} />
+          <Route path="/recommendations" render={() => <Recommendations build={this.props.build} activeBuild={this.props.activeBuild} />} />
         </Switch>
       </main>
     );
   }
 
   render() {
-    const state = this.state;
-    
+    const build = this.props.build.length;
     return (
-      state
+      build
       ? this.renderApp()
       : this.renderLoader()
     );
