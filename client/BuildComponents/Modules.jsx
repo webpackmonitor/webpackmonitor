@@ -1,91 +1,147 @@
 import React from 'react';
+import Panel from './../chartComponents/common/Panel';
+import PanelHeader from './../chartComponents/common/PanelHeader';
+
 
 const Modules = (props) => {
-  const currChunks = props.build[0].chunks;
-  const property = [];
-  for (let i = 0; i < currChunks.length; i += 1) {
-    const chunk = i + 1;
-    const total = currChunks[i].size;
 
-    const modules = currChunks[i].modules;
-    for (let j = 0; j < modules.length; j += 1) {
+  let data = props.build;
 
-      let pathName = modules[j].name.split('/');
-      let path = pathName.slice(1, pathName.length).join('-')
-      const size = modules[j].size;
-      // const size = modules[j].size.toString();
+  var i = data.length - 1
+  var findUnique = [];
+  var findUniquePaths = [];
+  var uniqueArray = [];
+  var filePaths = [];
+  let totalSizes = data[i].size
 
-      const percent = Math.round((size / total) * 100);
-      const key = modules[j].id;
-      property.push([ chunk, path, size, percent, key ]);
+  for (var j = 0; j < data[i].chunks.length; j++) {
+    for (var k = 0; k < data[i].chunks[j].modules.length; k++) {
+      let path = data[i].chunks[j].modules[k].name.split('/')
+      let pathNoPeriod = path.slice(1, path.length).join('/')
+      let sizes = data[i].chunks[j].modules[k].size
+      let percent = (sizes / totalSizes * 100).toFixed(2) + '%'
+
+      filePaths.push([path.slice(1, path.length).join('/'), sizes, percent])
+
+      findUniquePaths.push(path.slice(1, path.length - 1).join('/'))
     }
   }
 
-  function buildHierarchy2(pay) {
-    const root = { "filename": "root", "children": [] };
-    for (let i = 0; i < pay.length; i++) {
-      const sequence = pay[i][1];
-      const size = pay[i][2];
-      const chunk = pay[i][0];
-      const percent = pay[i][3];
-      const key = pay[i][4];
-      if (isNaN(size)) continue;
-      const parts = sequence.split('-');
-      let currentNode = root;
-      for (let j = 0; j < parts.length; j += 1) {
-        const children = currentNode['children'];
-        const nodeName = parts[j];
-        let childNode;
-        if (j + 1 < parts.length) {
-          // Not yet at the end of the sequence; move down the tree.
-          let foundChild = false;
-          for (let k = 0; k < children.length; k += 1) {
-            if (children[k]['filename'] === nodeName) {
-              childNode = children[k];
-              foundChild = true;
-              break;
-            }
-          }
-          // If we don't already have a child node for this branch, create it.
-          if (!foundChild) {
-            childNode = { 'filename': nodeName, 'children': [] };
-            children.push(childNode);
-          }
-          currentNode = childNode;
-        } else {
-          // Reached the end of the sequence; create a leaf node.
-          childNode = { 'filename': nodeName, 'size': size, 'chunk': chunk, 'percent': percent, 'id': key };
-          children.push(childNode);
-        }
+  var uniqueArray = findUniquePaths.filter(function (item, pos) {
+    return findUniquePaths.indexOf(item) == pos;
+  });
+
+  uniqueArray.sort();
+
+  var filePathAry = [];
+  var finalArray = [];
+  var dirFinalArray = [];
+
+  for (var l = 0; l < uniqueArray.length; l++) {
+    // console.log('**********************')
+    // console.log('Directory:', uniqueArray[l])
+    // console.log('**********************')
+    for (var k = 0; k < filePaths.length; k++) {
+
+      filePathAry = [filePaths[k][0].split('/'), filePaths[k][1], filePaths[k][2]]
+
+      let uniquePathCheck = filePathAry[0].slice(0, filePathAry[0].length - 1).join('/')
+
+      if (uniqueArray[l] === uniquePathCheck) {
+
+        // console.log(filePathAry[0][filePathAry[0].length - 1], filePathAry[1], filePathAry[2])
+        finalArray.push({
+          "filename": filePathAry[0][filePathAry[0].length - 1],
+          "size": filePathAry[1],
+          "percentage": filePathAry[2]
+        })
       }
     }
-    return root;
+
+    dirFinalArray.push([uniqueArray[l], finalArray])
+    finalArray = [];
+
   }
 
-  const mydata = buildHierarchy2(property)
+  const fileTable = dirFinalArray.map((directory) => {
+    const fileListItems = directory[1].map((file) => {
+    return (
 
-  return (
-    <div style={{ display: 'inline-block', width: '50%', verticalAlign: 'top' }}>
-      {/* <h1 id="Modules">Modules</h1>
-      <div style={{ display: 'inline-block', margin: '2%' }} >
-      <h1>Chunk</h1>
-      {chunks}
-    </div> */}
-      <div style={{ display: 'inline-block', margin: '2%' }}>
-        {/* <h1>Name</h1> */}
-        {/* {names} */}
-        {/* {parentDiv} */}
+      <li>
+        <div className="col-sm-4">
+          {file.filename}
+        </div>
+        <div className="col-sm-4">
+          {file.size}
+        </div>
+        <div className="col-sm-4">
+          {file.percentage}
+        </div>
+      </li>
+
+
+    )
+  })
+    return (
+        <div className="bgs">
+        <Panel>
+        <PanelHeader title={directory[0]}/>
+          <ul id='fileNames'>
+            {fileListItems}
+          </ul>
+          </Panel>
       </div>
-      {/* <div style={{ display: 'inline-block', margin: '2%' }} >
-      <h1>Size</h1>
-      {sizes}
-    </div>
-    <div style={{ display: 'inline-block', margin: '2%' }}>
-    <h1>%</h1>
-    {percents}
-  </div> */}
-    </div>
+      
+    );
+  })
+  // const menue = uniqueArray.map((files) => <a>{files}</a>)
+  
+  return (
+    <div className="col-md-12 custom_padding">
+      {/* {menue} */}
+      {fileTable}
+      </div>
   );
+
+console.log('table', fileTable)
+
+  // console.log('dirFinalArray', dirFinalArray)
+  // console.log('dirFinalArray[0]', dirFinalArray[0])
+  // const directory = dirFinalArray[0][0]
+
+  // const fileListItems = dirFinalArray[0][1].map((file) => {
+  //   return (
+
+  //     <li>
+  //       <div className="col-sm-4">
+  //         {file.filename}
+  //       </div>
+  //       <div className="col-sm-4">
+  //         {file.size}
+  //       </div>
+  //       <div className="col-sm-4">
+  //         {file.percentage}
+  //       </div>
+  //     </li>
+
+  //   )
+  // })
+
+  // const List = dirFinalArray.map((directory) => {
+  //   return (
+  //     <div style={{ display: 'inline-block', width: '50%', verticalAlign: 'top' }}>
+  //       <ul>{directory[0]}</ul>
+  //       <ul>
+
+  //         {fileListItems}
+  //       </ul>
+  //     </div>
+  //   );
+
+  // })
+
+
+
 };
 
 

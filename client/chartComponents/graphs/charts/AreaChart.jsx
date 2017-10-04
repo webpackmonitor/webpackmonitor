@@ -1,6 +1,7 @@
 import React from 'react';
 import { D3Axis, D3Grid, D3ToolTip, D3Dots } from './utils/D3Utils.jsx';
 import resizeMixin from './utils/ReactMixins.jsx';
+import * as d3 from "d3";
 
 class D3TimeAreaChart extends React.Component {
   constructor(props) {
@@ -14,27 +15,28 @@ class D3TimeAreaChart extends React.Component {
     this.w = this.state.width - (this.props.margin.left + this.props.margin.right);
     this.h = this.props.height - (this.props.margin.top + this.props.margin.bottom);
 
-    this.xScale = d3.scale.linear()
+    this.xScale = d3.scaleLinear()
     .domain(d3.extent(this.props.data, (d) => {
       return d[_self.props.xData];
     },
     )).range([0, this.w]);
     
-    this.yScale = d3.scale.linear()
+    this.yScale = d3.scaleLinear()
       .domain([0, d3.max(this.props.data, function (d) {
         return d[_self.props.yData] + _self.props.yMaxBuffer;
       })])
       .range([this.h, 0]);
 
-    this.area = d3.svg.area()
+    this.area = d3.area()
       .x(function (d) {
-        return this.xScale(d[_self.props.xData]);
+        return _self.xScale(d[_self.props.xData]);
       })
       .y0(this.h)
       .y1(function (d) {
-        return this.yScale(d[_self.props.yData]);
+        return _self.yScale(d[_self.props.yData]);
       })
-      .interpolate(this.props.interpolations);
+      .curve(d3.curveBasis)
+      // .interpolate(this.props.interpolations);
 
 
     var interpolations = [

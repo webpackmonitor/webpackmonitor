@@ -39,8 +39,6 @@ class Key extends React.Component {
     );
   }
 }
-// });
-
 
 Range.defaultProps = {
   defaultSelection: false,

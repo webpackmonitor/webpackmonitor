@@ -1,5 +1,6 @@
 import React from 'react';
-
+import Panel from './../chartComponents/common/Panel';
+import PanelHeader from './../chartComponents/common/PanelHeader';
 
 const Assets = (props) => {
   const assets = props.build[3].assets;
@@ -10,20 +11,28 @@ const Assets = (props) => {
     const key = i;
     property.push({ name, size, key });
   }
-  const names = property.map(name => <ul key={name.key}>{name.name}</ul>);
-  const sizes = property.map(size => <ul key={size.key}>{size.size}</ul>);
+  const nameSize = property.map(properties => {
+    return (
+      <li>
+        <div key={properties.key} className="col-sm-4"> 
+          {properties.name}
+          </div>
+          <div key={properties.key + 1000} className="col-sm-4"> 
+            {properties.size}
+            </div>
+            </li>
+            )
+          })
+  // const sizes = property.map(size => <li key={size.key}>{size.size}</li>);
 
   return (
-    <div style={{ display: 'inline-block', width: '50%', verticalAlign: 'top' }}>
-      <h1 id="Assets">Assets</h1>
-      <div style={{ display: 'inline-block', margin: '2%' }}>
-        <h1>Name</h1>
-        {names}
-      </div>
-      <div style={{ display: 'inline-block', margin: '2%' }} >
-        <h1>Size</h1>
-        {sizes}
-      </div>
+    <div>
+      <Panel>
+        <PanelHeader title="Assets" />
+          <ul>
+            {nameSize}
+          </ul>
+      </Panel>
     </div>
   );
 };

@@ -4,13 +4,18 @@ import Recommendations from './recoComponents/Recommendations';
 import Charts from './chartComponents/chartsApp';
 import Dashboard from './BuildComponents/Dashboard';
 
-import build from './../monitor/stats.json';
-
 class Main extends React.Component {
   constructor() {
     super();
-    this.state = { build, activeBuild: build.length - 1 };
     this.handleCircleClick = this.handleCircleClick.bind(this);
+  }
+
+  componentDidMount() {
+    fetch('/getstats')
+      .then(res => res.json())
+      .then((build) => {
+        this.setState({ build, activeBuild: build.length - 1 });
+      });
   }
 
   handleCircleClick(e) {
@@ -26,7 +31,7 @@ class Main extends React.Component {
   }
 
   renderApp() {
-    // console.log(this.state.build);
+    console.log(this.state.build);
     return (
       <main>
         <Switch>
