@@ -20,13 +20,16 @@ const getPanels = build => panelTitles.map(title => (
 );
 
 const getBytes = (number) => {
-  if (number < 1000) return `${number}B`;
-  if (number < 1000000) return `${(number / 1000).toFixed(2)}KB`;
-  return `${(number / 1000000).toFixed(2)}MB`;
+  if (number < 1000) return `${number} B`;
+  if (number < 1000000) return `${(number / 1000).toFixed(2)} KB`;
+  return `${(number / 1000000).toFixed(2)} MB`;
 };
 
+console.log(getBytes(65))
+
+
 const Recommendations = (props) => {
-  const build = props.build[12];
+  const build = props.build[props.activeBuild];
   return (
     <div className="container">
       <Cards build={props.build} activeBuild={props.activeBuild} /> 

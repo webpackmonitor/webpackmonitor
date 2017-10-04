@@ -41,29 +41,31 @@ class Cards extends React.Component {
       const assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
       const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
-      cardDiff = [`${sizePercent}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff];
-    }
+      cardDiff = [sizePercent, chunksDiff, modulesDiff, assetsDiff, errorsDiff];
+    } else cardDiff = [0, 0, 0, 0, 0];
 
-    else cardDiff = [0, 0, 0, 0, 0, biggestFile];
+    const arrows = cardDiff.map(diff => {
+      if (diff > 0) return <span>&#8593;</span>;
+      if (diff < 0) return <span>&#8595;</span>;
+      return '';
+    })
+
+    cardDiff = cardDiff.map(diff => Math.abs(diff));
 
     // unit conversion for totalSize and biggestFileSize
     if (totalSize.toString().length < 4) totalSize = `${totalSize}B`;
     if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
     if (totalSize.toString().length > 6) totalSize = `${(totalSize / 1000000).toFixed(2)}MB`;
-    if (biggestFileSize.toString().length < 4) biggestFileSize = `${biggestFileSize}B`;
-    if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = `${Math.floor(biggestFileSize / 1000)}KB`;
-    if (biggestFileSize.toString().length > 6) biggestFileSize = `${(biggestFileSize / 1000000).toFixed(2)}MB`;
 
 
     const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, index + 1];
 
-
     const cards = color.map((d, i) => {
       const style = {
-        'backgroundColor': d
+        backgroundColor: d,
       };
 
-
+      cardDiff[0] = `${cardDiff[0]}%`;
       return (
         <div className="col-xs-2 custom_padding margin-below-20" key={i}>
           <div className="card" style={style}>
@@ -72,6 +74,7 @@ class Cards extends React.Component {
                 {heading[i]}
               </div>
               <div className="pull-right">
+                {arrows[i]}
                 <span className="header_text">
                   {cardDiff[i]}
                 </span>
