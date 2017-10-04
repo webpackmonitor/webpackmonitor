@@ -26,7 +26,7 @@ const Minify = (props) => {
 
   return (
     <Panel>
-      <PanelHeader title="Minification" />
+      <PanelHeader title="JavaScript Minification" />
       <p className="subtitle">The following file size reduction estimates are based on using <a href="https://www.npmjs.com/package/babel-preset-minify">Babel&#39;s JS minifier</a></p>
       {fileReports}
       <PanelData totalSize={totalSize} optSize={(optSize)} getBytes={props.getBytes} />

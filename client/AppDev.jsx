@@ -1,21 +1,14 @@
 import React from 'react';
 import Header from './Header';
 import Main from './Main';
+import build from './../monitor/stats.json';
 
 class App extends React.Component {
   constructor() {
     super();
-    this.state = { build: [], activeBuild: 0 };
+    this.state = { build, activeBuild: build.length - 1 };
     this.handleCircleClick = this.handleCircleClick.bind(this);
     this.selectBuild = this.selectBuild.bind(this);
-  }
-
-  componentDidMount() {
-    fetch('/getstats')
-    .then(res => res.json())
-    .then((build) => {
-      this.setState({ build, activeBuild: build.length - 1 });
-    });
   }
 
   handleCircleClick(e) {
@@ -28,8 +21,8 @@ class App extends React.Component {
     const index = e.target.getAttribute('data-build');
     this.setState({ activeBuild: index - 1 });
   }
-
   render() {
+    console.log(this.state.build[10]);
     return (
       <div>
         <Header
