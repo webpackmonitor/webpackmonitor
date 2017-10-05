@@ -29,7 +29,6 @@ module.exports = class MonitorStats {
 
     // CHECK MINIFICATION
     compiler.plugin('emit', (compilation, cb) => {
-      console.log(compilation)
       compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
