@@ -4,7 +4,6 @@ import React from 'react';
 class Cards extends React.Component {
 
   getData() {
-
     const index = this.props.activeBuild;
 
     const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
@@ -57,8 +56,9 @@ class Cards extends React.Component {
     if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
     if (totalSize.toString().length > 6) totalSize = `${(totalSize / 1000000).toFixed(2)}MB`;
 
+    const indexData = <span><span onClick={this.props.handleDecrement} className="arrow">&#9666;</span>{index + 1}<span onClick={this.props.handleIncrement} className="arrow">&#9656;</span></span>;
 
-    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, index + 1];
+    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, indexData];
 
     const cards = color.map((d, i) => {
       const style = {

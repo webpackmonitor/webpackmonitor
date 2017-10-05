@@ -6,7 +6,12 @@ import SunburstContainer from './sunburst/SunburstContainer';
 const Page = (props) => {
   return (
     <div className="container">
-      <Cards build={props.build} activeBuild={props.activeBuild} />
+      <Cards
+        build={props.build}
+        activeBuild={props.activeBuild}
+        handleIncrement={props.handleIncrement}
+        handleDecrement={props.handleDecrement}
+      />
       <MainContainer build={props.build} activeBuild={props.activeBuild} handleCircleClick={props.handleCircleClick}/>
       <SunburstContainer build={props.build} activeBuild={props.activeBuild} />
     </div>

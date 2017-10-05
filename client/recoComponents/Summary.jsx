@@ -17,7 +17,6 @@ const Summary = (props) => {
   const optSize = size - minifiedSaving - purifiedSaving;
 
   const percentLess = (optSize / size) * 100;
-  console.log(props)
   return (
     <Panel>
       <PanelHeader title="Summary" />

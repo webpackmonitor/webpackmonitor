@@ -22,11 +22,33 @@ class Main extends React.Component {
                 build={this.props.build}
                 activeBuild={this.props.activeBuild}
                 handleCircleClick={this.props.handleCircleClick}
+                handleIncrement={this.props.handleIncrement}
+                handleDecrement={this.props.handleDecrement}
               />
             )}
           />
-          <Route path="/builds" render={() => <Dashboard build={this.props.build} activeBuild={this.props.activeBuild} />} />
-          <Route path="/recommendations" render={() => <Recommendations build={this.props.build} activeBuild={this.props.activeBuild} />} />
+          <Route
+            path="/builds"
+            render={() => (
+              <Dashboard
+                build={this.props.build}
+                activeBuild={this.props.activeBuild}
+                handleIncrement={this.props.handleIncrement}
+                handleDecrement={this.props.handleDecrement}
+              />
+            )}
+          />
+          <Route
+            path="/recommendations"
+            render={() => (
+              <Recommendations
+                build={this.props.build}
+                activeBuild={this.props.activeBuild}
+                handleIncrement={this.props.handleIncrement}
+                handleDecrement={this.props.handleDecrement}
+              />
+            )}
+          />
         </Switch>
       </main>
     );

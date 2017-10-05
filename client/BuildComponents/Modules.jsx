@@ -1,11 +1,7 @@
 import React from 'react';
-import Panel from './../chartComponents/common/Panel';
-import PanelHeader from './../chartComponents/common/PanelHeader';
-import { Table, OverlayTrigger, Tooltip } from 'react-bootstrap';
-import { Panel as PanelTable } from 'react-bootstrap';
+import { Table, OverlayTrigger, Tooltip, Panel as PanelTable } from 'react-bootstrap';
 
 const Modules = (props) => {
-
   const data = props.build;
   const i = props.activeBuild;
   const build = data[i];
@@ -16,7 +12,6 @@ const Modules = (props) => {
 
   for (let j = 0; j < build.chunks.length; j++) {
     for (let k = 0; k < build.chunks[j].modules.length; k++) {
-
       const path = build.chunks[j].modules[k].name.split('/');
       const sizes = build.chunks[j].modules[k].size;
       const percent = `${((sizes / totalSizes) * 100).toFixed(2)}%`;
@@ -59,25 +54,10 @@ const Modules = (props) => {
   }
 
   const fileTable = dirFinalArray.map((directory) => {
-
-    // const fileListItems = directory[1].map(file => (
-    //   <li key={`${file.filename}${file.size}`}>
-    //     <div className="col-sm-4">
-    //       {file.filename}
-    //     </div>
-    //     <div className="col-sm-4">
-    //       {file.size}
-    //     </div>
-    //     <div className="col-sm-4">
-    //       {file.percentage}
-    //     </div>
-    //   </li>
-    // ));
-
-    const fileListItems = directory[1].map(file => (
-      <tr>
+    const fileListItems = directory[1].map((file, j) => (
+      <tr key={file.filename + file.size + j}>
         <td>{file.filename}</td>
-        <td>{file.size}</td>
+        <td>{props.getBytes(file.size)}</td>
         <td>{file.percentage}</td>
       </tr>
     ));
@@ -88,10 +68,7 @@ const Modules = (props) => {
 
 
     return (
-      <div /* className="bgs" */ key={directory[0]}>
-        {/* <Panel> */}
-        {/* <PanelHeader title={directory[0]} /> */}
-        {/* <ul id="fileNames"> */}
+      <div key={directory[0]}>
         <OverlayTrigger placement="top" overlay={tooltip}>
           <PanelTable collapsible defaultExpanded header={directory[0]}>
             <Table hover>
@@ -108,13 +85,9 @@ const Modules = (props) => {
             </Table >
           </PanelTable>
         </OverlayTrigger>
-
-        {/* </ul> */}
-        {/* </Panel> */}
       </div>
-
     );
-  })
+  });
 
   return (
     <div className="row">

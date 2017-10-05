@@ -8,6 +8,8 @@ class App extends React.Component {
     this.state = { build: [], activeBuild: 0 };
     this.handleCircleClick = this.handleCircleClick.bind(this);
     this.selectBuild = this.selectBuild.bind(this);
+    this.handleDecrement = this.handleDecrement.bind(this);
+    this.handleIncrement = this.handleIncrement.bind(this);
   }
 
   componentDidMount() {
@@ -29,6 +31,20 @@ class App extends React.Component {
     this.setState({ activeBuild: index - 1 });
   }
 
+  handleIncrement() {
+    if (this.state.activeBuild < this.state.build.length - 1) {
+      const activeBuild = this.state.activeBuild + 1;
+      this.setState({ activeBuild });
+    }
+  }
+
+  handleDecrement() {
+    if (this.state.activeBuild > 0) {
+      const activeBuild = this.state.activeBuild - 1;
+      this.setState({ activeBuild });
+    }
+  }
+
   render() {
     return (
       <div>
@@ -41,6 +57,8 @@ class App extends React.Component {
           build={this.state.build}
           activeBuild={this.state.activeBuild}
           handleCircleClick={this.handleCircleClick}
+          handleIncrement={this.handleIncrement}
+          handleDecrement={this.handleDecrement}
         />
       </div>
     );
