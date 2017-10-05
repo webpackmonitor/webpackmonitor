@@ -36,7 +36,7 @@ module.exports = class MonitorStats {
         .forEach((file) => {
           const source = compilation.assets[file].source();
           const minified = source.split(/\r\n|\r|\n/).length < 25;
-          const miniSize = minified ? false : babel.transform(source, { compact: false }).code.length;
+          const miniSize = minified ? false : babel.transform(source, { compact: true }).code.length;
           const obj = {
             name: file,
             minified,
@@ -86,16 +86,16 @@ module.exports = class MonitorStats {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
+        const parsed = parseStats(stats, target);
         // Check if new data exists
         if (
           !data.length ||
-          stats.hash !== prev.hash ||
-          stats.size !== prev.size ||
-          stats.assets.length !== prev.assets.length ||
-          stats.chunks.length !== prev.chunks.length
+          parsed.hash !== prev.hash ||
+          parsed.size !== prev.size ||
+          parsed.assets.length !== prev.assets.length ||
+          parsed.chunks.length !== prev.chunks.length
         ) {
           console.log('Writing new build');
-          const parsed = parseStats(stats, target);
           // Add minified data
           parsed.assets.forEach((asset) => {
             isMinified.forEach((minify) => {

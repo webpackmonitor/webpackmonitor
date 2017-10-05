@@ -1,7 +1,7 @@
 {
   "name": "webpack-monitor",
-  "version": "1.0.3",
-  "description": "Collect stats on your builds",
+  "version": "1.0.5",
+  "description": "Monitor your production builds throughout the development process with rich analysis tool",
   "author": "Jon Roach, Gordon Yu, Balal Zuhair",
   "license": "MIT",
   "main": "monitor.js",
