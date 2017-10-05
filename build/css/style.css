@@ -348,6 +348,11 @@ a:hover {
   margin-bottom: 20px;
 }
 
+.arrow {
+  font-family: Arial Unicode MS;
+  cursor: pointer;
+}
+
 /* SPINNER */
 .loader,
 .loader:after {
@@ -356,7 +361,7 @@ a:hover {
   height: 10em;
 }
 .loader {
-  margin: 60px auto;
+  margin: 100px auto;
   font-size: 10px;
   position: relative;
   text-indent: -9999em;

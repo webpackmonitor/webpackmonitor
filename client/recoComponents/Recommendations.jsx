@@ -25,14 +25,16 @@ const getBytes = (number) => {
   return `${(number / 1000000).toFixed(2)} MB`;
 };
 
-console.log(getBytes(65))
-
-
 const Recommendations = (props) => {
   const build = props.build[props.activeBuild];
   return (
     <div className="container">
-      <Cards build={props.build} activeBuild={props.activeBuild} /> 
+      <Cards
+        build={props.build}
+        activeBuild={props.activeBuild}
+        handleIncrement={props.handleIncrement}
+        handleDecrement={props.handleDecrement}
+      /> 
       <div className="row">
         <div className="col-md-12 custom_padding">
           <Summary build={build} getBytes={getBytes} />
