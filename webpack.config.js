@@ -67,27 +67,32 @@ module.exports = (env) => {
     ],
   };
 
-  const launch = {
-    output: {
-      path: path.join(__dirname, 'plugin/npm-module/build'),
-      filename: 'app.js',
+  const launch = merge([
+    {
+      output: {
+        path: path.join(__dirname, 'plugin/npm-module/build'),
+        filename: 'app.js',
+      },
+      plugins: [
+        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
+        new WebpackMonitor({ launch: true, capture: false }),
+      ],
     },
-    plugins: [
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
-      new WebpackMonitor({ launch: true, capture: false }),
-    ],
-  };
+    utils.uglifyJS(),
+  ]);
 
-  const confirm = {
-    output: {
-      path: path.join(__dirname, 'plugin/npm-module/build'),
-      filename: 'app.js',
+  const confirm = merge([
+    {
+      output: {
+        path: path.join(__dirname, 'plugin/npm-module/build'),
+        filename: 'app.js',
+      },
+      plugins: [
+        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
+        new WebpackMonitor({ capture: true }),
+      ],
     },
-    plugins: [
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
-      new WebpackMonitor({ capture: true }),
-    ],
-  };
+  ]);
 
   if (env === 'development') return merge([common, development]);
   if (env === 'confirm') return merge([common, confirm]);

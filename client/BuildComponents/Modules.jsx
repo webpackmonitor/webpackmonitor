@@ -1,46 +1,37 @@
 import React from 'react';
-import Panel from './../chartComponents/common/Panel';
-import PanelHeader from './../chartComponents/common/PanelHeader';
-
+import { Table, OverlayTrigger, Tooltip, Panel as PanelTable } from 'react-bootstrap';
 
 const Modules = (props) => {
+  const data = props.build;
+  const i = props.activeBuild;
+  const build = data[i];
 
-  let data = props.build;
+  const findUniquePaths = [];
+  const filePaths = [];
+  const totalSizes = build.size
 
-  var i = data.length - 1
-  var findUnique = [];
-  var findUniquePaths = [];
-  var uniqueArray = [];
-  var filePaths = [];
-  let totalSizes = data[i].size
+  for (let j = 0; j < build.chunks.length; j++) {
+    for (let k = 0; k < build.chunks[j].modules.length; k++) {
+      const path = build.chunks[j].modules[k].name.split('/');
+      const sizes = build.chunks[j].modules[k].size;
+      const percent = `${((sizes / totalSizes) * 100).toFixed(2)}%`;
 
-  for (var j = 0; j < data[i].chunks.length; j++) {
-    for (var k = 0; k < data[i].chunks[j].modules.length; k++) {
-      let path = data[i].chunks[j].modules[k].name.split('/')
-      let pathNoPeriod = path.slice(1, path.length).join('/')
-      let sizes = data[i].chunks[j].modules[k].size
-      let percent = (sizes / totalSizes * 100).toFixed(2) + '%'
+      filePaths.push([path.slice(1, path.length).join('/'), sizes, percent]);
 
-      filePaths.push([path.slice(1, path.length).join('/'), sizes, percent])
-
-      findUniquePaths.push(path.slice(1, path.length - 1).join('/'))
+      findUniquePaths.push(path.slice(1, path.length - 1).join('/'));
     }
   }
 
-  var uniqueArray = findUniquePaths.filter(function (item, pos) {
-    return findUniquePaths.indexOf(item) == pos;
-  });
+  const uniqueArray = findUniquePaths
+    .filter((item, pos) => item && findUniquePaths.indexOf(item) === pos)
+    .sort();
 
-  uniqueArray.sort();
 
   var filePathAry = [];
   var finalArray = [];
   var dirFinalArray = [];
 
   for (var l = 0; l < uniqueArray.length; l++) {
-    // console.log('**********************')
-    // console.log('Directory:', uniqueArray[l])
-    // console.log('**********************')
     for (var k = 0; k < filePaths.length; k++) {
 
       filePathAry = [filePaths[k][0].split('/'), filePaths[k][1], filePaths[k][2]]
@@ -51,98 +42,60 @@ const Modules = (props) => {
 
         // console.log(filePathAry[0][filePathAry[0].length - 1], filePathAry[1], filePathAry[2])
         finalArray.push({
-          "filename": filePathAry[0][filePathAry[0].length - 1],
-          "size": filePathAry[1],
-          "percentage": filePathAry[2]
-        })
+          filename: filePathAry[0][filePathAry[0].length - 1],
+          size: filePathAry[1],
+          percentage: filePathAry[2],
+        });
       }
     }
 
-    dirFinalArray.push([uniqueArray[l], finalArray])
+    dirFinalArray.push([uniqueArray[l], finalArray]);
     finalArray = [];
-
   }
 
   const fileTable = dirFinalArray.map((directory) => {
-    const fileListItems = directory[1].map((file) => {
-    return (
+    const fileListItems = directory[1].map((file, j) => (
+      <tr key={file.filename + file.size + j}>
+        <td>{file.filename}</td>
+        <td>{props.getBytes(file.size)}</td>
+        <td>{file.percentage}</td>
+      </tr>
+    ));
 
-      <li>
-        <div className="col-sm-4">
-          {file.filename}
-        </div>
-        <div className="col-sm-4">
-          {file.size}
-        </div>
-        <div className="col-sm-4">
-          {file.percentage}
-        </div>
-      </li>
-
-
-    )
-  })
-    return (
-        <div className="bgs">
-        <Panel>
-        <PanelHeader title={directory[0]}/>
-          <ul id='fileNames'>
-            {fileListItems}
-          </ul>
-          </Panel>
-      </div>
-      
+    const tooltip = (
+      <Tooltip id="tooltip"><strong>Click path to collapse</strong></Tooltip>
     );
-  })
-  // const menue = uniqueArray.map((files) => <a>{files}</a>)
-  
-  return (
-    <div className="col-md-12 custom_padding">
-      {/* {menue} */}
-      {fileTable}
+
+
+    return (
+      <div key={directory[0]}>
+        <OverlayTrigger placement="top" overlay={tooltip}>
+          <PanelTable collapsible defaultExpanded header={directory[0]}>
+            <Table hover>
+              <thead>
+                <tr>
+                  <th>File Name</th>
+                  <th>Size Name</th>
+                  <th>Percentage</th>
+                </tr>
+              </thead>
+              <tbody>
+                {fileListItems}
+              </tbody>
+            </Table >
+          </PanelTable>
+        </OverlayTrigger>
       </div>
+    );
+  });
+
+  return (
+    <div className="row">
+      <div className="col-md-12 custom_padding">
+        {fileTable}
+      </div>
+    </div>
   );
-
-console.log('table', fileTable)
-
-  // console.log('dirFinalArray', dirFinalArray)
-  // console.log('dirFinalArray[0]', dirFinalArray[0])
-  // const directory = dirFinalArray[0][0]
-
-  // const fileListItems = dirFinalArray[0][1].map((file) => {
-  //   return (
-
-  //     <li>
-  //       <div className="col-sm-4">
-  //         {file.filename}
-  //       </div>
-  //       <div className="col-sm-4">
-  //         {file.size}
-  //       </div>
-  //       <div className="col-sm-4">
-  //         {file.percentage}
-  //       </div>
-  //     </li>
-
-  //   )
-  // })
-
-  // const List = dirFinalArray.map((directory) => {
-  //   return (
-  //     <div style={{ display: 'inline-block', width: '50%', verticalAlign: 'top' }}>
-  //       <ul>{directory[0]}</ul>
-  //       <ul>
-
-  //         {fileListItems}
-  //       </ul>
-  //     </div>
-  //   );
-
-  // })
-
-
-
 };
-
 
 export default Modules;

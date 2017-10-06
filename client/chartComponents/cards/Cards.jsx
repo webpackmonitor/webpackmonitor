@@ -4,11 +4,10 @@ import React from 'react';
 class Cards extends React.Component {
 
   getData() {
-
     const index = this.props.activeBuild;
 
     const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
-    const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Largest File'];
+    const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Current Build'];
 
     // find totals of all cards
     let totalSize = this.props.build[index].size
@@ -41,29 +40,32 @@ class Cards extends React.Component {
       const assetsDiff = assetsTotal - this.props.build[index - 1].assets.length;
       const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
-      cardDiff = [`${sizePercent}%`, chunksDiff, modulesDiff, assetsDiff, errorsDiff, biggestFile];
-    }
+      cardDiff = [sizePercent, chunksDiff, modulesDiff, assetsDiff, errorsDiff];
+    } else cardDiff = [0, 0, 0, 0, 0];
 
-    else cardDiff = [0, 0, 0, 0, 0, biggestFile];
+    const arrows = cardDiff.map(diff => {
+      if (diff > 0) return <span>&#8593;</span>;
+      if (diff < 0) return <span>&#8595;</span>;
+      return '';
+    })
+
+    cardDiff = cardDiff.map(diff => Math.abs(diff));
 
     // unit conversion for totalSize and biggestFileSize
     if (totalSize.toString().length < 4) totalSize = `${totalSize}B`;
     if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
     if (totalSize.toString().length > 6) totalSize = `${(totalSize / 1000000).toFixed(2)}MB`;
-    if (biggestFileSize.toString().length < 4) biggestFileSize = `${biggestFileSize}B`;
-    if (biggestFileSize.toString().length > 3 && biggestFileSize.toString().length < 7) biggestFileSize = `${Math.floor(biggestFileSize / 1000)}KB`;
-    if (biggestFileSize.toString().length > 6) biggestFileSize = `${(biggestFileSize / 1000000).toFixed(2)}MB`;
 
+    const indexData = <span><span onClick={this.props.handleDecrement} className="arrow">&#9666;</span>{index + 1}<span onClick={this.props.handleIncrement} className="arrow">&#9656;</span></span>;
 
-    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, biggestFileSize];
-
+    const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, indexData];
 
     const cards = color.map((d, i) => {
       const style = {
-        'backgroundColor': d
+        backgroundColor: d,
       };
 
-
+      cardDiff[0] = `${cardDiff[0]}%`;
       return (
         <div className="col-xs-2 custom_padding margin-below-20" key={i}>
           <div className="card" style={style}>
@@ -72,6 +74,7 @@ class Cards extends React.Component {
                 {heading[i]}
               </div>
               <div className="pull-right">
+                {arrows[i]}
                 <span className="header_text">
                   {cardDiff[i]}
                 </span>

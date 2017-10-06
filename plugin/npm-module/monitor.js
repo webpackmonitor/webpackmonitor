@@ -47,7 +47,7 @@ module.exports = class MonitorStats {
       cb();
     });
 
-    // CHECK UNPURE CSS
+    // // CHECK UNPURE CSS
     compiler.plugin('emit', (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
@@ -86,16 +86,16 @@ module.exports = class MonitorStats {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
+        const parsed = parseStats(stats, target);
         // Check if new data exists
         if (
           !data.length ||
-          stats.hash !== prev.hash ||
-          stats.size !== prev.size ||
-          stats.assets.length !== prev.assets.length ||
-          stats.chunks.length !== prev.chunks.length
+          parsed.hash !== prev.hash ||
+          parsed.size !== prev.size ||
+          parsed.assets.length !== prev.assets.length ||
+          parsed.chunks.length !== prev.chunks.length
         ) {
           console.log('Writing new build');
-          const parsed = parseStats(stats, target);
           // Add minified data
           parsed.assets.forEach((asset) => {
             isMinified.forEach((minify) => {

@@ -94,7 +94,7 @@ class MainContainer extends React.Component {
               interpolations="basis"
             >
 
-              <yGrid orient="left" className="y-grid" ticks={5} />
+              {/* <yGrid orient="left" className="y-grid" ticks={5} /> */}
               <xAxis orient="bottom" className="axis" tickFormat="%d/%m" ticks={4} />
               <yAxis orient="left" className="axis" ticks={5} />
               <area className="area" fill="#ca6f96" value="C" />
@@ -122,7 +122,7 @@ class MainContainer extends React.Component {
               <defs>
                 <gradient color1="#fff" color2="#53c79f" id="area" />
               </defs>
-              <yGrid orient="left" className="y-grid" ticks={5} />
+              {/* <yGrid orient="left" className="y-grid" ticks={5} /> */}
               <xAxis orient="bottom" className="axis" tickFormat="Build %d" ticks={10} />
               <yAxis orient="left" className="axis" ticks={5} />
               <area className="area" fill="url(#area)" />
