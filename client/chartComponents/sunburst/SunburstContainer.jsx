@@ -51,7 +51,7 @@ class StarburstContainer extends React.Component {
       <div className="row">
         <div className="col-md-12 custom_padding" >
           <Panel>
-            <PanelHeader title="Individual Components" />
+            <PanelHeader title="Modules &amp; Dependencies" />
             <div className="text-center">
               <SunBurstChart data={sunBurstData} />
             </div>
