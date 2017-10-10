@@ -30,7 +30,7 @@ const Changes = (props) => {
     let original = dirFinalFiles.map((item) => item[0])
     return !original.includes(curr[0])
   });
-
+  
   
   const additions = [];
   if (added.length === 0) {
