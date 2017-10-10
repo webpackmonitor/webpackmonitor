@@ -418,6 +418,10 @@ header {
   font-weight: 300;  
 }
 
+.logo {
+  margin-right: 25px;
+}
+
 .links {
   line-height: 75px;
   margin-right: 25px;
