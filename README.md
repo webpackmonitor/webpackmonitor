@@ -40,9 +40,9 @@ To contribute to `webpack-monitor`, fork the repository and clone it to your mac
 
 ## Authors
 
-Jon Roach (https://github.com/roachjc)
-Gordon Yu (https://github.com/gordonu)
-Balal Zuhair (https://github.com/bzuhair)
+- Jon Roach (https://github.com/roachjc)
+- Gordon Yu (https://github.com/gordonu)
+- Balal Zuhair (https://github.com/bzuhair)
 
 ## License
 
