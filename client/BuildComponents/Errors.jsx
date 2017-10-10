@@ -8,6 +8,7 @@ const Errors = (props) => {
   let errors = props.build[props.activeBuild].errors;
   const property = [];
   let errorNum = 0;
+  
   if (!errors.length) errors = <td>No Errors!</td>;
   else {
     for (let i = 0; i < errors.length; i += 1) {
@@ -21,8 +22,6 @@ const Errors = (props) => {
 
   errorNum = <td>Errors: {errorNum}</td>
 
-
-
   const tooltip = (
     <Tooltip id="tooltip"><strong>Click path to collapse</strong></Tooltip>
   );
@@ -31,11 +30,8 @@ const Errors = (props) => {
   return (
     <div className="row">
       <div className="col-md-12 custom_padding" >
-        {/* <Panel> */}
-        {/* <PanelHeader title='Errors' /> */}
         <OverlayTrigger placement="top" overlay={tooltip}>
           <PanelTable collapsible defaultExpanded header="Errors">
-            {/* <ul> */}
             <Table hover>
               <thead>
                 <tr>
@@ -44,15 +40,13 @@ const Errors = (props) => {
               </thead>
               <tbody>
                 <tr>
-                {errors}
-                {errorNum}
+                  {errors}
+                  {errorNum}
                 </tr>
               </tbody>
             </Table >
-            {/* </ul> */}
           </PanelTable>
         </OverlayTrigger>
-        {/* </Panel> */}
       </div>
     </div>
   );
