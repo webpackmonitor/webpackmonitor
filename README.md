@@ -5,7 +5,7 @@ Webpack Monitor is a configurable Webpack plugin that captures relevant statisti
 
 ## Usage
 
-![webpack monitor analysis tool] (roachjc.github.io/main3.gif)
+![webpack monitor analysis tool](https://roachjc.github.io/main3.gif)
 
 Install the webpack monitor plugin on your production config. The plugin will collect stats whenever meaningful changes to bundle composition have occurred. Optionally launch analysis too to see how your bundles have changed over time!
 
