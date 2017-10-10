@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { NavDropdown, MenuItem } from 'react-bootstrap';
+import logo from './assets/wpmlogo.png';
+
 
 // The Header creates links that can be used to navigate
 // between routes.
@@ -18,7 +20,7 @@ const Header = (props) => {
   return (
     <header>
       <nav>
-        <div className="pull-left panel-title header-title">webpack monitor</div>
+        <div className="pull-left panel-title header-title"><img className="logo" src={logo} />webpack monitor</div>
         <ul className="links list-inline pull-right">
           <NavDropdown title="Select Build" id="basic-nav-dropdown">
             {menuItems}
