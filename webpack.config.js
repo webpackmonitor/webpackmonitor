@@ -80,7 +80,7 @@ module.exports = (env) => {
         filename: 'app.js',
       },
       plugins: [
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
+        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
         new WebpackMonitor({ launch: true, capture: false }),
       ],
     },
