@@ -1,40 +1,47 @@
-Webpack Monitor
-=====================
+# Webpack Monitor
+Webpack Monitor is a configurable Webpack plugin that captures relevant statistics on your production builds, and an interactive analysis tool that helps developers better understand bundle composition and identify and prioritize optimization strategies.
 
-A [webpack](https://webpack.js.org/) plugin to gather build data, render useful analysis of how your bundles transform over time and make suggestions on how you can keep your compiled application optimized.
+## Usage
 
-Use webpack monitor in your production build configuration to keep track of changes to webpack's output throughout the development process. Identify builds where heavyweight libraries are introduced. See how much you could reduce asset file size using common optimization methods. Prioritize optimizations based on what will be most beneficial to your project.
+![webpack monitor analysis tool](https://roachjc.github.io/main3.gif)
 
-Installation
-------------
-Install the plugin with npm:
-```shell
-npm install webpack-monitor --save-dev
+Install the webpack monitor plugin on your production config. The plugin will collect stats whenever meaningful changes to bundle composition have occurred. Optionally launch analysis too to see how your bundles have changed over time!
+
+## Setup
+```sh
+npm install --save-dev webpack-monitor
 ```
 
-Basic Usage 
------------
-
-```javascript
+in `webpack.config.js`
+```js
 const WebpackMonitor = require('webpack-monitor');
-const webpackConfig = {
-  entry: 'index.js',
-  output: {
-    path: __dirname + '/dist',
-    filename: 'bundle.js'
-  },
-  plugins: [
-    new WebpackMonitor({
-      capture: true,
-      launch: true,
-    }),
-  ],
-};
+
+// ...
+
+plugins: [
+  new WebpackMonitor({
+    capture: true, // -> default 'true'
+    target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
+    launch: true, // -> default 'false'
+    port: 3030, // default -> 8081
+  }),
+],
 ```
 
-The plugin accepts the following options. 
+`capture` will collect stats on the build where meaningful changes have occured. We do not capture build data where the build does not differ from most recent build on file.
+`target` specify where to save your build data
+`launch` will fire up a local server and launch the webpack monitor analysis tool
+`port` optionally set the port for local server
 
-- `target`: The route for the outputted JSON stats file (relative to build directory). Defaults to `../monitor/stats.json`
-- `launch`: If true, start server and launch webpack monitor analysis dashboard. Default `false`
-- `capture`: Capture stats on current build if different from previous build. Default `true`.
-- `port`: port at which to serve webpack monitor dashboard on launch. Default `8081`
+## Contributing
+To contribute to `webpack-monitor`, fork the repository and clone it to your machine then install dependencies with `npm install`. If you're interested in joining the Webpack Monitor team as a contributor, feel free to message one of us directly!
+
+## Authors
+
+- Jon Roach (https://github.com/roachjc)
+- Gordon Yu (https://github.com/gordonu)
+- Balal Zuhair (https://github.com/bzuhair)
+
+## License
+
+This project is licensed under the MIT License - see the LICENSE.md file for details
