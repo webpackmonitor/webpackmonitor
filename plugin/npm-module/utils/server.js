@@ -21,14 +21,9 @@ module.exports = (data, port, update) => {
     res.json(data);
   });
 
-  const diff = Math.floor((data[data.length - 1].size - data[data.length - 2].size) / 1000);
-
-  const direction = diff >= 0 ? 'grown' : 'shrunk';
-
-  app.listen(8081, () => {
+  app.listen(port, () => {
     opener(url);
     console.log(colors.bold('\nWebpack-Monitor'), `is running on port ${port}!`);
     console.log(colors.italic.red('Press ctrl C to exit'));
-    if (update) console.log(`Your build has ${direction} by ${diff}kb\n`);
   });
 };

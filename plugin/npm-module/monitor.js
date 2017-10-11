@@ -8,18 +8,16 @@ const parseStats = require('./utils/parser');
 
 module.exports = class MonitorStats {
   constructor(options) {
-    this.options = {
+    this.options = Object.assign({
       target: '../monitor/stats.json',
       jsonOpts: { source: false },
       launch: false,
       capture: true,
       port: 8081,
-      ...options,
-    };
+    }, options);
   }
 
   apply(compiler) {
-    
     const isMinified = [];
     const target = path.resolve(__dirname, '..', this.options.target);
     const jsonOpts = this.options.jsonOpts;
