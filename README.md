@@ -1,6 +1,6 @@
 <div align="center">
   <a href="https://github.com/webpackmonitor/webpackmonitor">
-    <img src="roachjc.github.io/wpmlogo-smed.png">
+    <img src="https://roachjc.github.io/wpmlogo-smed.png">
   </a>
 </div>
 
