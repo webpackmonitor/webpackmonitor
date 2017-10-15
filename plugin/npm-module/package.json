@@ -1,7 +1,8 @@
 {
   "name": "webpack-monitor",
-  "version": "1.0.8",
+  "version": "1.0.11",
   "description": "Monitor your production builds throughout the development process with rich analysis tool",
+  "homepage": "https://github.com/webpackmonitor/webpackmonitor",
   "author": "Jon Roach, Gordon Yu, Balal Zuhair",
   "license": "MIT",
   "main": "monitor.js",
@@ -11,5 +12,9 @@
     "express": "^4.15.5",
     "opener": "^1.4.3",
     "purify-css": "^1.2.5"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/webpackmonitor/webpackmonitor"
   }
 }
