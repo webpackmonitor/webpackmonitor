@@ -31,6 +31,7 @@ module.exports = class MonitorStats {
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
         .filter(file => /\.js($|\?)/.test(file))
+        .filter(file => compilation.assets[file])
         .forEach((file) => {
           const source = compilation.assets[file].source();
           const minified = source.split(/\r\n|\r|\n/).length < 25;
@@ -45,12 +46,13 @@ module.exports = class MonitorStats {
       cb();
     });
 
-    // // CHECK UNPURE CSS
+    // CHECK UNPURE CSS
     compiler.plugin('emit', (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
         .filter(file => /\.css($|\?)/.test(file))
+        .filter(file => compilation.assets[file])
         .reduce((concat, file) => {
           const sourceCSS = compilation.assets[file].source();
           return concat += sourceCSS;
@@ -60,12 +62,13 @@ module.exports = class MonitorStats {
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
         .filter(file => /\.js($|\?)/.test(file))
+        .filter(file => compilation.assets[file])
         .reduce((concat, file) => {
           const sourceJs = compilation.assets[file].source();
           return concat += sourceJs;
         }, '');
 
-      const purified = purifycss(js, css, { minify: false });
+      const purified = purifycss(js || '', css || '', { minify: false });
       pureSize = purified.length;
       cb();
     });
