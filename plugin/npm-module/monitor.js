@@ -75,10 +75,14 @@ module.exports = class MonitorStats {
     if (!fs.existsSync(targetDir)) {
       // ...make directory if it does not
       fs.mkdirSync(targetDir);
-      data = [];
-    } else {
+    }
+    
+    // CHECK IF TARGET FILE EXISTS...
+    if (fs.existsSync(target)) {
       // ...get existing data if it does
       data = JSON.parse(fs.readFileSync(target, { encoding: 'utf8' }));
+    } else {
+      data = [];
     }
 
     compiler.plugin('done', (stats) => {
