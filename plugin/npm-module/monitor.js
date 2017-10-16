@@ -45,7 +45,7 @@ module.exports = class MonitorStats {
       cb();
     });
 
-    // // CHECK UNPURE CSS
+    // CHECK UNPURE CSS
     compiler.plugin('emit', (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
@@ -71,9 +71,10 @@ module.exports = class MonitorStats {
     });
 
     // CHECK IF TARGET DIRECTORY EXISTS...
-    if (!fs.existsSync(target)) {
+    const targetDir = path.dirname(target)
+    if (!fs.existsSync(targetDir)) {
       // ...make directory if it does not
-      fs.mkdirSync(path.resolve(__dirname, '../..', 'monitor'));
+      fs.mkdirSync(targetDir);
       data = [];
     } else {
       // ...get existing data if it does
