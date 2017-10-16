@@ -15,7 +15,6 @@ module.exports = (env) => {
   const common = merge([
     {
       entry: {
-        // vendor: ['react', 'react-dom'],
         app: PATHS.app,
       },
       
@@ -55,12 +54,9 @@ module.exports = (env) => {
         ],
       },
     },
-    // utils.extractCSS(),
     utils.purifyCSS({
       paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
     }),
-    // utils.extractVendorCode(),
-    // utils.uglifyJS(),
   ]);
 
   const development = {
