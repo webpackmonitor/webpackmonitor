@@ -18,11 +18,13 @@ module.exports = (stats, target) => {
     chunks: stats.chunks.map(chunk => ({
       size: chunk.size,
       files: chunk.files,
-      modules: chunk.modules.map(module => ({
-        name: module.name,
-        size: module.size,
-        id: module.id,
-      })),
+      modules: chunk.modules ?
+        chunk.modules.map(module => ({
+          name: module.name,
+          size: module.size,
+          id: module.id,
+        }))
+        : [],
     })),
 
   };
