@@ -74,13 +74,18 @@ module.exports = class MonitorStats {
     });
 
     // CHECK IF TARGET DIRECTORY EXISTS...
-    if (!fs.existsSync(target)) {
+    const targetDir = path.dirname(target)
+    if (!fs.existsSync(targetDir)) {
       // ...make directory if it does not
-      fs.mkdirSync(path.resolve(__dirname, '../..', 'monitor'));
-      data = [];
-    } else {
+      fs.mkdirSync(targetDir);
+    }
+    
+    // CHECK IF TARGET FILE EXISTS...
+    if (fs.existsSync(target)) {
       // ...get existing data if it does
       data = JSON.parse(fs.readFileSync(target, { encoding: 'utf8' }));
+    } else {
+      data = [];
     }
 
     compiler.plugin('done', (stats) => {
