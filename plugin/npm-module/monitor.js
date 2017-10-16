@@ -62,6 +62,7 @@ module.exports = class MonitorStats {
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
         .filter(file => /\.js($|\?)/.test(file))
+        .filter(file => compilation.assets[file])
         .reduce((concat, file) => {
           const sourceJs = compilation.assets[file].source();
           return concat += sourceJs;
