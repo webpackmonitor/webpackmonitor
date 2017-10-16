@@ -1,5 +1,4 @@
 module.exports = (stats, target) => {
-  console.log(stats.chunks);
   stats.assets = stats.assets.filter(asset => asset.name !== target);
 
   return {
