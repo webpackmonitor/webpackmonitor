@@ -24,6 +24,7 @@ module.exports = class MonitorStats {
     let unPureSize;
     let pureSize;
     let data;
+    let purifyCssError;
 
     // CHECK MINIFICATION
     compiler.plugin('emit', (compilation, cb) => {
@@ -68,8 +69,13 @@ module.exports = class MonitorStats {
           return concat += sourceJs;
         }, '');
 
-      const purified = purifycss(js || '', css || '', { minify: false });
-      pureSize = purified.length;
+      try {
+        const purified = purifycss(js || '', css || '', { minify: false });
+        pureSize = purified.length;
+      } catch (e) {
+        purifyCssError = e.reason;
+      }
+
       cb();
     });
 
@@ -110,12 +116,11 @@ module.exports = class MonitorStats {
                 asset.minified = minify.minified;
               }
             });
-          });
+          }); 
           // Add purify css data
-          if (pureSize) {
-            parsed.pureCssSize = pureSize;
-            parsed.unPureCssSize = unPureSize;
-          }
+          parsed.pureCssSize = pureSize;
+          parsed.unPureCssSize = unPureSize;
+          parsed.purifyCssError = purifyCssError;
 
           data.push(parsed);
         }
