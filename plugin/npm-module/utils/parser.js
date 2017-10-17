@@ -1,7 +1,7 @@
 module.exports = (stats, target) => {
   stats.assets = stats.assets.filter(asset => asset.name !== target);
 
-  return {
+  const result = {
     timeStamp: Date.now(),
     time: stats.time,
     hash: stats.hash,
@@ -28,4 +28,20 @@ module.exports = (stats, target) => {
     })),
 
   };
+
+  if (stats.modules) {
+    stats.modules.forEach(module => {
+      if (module.chunks) {
+        module.chunks.forEach(chunk => {
+          result.chunks[chunk].modules.push({
+            name: module.name,
+            size: module.size,
+            id: module.id,
+          });
+        });
+      }
+    });
+  }
+
+  return result;
 };
