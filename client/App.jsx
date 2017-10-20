@@ -12,6 +12,7 @@ class App extends React.Component {
     this.handleIncrement = this.handleIncrement.bind(this);
   }
 
+  // Get build data
   componentDidMount() {
     fetch('/getstats')
     .then(res => res.json())
@@ -20,17 +21,20 @@ class App extends React.Component {
     });
   }
 
+  // Select build from LineChart
   handleCircleClick(e) {
     const len = this.state.build.length;
     const index = len - e.target.getAttribute('data-build');
     this.setState({ activeBuild: len - index });
   }
 
+  // Select build from header dropdown
   selectBuild(e) {
     const index = e.target.getAttribute('data-build');
     this.setState({ activeBuild: index - 1 });
   }
 
+  // Select build from card
   handleIncrement() {
     if (this.state.activeBuild < this.state.build.length - 1) {
       const activeBuild = this.state.activeBuild + 1;
