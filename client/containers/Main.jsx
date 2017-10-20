@@ -11,6 +11,7 @@ class Main extends React.Component {
     );
   }
 
+  // Handle routing for Main
   renderApp() {
     return (
       <main>
@@ -54,6 +55,7 @@ class Main extends React.Component {
     );
   }
 
+  // Render spinner / loader util data loads
   render() {
     const build = this.props.build.length;
     return (

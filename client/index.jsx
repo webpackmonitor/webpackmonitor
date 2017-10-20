@@ -7,6 +7,7 @@ import App from './App';
 const env = process.env.NODE_ENV;
 
 if (env === 'development') {
+  // AppDev imports a local JSON file as demo data
   render(
     (
       <BrowserRouter>
@@ -16,6 +17,7 @@ if (env === 'development') {
     document.getElementById('root'),
   );
 } else {
+  // App retrieves data with fetch from getstats route on plugin server
   render(
     (
       <BrowserRouter>
