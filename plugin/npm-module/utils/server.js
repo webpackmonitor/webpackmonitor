@@ -3,12 +3,12 @@ const path = require('path');
 const opener = require('opener');
 const colors = require('colors');
 
-module.exports = (data, port, update) => {
+module.exports = (data, port, update, pluginOptions) => {
   const app = express();
   const url = `http://localhost:${port}/`;
-  const options = {
+  const options = Object.assign({
     root: path.join(__dirname, '..', 'build'),
-  };
+  }, pluginOptions);
 
   app.use(express.static(options.root));
   app.use('/css', express.static(path.join(__dirname, '..', 'build', 'css')));
@@ -23,7 +23,9 @@ module.exports = (data, port, update) => {
 
   app.listen(port, () => {
     opener(url);
-    console.log(colors.bold('\nWebpack-Monitor'), `is running on port ${port}!`);
-    console.log(colors.italic.red('Press ctrl C to exit'));
+    if (options.debug) {
+      console.log(colors.bold('\nWebpack-Monitor'), `is running on port ${port}!`);
+      console.log(colors.italic.red('Press ctrl C to exit'));
+    }
   });
 };
