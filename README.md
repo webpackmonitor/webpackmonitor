@@ -8,6 +8,7 @@
 Webpack Monitor is a configurable Webpack plugin that captures relevant statistics on your production builds, and an interactive analysis tool that helps developers better understand bundle composition and identify and prioritize optimization strategies.
 
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
+[![Open Source Love](https://badges.frapsoft.com/os/mit/mit.svg?v=102)](https://github.com/ellerbrock/open-source-badge/)
 
 ## Usage
 
