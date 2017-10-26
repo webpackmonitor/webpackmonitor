@@ -24,7 +24,7 @@ const Modules = (props) => {
               <thead>
                 <tr>
                   <th>File Name</th>
-                  <th>Size Name</th>
+                  <th>File Size</th>
                   <th>Percentage</th>
                 </tr>
               </thead>
