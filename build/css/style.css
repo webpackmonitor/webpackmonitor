@@ -353,6 +353,13 @@ a:hover {
   cursor: pointer;
 }
 
+/* hide the arrow but allow it to take its space in the layout */
+.arrow.inactive {
+  opacity: 0;
+  pointer-events: none;
+  cursor: default;
+}
+
 /* SPINNER */
 .loader,
 .loader:after {
