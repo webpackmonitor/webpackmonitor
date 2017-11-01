@@ -1,15 +1,9 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { NavDropdown, MenuItem } from 'react-bootstrap';
+import { NavDropdown } from 'react-bootstrap';
 import logo from './../assets/wpmlogo.png';
+import { getMenuItems } from './utils';
 
-const getMenuItems = (buildNumber, selectBuild) => {
-  const menuItems = [];
-  for (let i = buildNumber; i > 0; i -= 1) {
-    menuItems.push(<MenuItem onClick={selectBuild} data-build={i} key={`build${i}`}>Build {i}</MenuItem>);
-  }
-  return menuItems;
-};
 
 const Header = (props) => {
   const menuItems = getMenuItems(props.build.length, props.selectBuild);

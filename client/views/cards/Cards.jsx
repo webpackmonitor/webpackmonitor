@@ -55,7 +55,15 @@ class Cards extends React.Component {
     if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
     if (totalSize.toString().length > 6) totalSize = `${(totalSize / 1000000).toFixed(2)}MB`;
 
-    const indexData = <span><span onClick={this.props.handleDecrement} className="arrow">&#9666;</span>{index + 1}<span onClick={this.props.handleIncrement} className="arrow">&#9656;</span></span>;
+    // arrows to the next/prev build,
+    // hide arrow(s) if it is currently at the last/first build therefore no navigation posibility
+    const indexData = (
+      <span>
+        <span onClick={this.props.handleDecrement} className={"arrow " + (this.props.activeBuild === 0 ? "inactive" : "")}>&#9666;</span>
+        {index + 1}
+        <span onClick={this.props.handleIncrement} className={"arrow " + (this.props.activeBuild === this.props.build.length - 1 ? "inactive" : "")}>&#9656;</span>
+      </span>
+    );
 
     const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, indexData];
 
