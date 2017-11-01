@@ -7,6 +7,7 @@ import FileReport from './components/common/FileReport';
 import Summary from './components/Summary';
 import Minify from './components/Minify';
 import PurifyCss from './components/PurifyCss';
+import DevtoolRecommendation from './components/DevtoolRecommendation';
 
 const panelTitles = ['Total Size', 'Minify JS', 'Purify CSS'];
 
@@ -38,6 +39,7 @@ const Recommendations = (props) => {
       <div className="row">
         <div className="col-md-12 custom_padding">
           <Summary build={build} getBytes={getBytes} />
+          <DevtoolRecommendation build={build} />
           <Minify build={build} getBytes={getBytes} />
           <PurifyCss build={build} getBytes={getBytes} />
         </div>
