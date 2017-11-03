@@ -7,15 +7,14 @@ class D3TimeLineChart extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      tooltip: { display: false, data: { key: '', value: '' } },
-      width: 550,
+      tooltip: { display: false, data: { key: '', value: '' } }
     };
     this.showToolTip = this.showToolTip.bind(this);
     this.hideToolTip = this.hideToolTip.bind(this);
   }
 
   createChart(_self) {
-    this.w = this.state.width - (this.props.margin.left + this.props.margin.right);
+    this.w = this.props.width - (this.props.margin.left + this.props.margin.right);
     this.h = this.props.height - (this.props.margin.top + this.props.margin.bottom);
 
     this.xScale = d3.scaleLinear()
@@ -119,7 +118,7 @@ class D3TimeLineChart extends React.Component {
 
   showToolTip(e) {
     e.target.setAttribute('fill', '#FFFFFF');
-
+    
     this.setState({
       tooltip: {
         display: true,
@@ -176,7 +175,7 @@ class D3TimeLineChart extends React.Component {
 
     return (
       <div>
-        <svg id={this.props.id} width={this.state.width} height={this.props.height}>
+        <svg id={this.props.id} width={this.props.width} height={this.props.height}>
           {defs}
           <g transform={this.transform}>
             {elements}
@@ -203,7 +202,7 @@ D3TimeLineChart.propTypes = {
 };
 
 D3TimeLineChart.defaultProps = {
-  width: 800,
+  width: 550,
   height: 300,
   id: 'v1_chart',
   interpolations: 'linear',

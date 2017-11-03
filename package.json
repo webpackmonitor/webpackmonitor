@@ -48,6 +48,7 @@
   "dependencies": {
     "colors": "^1.1.2",
     "d3": "^4.10.2",
+    "lodash.isequal": "^4.5.0",
     "lodash.unionby": "^4.8.0",
     "react": "^15.6.1",
     "react-bootstrap": "^0.31.3",
