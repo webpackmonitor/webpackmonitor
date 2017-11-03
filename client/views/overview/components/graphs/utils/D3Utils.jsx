@@ -173,7 +173,8 @@ module.exports = {
           <circle
             onClick={_self.props.handleCircleClick}
             className="dot"
-            r={_self.props.r}
+            /* zero means non existing, therefor hide the circle */
+            r={d.size === 0 ? 0 : _self.props.r}
             cx={_self.props.x(d[_self.props.xData])}
             cy={_self.props.y(d[_self.props.yData])}
             data-build={i}
