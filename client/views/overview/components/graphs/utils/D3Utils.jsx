@@ -152,6 +152,7 @@ module.exports = {
       format: React.PropTypes.string,
       removeFirstAndLast: React.PropTypes.bool,
       handleClickCircle: React.PropTypes.func,
+      activeIndex: React.PropTypes.number,
     },
 
     render: function () {
@@ -173,7 +174,7 @@ module.exports = {
           <circle
             onClick={_self.props.handleCircleClick}
             className="dot"
-            r={_self.props.r}
+            r={i === _self.props.activeIndex ? _self.props.r * 2 : _self.props.r}
             cx={_self.props.x(d[_self.props.xData])}
             cy={_self.props.y(d[_self.props.yData])}
             data-build={i}
