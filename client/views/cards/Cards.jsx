@@ -15,20 +15,9 @@ class Cards extends React.Component {
     const modulesTotal = chunk.reduce((sum, value) => { return sum + value.modules.length }, 0)
     const assetsTotal = this.props.build[index].assets.length;
     const errorsTotal = this.props.build[index].errors.length;
-    let biggestFile = null;
-    let biggestFileSize = 0;
 
-    // biggestFile in first chunk
-    const module = chunk[0].modules;
-    for (let j = 0; j < module.length; j += 1) {
-      if (module[j].size > biggestFileSize) {
-        biggestFileSize = module[j].size;
-        biggestFile = module[j].name.split('/');
-        biggestFile = biggestFile.splice(biggestFile.length - 1).join('');
-      }
-    }
 
-    let cardDiff;
+    let cardDiff = [0, 0, 0, 0, 0];
     // difference between current build and previous build
     if (index > 0) {
       const sizeDiff = ((totalSize - this.props.build[index - 1].size) / totalSize) * 100;
@@ -40,17 +29,17 @@ class Cards extends React.Component {
       const errorsDiff = errorsTotal - this.props.build[index - 1].errors.length;
 
       cardDiff = [sizePercent, chunksDiff, modulesDiff, assetsDiff, errorsDiff];
-    } else cardDiff = [0, 0, 0, 0, 0];
+    }
 
-    const arrows = cardDiff.map(diff => {
+    const arrows = cardDiff.map((diff) => {
       if (diff > 0) return <span>&#8593;</span>;
       if (diff < 0) return <span>&#8595;</span>;
       return '';
-    })
+    });
 
     cardDiff = cardDiff.map(diff => Math.abs(diff));
 
-    // unit conversion for totalSize and biggestFileSize
+    // unit conversion for totalSize
     if (totalSize.toString().length < 4) totalSize = `${totalSize}B`;
     if (totalSize.toString().length > 3 && totalSize.toString().length < 7) totalSize = `${Math.floor(totalSize / 1000)}KB`;
     if (totalSize.toString().length > 6) totalSize = `${(totalSize / 1000000).toFixed(2)}MB`;
