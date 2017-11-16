@@ -1,11 +1,11 @@
 import React from 'react';
+import SingleCard from './SingleCard';
 
 class Cards extends React.Component {
-
   getData() {
     const index = this.props.activeBuild;
 
-    const color = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
+    const colors = ['#53c79f', '#64b0cc', '#7a6fca', '#ca6f96', '#e58c72', '#e5c072'];
     const heading = ['Total Size', 'Chunks', 'Modules', 'Assets', 'Errors', 'Current Build'];
 
     // find totals of all cards
@@ -56,32 +56,17 @@ class Cards extends React.Component {
 
     const cardData = [totalSize, chunksTotal, modulesTotal, assetsTotal, errorsTotal, indexData];
 
-    const cards = color.map((d, i) => {
-      const style = {
-        backgroundColor: d,
-      };
-
+    const cards = colors.map((color, i) => {
       cardDiff[0] = `${cardDiff[0]}%`;
       return (
-        <div className="col-xs-2 custom_padding margin-below-20" key={i}>
-          <div className="card" style={style}>
-            <div className="card_header">
-              <div className="pull-left" >
-                {heading[i]}
-              </div>
-              <div className="pull-right">
-                {arrows[i]}
-                <span className="header_text">
-                  {cardDiff[i]}
-                </span>
-              </div>
-            </div>
-            <hr className="hr-custom" />
-            <div className="card_body">
-              {cardData[i]}
-            </div>
-          </div>
-        </div>
+        <SingleCard
+          key={color}
+          color={color}
+          heading={heading[i]}
+          arrows={arrows[i]}
+          cardDiff={cardDiff[i]}
+          cardData={cardData[i]}
+        />
       );
     });
 
