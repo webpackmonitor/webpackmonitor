@@ -298,11 +298,11 @@ class SunBurstChart extends React.Component {
         if (isNaN(size)) { // e.g. if this is a header row
           continue;
         }
-        var parts = sequence.split("-");
+        var parts = sequence.split("/");
         var currentNode = root;
         for (var j = 0; j < parts.length; j++) {
           var children = currentNode["children"];
-          var nodeName = parts[j].split('_').join('-');
+          var nodeName = parts[j];
           var childNode;
           if (j + 1 < parts.length) {
             // Not yet at the end of the sequence; move down the tree.
