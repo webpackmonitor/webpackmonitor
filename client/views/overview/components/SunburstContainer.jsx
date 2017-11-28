@@ -113,6 +113,7 @@ class StarburstContainer extends React.Component {
                   yMaxBuffer={10}
                   height={100}
                   width={200}
+                  activeIndex={this.props.activeBuild}
                 >
                   <defs>
                     <gradient color1="#fff" color="#53c79f" id="area" />
