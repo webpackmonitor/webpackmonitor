@@ -28,9 +28,9 @@ plugins: [
 ],
 ```
 
-`capture` will collect stats on the build where meaningful changes have occured. We do not capture build data where the build does not differ from most recent build on file.
-`target` specify where to save your build data
-`launch` will fire up a local server and launch the webpack monitor analysis tool
+`capture` will collect stats on the build where meaningful changes have occured. We do not capture build data where the build does not differ from most recent build on file.  
+`target` specify where to save your build data  
+`launch` will fire up a local server and launch the webpack monitor analysis tool  
 `port` optionally set the port for local server
 
 ## Contributing
