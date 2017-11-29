@@ -17,6 +17,7 @@ module.exports = class MonitorStats {
       launch: false,
       capture: true,
       port: 8081,
+      debug: false,
     }, options);
   }
 
@@ -104,7 +105,7 @@ module.exports = class MonitorStats {
           parsed.assets.length !== prev.assets.length ||
           parsed.chunks.length !== prev.chunks.length
         ) {
-          console.log('Writing new build');
+          if (this.options.debug) console.log('Writing new build');
           // Add minified data
           parsed.assets.forEach((asset) => {
             isMinified.forEach((minify) => {

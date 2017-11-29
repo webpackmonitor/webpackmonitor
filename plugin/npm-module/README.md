@@ -20,10 +20,11 @@ const WebpackMonitor = require('webpack-monitor');
 
 plugins: [
   new WebpackMonitor({
-    capture: true, // -> default 'true'
+    capture: true, // default -> true
     target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
-    launch: true, // -> default 'false'
+    launch: true, // default -> false
     port: 3030, // default -> 8081
+    debug: true, // default -> false
   }),
 ],
 ```
@@ -32,6 +33,7 @@ plugins: [
 `target` specify where to save your build data
 `launch` will fire up a local server and launch the webpack monitor analysis tool
 `port` optionally set the port for local server
+`debug` optionally output debug information to the console
 
 ## Contributing
 To contribute to `webpack-monitor`, fork the repository and clone it to your machine then install dependencies with `npm install`. If you're interested in joining the Webpack Monitor team as a contributor, feel free to message one of us directly!
