@@ -17,16 +17,21 @@ module.exports = class MonitorStats {
       launch: false,
       capture: true,
       port: 8081,
+      watch: false
     }, options);
   }
 
   apply(compiler) {
+    // set wacth mode to true when "webpack --watch" was executed
+    if (compiler.options.watch) this.options.watch = true;
+
     const isMinified = [];
     const target = path.resolve(__dirname, '..', this.options.target);
     const jsonOpts = this.options.jsonOpts;
     let unPureSize;
     let pureSize;
     let data;
+    let firstRun = true;
 
     // CHECK MINIFICATION
     compiler.plugin('emit', (compilation, cb) => {
@@ -120,12 +125,27 @@ module.exports = class MonitorStats {
             parsed.unPureCssSize = unPureSize;
           }
 
-          data.push(parsed);
+          if (firstRun) {
+            data.push(parsed);
+          }
+          // in the watch mode, only update the last entry instead of appending each time to the stats.
+          else {
+            data[data.length - 1] = parsed;
+          }
+        }
+
+        // don't persist data to the disk in watch mode.
+        // The frontend will show the latest change
+        if (!this.options.watch) {
+          fs.writeFile(target, JSON.stringify(data, null, 2));
         }
       }
-      fs.writeFile(target, JSON.stringify(data, null, 2), () => {
-        if (this.options.launch) server(data, this.options.port);
-      });
+
+      if (this.options.launch) server(data, this.options.port, this.options.watch);
+
+      // end of the first run, memorize for the next potential call.
+      // in watch mode, the 'done' callback will be invoked after each change.
+      firstRun = false;
     });
   }
 };
