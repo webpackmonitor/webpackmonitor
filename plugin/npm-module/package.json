@@ -8,10 +8,12 @@
   "main": "monitor.js",
   "dependencies": {
     "babel-core": "^6.26.0",
+    "body-parser": "^1.18.2",
     "colors": "^1.1.2",
     "express": "^4.15.5",
     "opener": "^1.4.3",
-    "purify-css": "^1.2.5"
+    "purify-css": "^1.2.5",
+    "request-promise": "^4.2.2"
   },
   "repository": {
     "type": "git",
