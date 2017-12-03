@@ -35,7 +35,7 @@ const Recommendations = (props) => {
         activeBuild={props.activeBuild}
         handleIncrement={props.handleIncrement}
         handleDecrement={props.handleDecrement}
-      /> 
+      />
       <div className="row">
         <div className="col-md-12 custom_padding">
           <Summary build={build} getBytes={getBytes} />

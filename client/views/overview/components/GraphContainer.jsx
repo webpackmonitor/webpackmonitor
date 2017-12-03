@@ -115,6 +115,7 @@ class MainContainer extends React.Component {
               margin={margin}
               yMaxBuffer={10}
               id="line-chart"
+              activeIndex={this.props.activeBuild}
               handleCircleClick={this.props.handleCircleClick}
             >
               <defs>

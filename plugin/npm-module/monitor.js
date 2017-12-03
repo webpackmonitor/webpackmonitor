@@ -13,7 +13,10 @@ module.exports = class MonitorStats {
   constructor(options) {
     this.options = Object.assign({
       target: '../monitor/stats.json',
-      jsonOpts: { source: false },
+      jsonOpts: { 
+        source: false,
+        chunkModules: true
+      },
       launch: false,
       capture: true,
       port: 8081,
