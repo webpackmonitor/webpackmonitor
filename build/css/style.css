@@ -486,3 +486,16 @@ main {
 table{
   table-layout: fixed;
 }
+
+.file-history-chart {
+  position: absolute;
+  top: 150px;
+  left: 10px;
+}
+@media screen and (min-width: 1000px) {
+  .file-history-chart {
+    top: 50px;
+    right: 40px;
+    left: auto;
+  }
+}

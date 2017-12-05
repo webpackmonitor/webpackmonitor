@@ -1,5 +1,6 @@
 import React from 'react';
 import * as d3 from 'd3';
+import lodash_isEqual from 'lodash.isequal';
 
 class SunBurstChart extends React.Component {
 
@@ -12,9 +13,10 @@ class SunBurstChart extends React.Component {
     this.drawChart();
   }
 
-  // shouldComponentUpdate() {
-  //   return false; // This prevents future re-renders of this component
-  // }
+  shouldComponentUpdate(nextProps, nextState) {
+    // only re-render if the data will change
+    return !lodash_isEqual(nextProps.data, this.props.data);
+  }
 
   drawChart() {
     /*
@@ -26,6 +28,7 @@ class SunBurstChart extends React.Component {
     var width = 900;
     var height = 900;
     var radius = Math.min(width, height) / 2;
+    var _self = this;
 
     // Breadcrumb dimensions: width, height, spacing, width of tip/tail.
     var b = {
@@ -151,7 +154,10 @@ class SunBurstChart extends React.Component {
 
       var sequenceArray = d.ancestors().reverse();
       sequenceArray.shift(); // remove root node from the array
-      let trickArray = sequenceArray.slice(0)
+      let trickArray = sequenceArray.slice(0);
+      // convert path array to a '/' seperated path string. add '/' at the end if it's a directory.
+      const path = "./" + trickArray.map(node => node.data.name).join("/") + (trickArray[trickArray.length - 1].children ? "/" : "");
+      _self.props.onHover(path);
 
       for (var i = 1; i < trickArray.length + 1; i++) {
         updateBreadcrumbs(trickArray.slice(0, i), percentageString);
@@ -189,6 +195,8 @@ class SunBurstChart extends React.Component {
 
       d3.select("#explanation")
         .style("visibility", "hidden");
+
+      _self.props.onHover(null);
     }
 
     function initializeBreadcrumbTrail() {
@@ -290,11 +298,11 @@ class SunBurstChart extends React.Component {
         if (isNaN(size)) { // e.g. if this is a header row
           continue;
         }
-        var parts = sequence.split("-");
+        var parts = sequence.split("/");
         var currentNode = root;
         for (var j = 0; j < parts.length; j++) {
           var children = currentNode["children"];
-          var nodeName = parts[j].split('_').join('-');
+          var nodeName = parts[j];
           var childNode;
           if (j + 1 < parts.length) {
             // Not yet at the end of the sequence; move down the tree.
