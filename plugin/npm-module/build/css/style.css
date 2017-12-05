@@ -7,222 +7,222 @@
 
 /* ok */
 body {    
-    background-color: #2c313b;
-    font-family: 'Roboto', sans-serif !important;
-    color: white;
+  background-color: #2c313b;
+  font-family: 'Roboto', sans-serif !important;
+  color: white;
 }
 
 a {
-  color: #e5bf72;
+color: #e5bf72;
 }
 
 a:hover {
-  color: #e5bf72;
+color: #e5bf72;
 }
 
 /* ok */
 .custom_padding{
-    padding-left: 5px !important;
-    padding-right: 5px !important;
+  padding-left: 5px !important;
+  padding-right: 5px !important;
 }
 /* ok */
 .card{
-    height: 125px;
-    border-radius: 2px;
-    font-weight: 300;
+  height: 125px;
+  border-radius: 2px;
+  font-weight: 300;
 }
 
 /* ok */
 .bg{
-    margin-bottom: 10px;
-    background-color: #3f5175;
-    border-radius:4px;
-    /* height: 400px; */
-    box-shadow: 1px 1px 1px -1px rgba(100,100,100,.5);
-    padding: 10px;
-    
+  margin-bottom: 10px;
+  background-color: #3f5175;
+  border-radius:4px;
+  /* height: 400px; */
+  box-shadow: 1px 1px 1px -1px rgba(100,100,100,.5);
+  padding: 10px;
+  
 }
 
 /* What's this used for????? */
 .shadow {
-    -webkit-filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
-    filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
+  -webkit-filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
+  filter: drop-shadow( 0px 2px 2px rgba(0,0,0,.3) );
 }
 
 /* Line for Cards */
 .hr-custom {
-    border: 0;
-    height: 1px;
-    background-color: rgba(100, 100, 100, 0.2);
-    margin-bottom: 10px !important;
-    -background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, 0.5), rgba(0, 0, 0, 0));
+  border: 0;
+  height: 1px;
+  background-color: rgba(100, 100, 100, 0.2);
+  margin-bottom: 10px !important;
+  -background-image: linear-gradient(to right, rgba(0, 0, 0, 0), rgba(100, 100, 100, 0.5), rgba(0, 0, 0, 0));
 }
 
 /* ok */
 .panel-header {
-    height:50px;
-    background-color: #3f5175;
-    border-radius: 2px 2px 0 0;
-    border-bottom: 1px solid #3f5175;
-    padding:10px 20px 10px 20px;
-    margin-bottom: 20px;
+  height:50px;
+  background-color: #3f5175;
+  border-radius: 2px 2px 0 0;
+  border-bottom: 1px solid #3f5175;
+  padding:10px 20px 10px 20px;
+  margin-bottom: 20px;
 }
 /* 
 .range-custom{
-    padding-bottom: 10px;
-    padding-left: 5px;
+  padding-bottom: 10px;
+  padding-left: 5px;
 } */
 
 /* I don't think this is used!?!?? */
 .range-custom-child{
-    line-height:30px;
+  line-height:30px;
 }
 
 /* Used in Key.jsx... what is key jsx do? */
 .range-span{
-    color:#7f7f85;
-    padding-right:10px;
+  color:#7f7f85;
+  padding-right:10px;
 }
 
 /* Used in Key.jsx... what is key jsx do? */
 .padding-left-5{
-    padding-left: 5px;
+  padding-left: 5px;
 }
 /* Card styling */
 .card_header {
-    padding: 10px 10px 5px 10px;
-    color: #ffffff;
+  padding: 10px 10px 5px 10px;
+  color: #ffffff;
 }
 
 /* Card styling */
 .card_body{
-    text-align: center;
-    color:#ffffff;
-    font-size: 3em;
-    font-weight: 400;
+  text-align: center;
+  color:#ffffff;
+  font-size: 3em;
+  font-weight: 400;
 }
 /* Panel header titles */
 .panel-title{
-    color:#f8fdff;
-    font-size: 1.5em;
-    font-weight: 300;
+  color:#f8fdff;
+  font-size: 1.5em;
+  font-weight: 300;
 }
 
 /* Panekl header styling.... does little */
 .line-height-30{
-    line-height: 30px;
+  line-height: 30px;
 }
 
 /* Spacing under cards */
 .margin-below-20{
-    margin-bottom: 20px;
+  margin-bottom: 20px;
 }
 
 /* Line Graph styling */
 .line {
-    fill: none;
-    stroke: #53c79f;
-    stroke-width: 3px;
+  fill: none;
+  stroke: #53c79f;
+  stroke-width: 3px;
 }
 
 /* Used in main container... alters color of axis slightly */
 .axis {
-    fill: #a3a3a7;
+  fill: #a3a3a7;
 }
 
 /* Not used?? */
 .axis path,
 .axis line {
-    fill: none;
-    stroke: #ececed;
-    shape-rendering: crispEdges;
+  fill: none;
+  stroke: #ececed;
+  shape-rendering: crispEdges;
 
 }
 
 /* Not used? */
 .axis text {
-    font-size: 12px;
-    stroke: #96A0A7
+  font-size: 12px;
+  stroke: #96A0A7
 }
 
 /* Used in Main Container */
 .y-grid .tick{
-    stroke: #ececed;
-    opacity: 1;
+  stroke: #ececed;
+  opacity: 1;
 }
 
 .y-grid path,
 .y-grid line {
-    fill: none;
-    stroke: #ececed;
-    shape-rendering: crispEdges;
-    opacity: 1;
+  fill: none;
+  stroke: #ececed;
+  shape-rendering: crispEdges;
+  opacity: 1;
 
 }
 
 /* Used for D3 dots */
 .dot{
-    fill:#FFFFFF;
-    stroke:#53c79f;
-    stroke-width:2px;
+  fill:#FFFFFF;
+  stroke:#53c79f;
+  stroke-width:2px;
 
 }
 /* Used in Main Container */
 .area{
-    opacity: .8    ;
-    stroke: #fff;
-    stroke-width:2px;
+  opacity: .8    ;
+  stroke: #fff;
+  stroke-width:2px;
 }
 /* Used in main container */
 .tooltip-bg{
-    fill:#000;
-    opacity:0.7;
+  fill:#000;
+  opacity:0.7;
 }
 
 /* Used in main container */
 .tooltip-text1{
-    font-size:15px;
-    fill:#ffffff;
+  font-size:15px;
+  fill:#ffffff;
 }
 /* Not used? */
 .tooltip-text2{
-    font-size:20px;
-    fill:#a9f3ff;
+  font-size:20px;
+  fill:#a9f3ff;
 }
 
 /* Used in Starburst container */
 .text-center{
-    text-align: center;
+  text-align: center;
 }
 
 /* Not used? */
 .padding-top-10 {
-    padding-top: 10px;
+  padding-top: 10px;
 }
 
 /* ok */
 @media screen and (max-width: 1000px) {
-    .card_header{
-        font-size: .8em;
-    }
+  .card_header{
+      font-size: .8em;
+  }
 
-    .card_body{
-        padding-top:5px;
-        font-size: 2.5em;
-    }
+  .card_body{
+      padding-top:5px;
+      font-size: 2.5em;
+  }
 
 
 }
 /* ok */
 @media screen and (max-width: 750px) {
-    .header_text{
-        -display: none;
-    }
+  .header_text{
+      -display: none;
+  }
 }
 
 /* Used in Key */
 .filter-selection{
-    cursor: pointer;
+  cursor: pointer;
 }
 
 
@@ -230,252 +230,259 @@ a:hover {
 /* StarBurst CSS */
 /* ok */
 #main {
-  /* float: left; */
-  /* width: 750px; */
-  margin-left: auto;
-  margin-right: auto;
-  padding-bottom: 40px;
+/* float: left; */
+/* width: 750px; */
+margin-left: auto;
+margin-right: auto;
+padding-bottom: 40px;
 }
 /* not used? */
 #sidebar {
-  float: right;
-  width: 100px;
+float: right;
+width: 100px;
 }
 /* ok */
 #sequence {
-  width: 800px;
-  height: 70px;
+width: 800px;
+height: 70px;
 }
 
 /* definiately not used */
 #legend {
-  padding: 10px 0 0 3px;
+padding: 10px 0 0 3px;
 }
 /* not used? */
 #sequence text, #legend text {
-  font-weight: 600;
-  fill: #fff;
+font-weight: 600;
+fill: #fff;
 }
 /* ok */
 #chart {
-    width: 100%;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-    /* justify-content: center; */
-    /* z-index: 10; */
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+  /* justify-content: center; */
+  /* z-index: 10; */
 }
 
 #chart path {
-  stroke: #fff;
+stroke: #fff;
 }
 /* ok */
 #explanation {
-  position: absolute;
-  top: 550px;
-  left: 520px;
-  width: 140px;
-  text-align: center;
-  color: #fff;
-  /* z-index: -1; */
+position: absolute;
+top: 550px;
+left: 520px;
+width: 140px;
+text-align: center;
+color: #fff;
+/* z-index: -1; */
 }
 /* ok */
 #percentage {
-  font-size: 2.5em;
+font-size: 2.5em;
 }
 
 /* CSS THAT WE WROTE */
 /* Used in Recommendations */
 .btn {
-  background-color: #fff !important;
+background-color: #fff !important;
 }
 
 /* Used in items */
 #fileNames {
-     /* list-style-type: none; */
-    padding: 5px 100px 50px 100px;
-    color: #ececed;
+   /* list-style-type: none; */
+  padding: 5px 100px 50px 100px;
+  color: #ececed;
 }
 
 /* RECOMMENDATIONS */
 #progress {
-  margin-left: 20px;
-  width: 95%;
+margin-left: 20px;
+width: 95%;
 }
 
 .progress {
-  margin-bottom: 5px;
+margin-bottom: 5px;
 }
 
 .progress-bar {
-  background-color: #5ac69f;
+background-color: #5ac69f;
 }
 
 .bar-data, .panel-data {
-  margin-left: 25px;
-  margin-bottom: 25px;
-  font-size: 1.2em;
-  font-weight: 200;
+margin-left: 25px;
+margin-bottom: 25px;
+font-size: 1.2em;
+font-weight: 200;
 }
 
 .bar-data span {
-  margin-right: 10px;
+margin-right: 10px;
 }
 
 .save {
-  color: #e58c72;
-  /* font-size: 1.2em; */
-  font-weight: 300;
-  float: right;
-  padding-right: 35px;
+color: #e58c72;
+/* font-size: 1.2em; */
+font-weight: 300;
+float: right;
+padding-right: 35px;
 }
 
 .panel-data span {
-  font-size: 1.2em;
-  font-weight: 300;
+font-size: 1.2em;
+font-weight: 300;
 }
 
 .data {
-  margin-right: 25px;
+margin-right: 25px;
 }
 
 .subtitle {
-  margin-top: -20px;
-  margin-left: 20px;
-  font-weight: 200;
-  font-size: 1.1em;
-  color: #f3feff;
-  margin-bottom: 20px;
+margin-top: -20px;
+margin-left: 20px;
+font-weight: 200;
+font-size: 1.1em;
+color: #f3feff;
+margin-bottom: 20px;
 }
 
 .arrow {
-  font-family: Arial Unicode MS;
-  cursor: pointer;
+font-family: Arial Unicode MS;
+cursor: pointer;
+}
+
+/* hide the arrow but allow it to take its space in the layout */
+.arrow.inactive {
+opacity: 0;
+pointer-events: none;
+cursor: default;
 }
 
 /* SPINNER */
 .loader,
 .loader:after {
-  border-radius: 50%;
-  width: 10em;
-  height: 10em;
+border-radius: 50%;
+width: 10em;
+height: 10em;
 }
 .loader {
-  margin: 100px auto;
-  font-size: 10px;
-  position: relative;
-  text-indent: -9999em;
-  border-top: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-right: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
-  border-left: 1.1em solid #ffffff;
-  -webkit-transform: translateZ(0);
-  -ms-transform: translateZ(0);
-  transform: translateZ(0);
-  -webkit-animation: load8 1.1s infinite linear;
-  animation: load8 1.1s infinite linear;
+margin: 100px auto;
+font-size: 10px;
+position: relative;
+text-indent: -9999em;
+border-top: 1.1em solid rgba(255, 255, 255, 0.2);
+border-right: 1.1em solid rgba(255, 255, 255, 0.2);
+border-bottom: 1.1em solid rgba(255, 255, 255, 0.2);
+border-left: 1.1em solid #ffffff;
+-webkit-transform: translateZ(0);
+-ms-transform: translateZ(0);
+transform: translateZ(0);
+-webkit-animation: load8 1.1s infinite linear;
+animation: load8 1.1s infinite linear;
 }
 @-webkit-keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+0% {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+100% {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
 }
 @keyframes load8 {
-  0% {
-    -webkit-transform: rotate(0deg);
-    transform: rotate(0deg);
-  }
-  100% {
-    -webkit-transform: rotate(360deg);
-    transform: rotate(360deg);
-  }
+0% {
+  -webkit-transform: rotate(0deg);
+  transform: rotate(0deg);
+}
+100% {
+  -webkit-transform: rotate(360deg);
+  transform: rotate(360deg);
+}
 }
 
 /* HEADER */
 
 header {
-  width: 100%;
-  height: 75px;
-  background-color: #3f5175;
-  border-bottom: 1px solid #3f5175;
-  margin-bottom: 20px;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 999;
+width: 100%;
+height: 75px;
+background-color: #3f5175;
+border-bottom: 1px solid #3f5175;
+margin-bottom: 20px;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 999;
 }
 
 .header-title {
-  line-height: 75px;
-  margin-left: 25px;
-  font-size: 2.5em;
-  font-family: geomanist;
-  font-weight: 300;  
+line-height: 75px;
+margin-left: 25px;
+font-size: 2.5em;
+font-family: geomanist;
+font-weight: 300;  
 }
 
 .logo {
-  margin-right: 25px;
+margin-right: 25px;
 }
 
 .links {
-  line-height: 75px;
-  margin-right: 25px;
-  
+line-height: 75px;
+margin-right: 25px;
+
 }
 
 li a {
-  color: #E1E6E4;
-  font-size: 1.2em;
-  margin-left: 20px;
-  font-weight: 300;
+color: #E1E6E4;
+font-size: 1.2em;
+margin-left: 20px;
+font-weight: 300;
 }
 
 li a:focus {
-  color: #53c79f;
-  text-decoration: none;
+color: #53c79f;
+text-decoration: none;
 }
 
 li a:hover {
-  color: #53c79f;
-  text-decoration: none;
+color: #53c79f;
+text-decoration: none;
 }
 
 main {
-  margin-top: 95px;
+margin-top: 95px;
 }
 
 
 /* PanelTable */
 
 .panel {
-  color: black;
-  margin-bottom: 20px;
-  background-color: white;
-  border: 1px solid #3f5175;
-  border-radius: 4px;
-  -webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
-  box-shadow: 0 1px 1px rgba(0,0,0,.05);
+color: black;
+margin-bottom: 20px;
+background-color: white;
+border: 1px solid #3f5175;
+border-radius: 4px;
+-webkit-box-shadow: 0 1px 1px rgba(0,0,0,.05);
+box-shadow: 0 1px 1px rgba(0,0,0,.05);
 }
 
 .panel-default>.panel-heading {
-  color: #333;
-  background-color: #3f5175;
-  border-color: #3f5175;
+color: #333;
+background-color: #3f5175;
+border-color: #3f5175;
 }
 
 .panel-heading {
-  padding: 10px 15px;
-  border-bottom: 1px solid transparent;
-  border-top-left-radius: 3px;
-  border-top-right-radius: 3px;
+padding: 10px 15px;
+border-bottom: 1px solid transparent;
+border-top-left-radius: 3px;
+border-top-right-radius: 3px;
 }
 
 
 table{
-  table-layout: fixed;
+table-layout: fixed;
 }
