@@ -10,13 +10,14 @@ module.exports = class MonitorStats {
   constructor(options) {
     this.options = Object.assign({
       target: '../monitor/stats.json',
-      jsonOpts: { 
+      jsonOpts: {
         source: false,
         chunkModules: true
       },
       launch: false,
       capture: true,
       port: 8081,
+      excludeSourceMaps: true
     }, options);
   }
 
@@ -82,7 +83,7 @@ module.exports = class MonitorStats {
       // ...make directory if it does not
       fs.mkdirSync(targetDir);
     }
-    
+
     // CHECK IF TARGET FILE EXISTS...
     if (fs.existsSync(target)) {
       // ...get existing data if it does
@@ -95,7 +96,7 @@ module.exports = class MonitorStats {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
-        const parsed = parseStats(stats, target);
+        const parsed = parseStats(stats, target, this.options);
         // Check if new data exists
         if (
           !data.length ||

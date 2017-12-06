@@ -32,14 +32,16 @@ plugins: [
     target: '../monitor/myStatsStore.json', // default -> '../monitor/stats.json'
     launch: true, // -> default 'false'
     port: 3030, // default -> 8081
+    excludeSourceMaps: true // default 'true'
   }),
 ],
 ```
 
-`capture` will collect stats on the build where meaningful changes have occured. We do not capture build data where the build does not differ from most recent build on file.  
-`target` specify where to save your build data  
-`launch` will fire up a local server and launch the webpack monitor analysis tool  
-`port` optionally set the port for local server  
+`capture` will collect stats on the build where meaningful changes have occured. We do not capture build data where the build does not differ from most recent build on file.
+`target` specify where to save your build data
+`launch` will fire up a local server and launch the webpack monitor analysis tool
+`port` optionally set the port for local server
+`excludeSourceMaps` excludes emitted source maps from the build stats
 
 ## Contributing
 To contribute to `webpack-monitor`, fork the repository and clone it to your machine then install dependencies with `npm install`. If you're interested in joining the Webpack Monitor team as a contributor, feel free to message one of us directly!
