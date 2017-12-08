@@ -1,5 +1,10 @@
-module.exports = (stats, target) => {
-  stats.assets = stats.assets.filter(asset => asset.name !== target);
+module.exports = (stats, target, options) => {
+  stats.assets = stats.assets.filter(asset => {
+    if (asset.name === target) return false
+    // Filter out source maps by testing for file name ending with .map
+    if (options.excludeSourceMaps) return !/\.map$/.test(asset.name)
+    return true
+  })
 
   return {
     timeStamp: Date.now(),
