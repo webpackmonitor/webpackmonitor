@@ -2,6 +2,7 @@ const fs = require('fs');
 const path = require('path');
 const purifycss = require('purify-css');
 const babel = require('babel-core');
+const mkdirp = require('mkdirp');
 
 const server = require('./utils/server');
 const parseStats = require('./utils/parser');
@@ -81,7 +82,7 @@ module.exports = class MonitorStats {
     const targetDir = path.dirname(target)
     if (!fs.existsSync(targetDir)) {
       // ...make directory if it does not
-      fs.mkdirSync(targetDir);
+      mkdirp.sync(targetDir);
     }
 
     // CHECK IF TARGET FILE EXISTS...
