@@ -1,5 +1,5 @@
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
-const PurifyCSSPlugin = require('purifycss-webpack');
+const PurgeCSSPlugin = require('purgecss-webpack-plugin');
 const webpack = require('webpack');
 
 // EXTRACT ALL CSS INTO SEPERATE CSS FILE
@@ -33,12 +33,11 @@ exports.extractCSS = ({ include, exclude } = {}) => {
 // --------------------------------
 
 // **NOTE** must occur after ExtractTextPlugin (i.e. there needs to be some css)
-// **NOTE** must also npm install purify-css
-exports.purifyCSS = ({ paths }) => ({
+exports.purgeCSS = ({ paths }) => ({
   // { Paths } can be a string or an array of paths, for the plugin to scan for css references
   // For example: glob.sync(`${pathToAppDir}/**/*.js`, { nodir: true });
   plugins: [
-    new PurifyCSSPlugin({ paths }),
+    new PurgeCSSPlugin({ paths }),
   ],
 });
 

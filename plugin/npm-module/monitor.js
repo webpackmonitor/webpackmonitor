@@ -1,6 +1,6 @@
 const fs = require('fs');
 const path = require('path');
-const purifycss = require('purify-css');
+const PurgeCss = require('purgecss');
 const babel = require('babel-core');
 const mkdirp = require('mkdirp');
 
@@ -72,9 +72,14 @@ module.exports = class MonitorStats {
           const sourceJs = compilation.assets[file].source();
           return concat += sourceJs;
         }, '');
-
-      const purified = purifycss(js || '', css || '', { minify: false });
-      pureSize = purified.length;
+      const purged = new PurgeCss({
+        content: [{
+          raw: js || ''
+        }],
+        css: css || '',
+        stdin: true
+      }).purge()[0].css
+      pureSize = purged.length
       cb();
     });
 
@@ -116,7 +121,7 @@ module.exports = class MonitorStats {
               }
             });
           });
-          // Add purify css data
+          // Add purge css data
           if (pureSize) {
             parsed.pureCssSize = pureSize;
             parsed.unPureCssSize = unPureSize;

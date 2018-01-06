@@ -54,7 +54,7 @@ module.exports = (env) => {
         ],
       },
     },
-    utils.purifyCSS({
+    utils.purgeCSS({
       paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
     }),
   ]);

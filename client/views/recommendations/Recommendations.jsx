@@ -6,9 +6,9 @@ import PanelData from './components/common/PanelData';
 import FileReport from './components/common/FileReport';
 import Summary from './components/Summary';
 import Minify from './components/Minify';
-import PurifyCss from './components/PurifyCss';
+import PurgeCss from './components/PurgeCss';
 
-const panelTitles = ['Total Size', 'Minify JS', 'Purify CSS'];
+const panelTitles = ['Total Size', 'Minify JS', 'Purge CSS'];
 
 const getPanels = build => panelTitles.map(title => (
   <Panel key={title}>
@@ -39,7 +39,7 @@ const Recommendations = (props) => {
         <div className="col-md-12 custom_padding">
           <Summary build={build} getBytes={getBytes} />
           <Minify build={build} getBytes={getBytes} />
-          <PurifyCss build={build} getBytes={getBytes} />
+          <PurgeCss build={build} getBytes={getBytes} />
         </div>
       </div>
     </div>
