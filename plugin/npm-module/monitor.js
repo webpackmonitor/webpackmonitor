@@ -76,7 +76,7 @@ module.exports = class MonitorStats {
         content: [{
           raw: js || ''
         }],
-        css: css || '',
+        css: [css || ''],
         stdin: true
       }).purge()[0].css
       pureSize = purged.length
