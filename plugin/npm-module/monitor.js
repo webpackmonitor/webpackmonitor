@@ -7,6 +7,9 @@ const mkdirp = require('mkdirp');
 const server = require('./utils/server');
 const parseStats = require('./utils/parser');
 
+/** devtool options sutible for production build. @see https://webpack.js.org/configuration/devtool/ */
+const PRODUCTION_DEVTOOL_OPTIONS = ["source-map", "hidden-source-map", "nosources-source-map"];
+
 module.exports = class MonitorStats {
   constructor(options) {
     this.options = Object.assign({
@@ -28,10 +31,18 @@ module.exports = class MonitorStats {
     const jsonOpts = this.options.jsonOpts;
     let unPureSize;
     let pureSize;
-    let data;
+    let data;    
+    // devtool option of current webpack config
+    let devtool;
+    let devtoolProductionConform;
 
     // CHECK MINIFICATION
     compiler.plugin('emit', (compilation, cb) => {
+      // capture the devtool option. using e.g. 'eval' would prevent a good minification
+      devtool = compilation.options.devtool;
+      // devtool should be false or one of the options from above
+      devtoolProductionConform = compilation.options.devtool === false || PRODUCTION_DEVTOOL_OPTIONS.indexOf(compilation.options.devtool) !== -1
+      
       compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
@@ -40,7 +51,7 @@ module.exports = class MonitorStats {
         .forEach((file) => {
           const source = compilation.assets[file].source();
           const minified = source.split(/\r\n|\r|\n/).length < 25;
-          const miniSize = minified ? false : babel.transform(source, { compact: true }).code.length;
+          const miniSize = minified ? false : babel.transform(source, { presets: ["minify"] }).code.length;
           const obj = {
             name: file,
             minified,
@@ -121,6 +132,10 @@ module.exports = class MonitorStats {
             parsed.pureCssSize = pureSize;
             parsed.unPureCssSize = unPureSize;
           }
+
+          // add devtool info to the data
+          parsed.devtoolProductionConform = devtoolProductionConform;
+          parsed.devtool = devtool;
 
           data.push(parsed);
         }

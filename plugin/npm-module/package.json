@@ -8,6 +8,7 @@
   "main": "monitor.js",
   "dependencies": {
     "babel-core": "^6.26.0",
+    "babel-preset-minify": "^0.2.0",
     "colors": "^1.1.2",
     "express": "^4.15.5",
     "mkdirp": "^0.5.1",
