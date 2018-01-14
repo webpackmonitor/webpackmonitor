@@ -7,7 +7,7 @@ const webpack = require('webpack');
 
 exports.extractCSS = ({ include, exclude } = {}) => {
   const plugin = new ExtractTextPlugin({
-    filename: '[name].css',
+    filename: '[name].css'
   });
 
   return {
@@ -20,12 +20,12 @@ exports.extractCSS = ({ include, exclude } = {}) => {
 
           use: plugin.extract({
             use: 'css-loader',
-            fallback: 'style-loader',
-          }),
-        },
-      ],
+            fallback: 'style-loader'
+          })
+        }
+      ]
     },
-    plugins: [plugin],
+    plugins: [plugin]
   };
 };
 
@@ -37,9 +37,7 @@ exports.extractCSS = ({ include, exclude } = {}) => {
 exports.purifyCSS = ({ paths }) => ({
   // { Paths } can be a string or an array of paths, for the plugin to scan for css references
   // For example: glob.sync(`${pathToAppDir}/**/*.js`, { nodir: true });
-  plugins: [
-    new PurifyCSSPlugin({ paths }),
-  ],
+  plugins: [new PurifyCSSPlugin({ paths })]
 });
 
 // EXTRACT ALL VENDOR CODE INTO NEW ASSET
@@ -50,14 +48,11 @@ exports.extractVendorCode = () => ({
   plugins: [
     new webpack.optimize.CommonsChunkPlugin({
       name: 'vendor',
-      minChunks: Infinity,
-    }),
-  ],
+      minChunks: Infinity
+    })
+  ]
 });
 
 exports.uglifyJS = () => ({
-  plugins: [
-    new webpack.optimize.UglifyJsPlugin(),
-  ],
+  plugins: [new webpack.optimize.UglifyJsPlugin()]
 });
-

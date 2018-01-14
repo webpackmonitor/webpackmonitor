@@ -10,7 +10,8 @@
     "build": "webpack --env development",
     "confirm": "webpack --env confirm",
     "launch": "webpack --env launch",
-    "trial": "webpack --env trial"
+    "trial": "webpack --env trial",
+    "prettier": "npx prettier --write --single-quote '**/*.js'"
   },
   "repository": {
     "type": "git",
@@ -38,6 +39,7 @@
     "jest": "^22.0.4",
     "json-loader": "^0.5.7",
     "opener": "^1.4.3",
+    "prettier": "^1.10.2",
     "purify-css": "^1.2.5",
     "purifycss-webpack": "^0.7.0",
     "style-loader": "^0.18.2",
