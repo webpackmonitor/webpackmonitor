@@ -7,23 +7,22 @@ const WebpackMonitor = require('./plugin/npm-module/monitor');
 
 const PATHS = {
   app: path.join(__dirname, 'client/index.jsx'),
-  build: path.join(__dirname, 'build'),
+  build: path.join(__dirname, 'build')
 };
 
-
-module.exports = (env) => {
+module.exports = env => {
   const common = merge([
     {
       entry: {
-        app: PATHS.app,
+        app: PATHS.app
       },
-      
+
       resolve: {
-        extensions: ['.js', 'json', '.jsx'],
+        extensions: ['.js', 'json', '.jsx']
       },
       devServer: {
         historyApiFallback: true,
-        contentBase: './build',
+        contentBase: './build'
       },
       module: {
         rules: [
@@ -32,68 +31,72 @@ module.exports = (env) => {
             loader: 'babel-loader',
             exclude: /node_modules/,
             query: {
-              presets: ['es2015', 'react'],
-            },
+              presets: ['es2015', 'react']
+            }
           },
           {
             test: /\.css$/,
-            use: ['style-loader', 'css-loader'],
+            use: ['style-loader', 'css-loader']
           },
           {
             test: /\.(png|svg|jpg|gif)$/,
-            use: [
-              'file-loader',
-            ],
-          },
+            use: ['file-loader']
+          }
         ],
         loaders: [
           {
             test: /\.json$/,
-            loader: 'json-loader',
-          },
-        ],
-      },
+            loader: 'json-loader'
+          }
+        ]
+      }
     },
     utils.purifyCSS({
-      paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true }),
-    }),
+      paths: glob.sync(`${PATHS.app}/**/*.js`, { nodir: true })
+    })
   ]);
 
   const development = {
     output: {
       path: PATHS.build,
-      filename: '[name].js',
+      filename: '[name].js'
     },
     plugins: [
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('development') }),
-    ],
+      new webpack.DefinePlugin({
+        'process.env.NODE_ENV': JSON.stringify('development')
+      })
+    ]
   };
 
   const launch = merge([
     {
       output: {
         path: path.join(__dirname, 'plugin/npm-module/build'),
-        filename: 'app.js',
+        filename: 'app.js'
       },
       plugins: [
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('production') }),
-        new WebpackMonitor({ launch: true, capture: false }),
-      ],
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('production')
+        }),
+        new WebpackMonitor({ launch: true, capture: false })
+      ]
     },
-    utils.uglifyJS(),
+    utils.uglifyJS()
   ]);
 
   const confirm = merge([
     {
       output: {
         path: path.join(__dirname, 'plugin/npm-module/build'),
-        filename: 'app.js',
+        filename: 'app.js'
       },
       plugins: [
-        new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify('data') }),
-        new WebpackMonitor({ capture: true }),
-      ],
-    },
+        new webpack.DefinePlugin({
+          'process.env.NODE_ENV': JSON.stringify('data')
+        }),
+        new WebpackMonitor({ capture: true })
+      ]
+    }
   ]);
 
   if (env === 'development') return merge([common, development]);

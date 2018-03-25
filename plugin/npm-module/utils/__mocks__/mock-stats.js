@@ -1,11 +1,11 @@
 // Mock a typical stats output, specifying what calculated valuables should be so
 // that the test isn't brittle
 
-const sumAssetSize = (sum, size) => sum + size
-const sourceMapAssetsSizes = [2894415]
-const assetSizes = [3535, 2864415]
-const summedMapAssetsSize = sourceMapAssetsSizes.reduce(sumAssetSize, 0)
-const summedAssetsSize = assetSizes.reduce(sumAssetSize, 0)
+const sumAssetSize = (sum, size) => sum + size;
+const sourceMapAssetsSizes = [2894415];
+const assetSizes = [3535, 2864415];
+const summedMapAssetsSize = sourceMapAssetsSizes.reduce(sumAssetSize, 0);
+const summedAssetsSize = assetSizes.reduce(sumAssetSize, 0);
 
 export default () => ({
   allAssetsSize: summedAssetsSize + summedMapAssetsSize,
@@ -20,23 +20,23 @@ export default () => ({
       {
         chunks: [],
         name: 'logo.png',
-        size: assetSizes[0],
+        size: assetSizes[0]
       },
       {
         chunks: [0], // References the included chunks by id
         name: 'app.js',
-        size: assetSizes[1],
+        size: assetSizes[1]
       },
       {
         chunks: [0],
         name: 'app.js.map',
-        size: sourceMapAssetsSizes[0],
-      },
+        size: sourceMapAssetsSizes[0]
+      }
     ],
     chunks: [
       {
         size: 978983,
-        files: ['test-missing-modules.js'],
+        files: ['test-missing-modules.js']
       },
       {
         size: 2864415,
@@ -45,15 +45,15 @@ export default () => ({
           {
             name: './node_modules/react/react.js',
             size: 56,
-            id: 0,
+            id: 0
           },
           {
             name: './node_modules/babel-runtime/helpers/classCallCheck.js',
             size: 208,
-            id: 1,
-          },
-        ],
-      },
-    ],
-  },
-})
+            id: 1
+          }
+        ]
+      }
+    ]
+  }
+});

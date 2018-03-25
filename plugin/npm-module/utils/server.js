@@ -7,12 +7,12 @@ module.exports = (data, port, update) => {
   const app = express();
   const url = `http://localhost:${port}/`;
   const options = {
-    root: path.join(__dirname, '..', 'build'),
+    root: path.join(__dirname, '..', 'build')
   };
 
   app.use(express.static(options.root));
   app.use('/css', express.static(path.join(__dirname, '..', 'build', 'css')));
-  
+
   app.get('/', (req, res) => {
     res.sendFile('index.html', options);
   });
@@ -23,7 +23,10 @@ module.exports = (data, port, update) => {
 
   app.listen(port, () => {
     opener(url);
-    console.log(colors.bold('\nWebpack-Monitor'), `is running on port ${port}!`);
+    console.log(
+      colors.bold('\nWebpack-Monitor'),
+      `is running on port ${port}!`
+    );
     console.log(colors.italic.red('Press ctrl C to exit'));
   });
 };

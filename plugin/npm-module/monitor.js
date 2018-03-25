@@ -9,17 +9,20 @@ const parseStats = require('./utils/parser');
 
 module.exports = class MonitorStats {
   constructor(options) {
-    this.options = Object.assign({
-      target: '../monitor/stats.json',
-      jsonOpts: {
-        source: false,
-        chunkModules: true
+    this.options = Object.assign(
+      {
+        target: '../monitor/stats.json',
+        jsonOpts: {
+          source: false,
+          chunkModules: true
+        },
+        launch: false,
+        capture: true,
+        port: 8081,
+        excludeSourceMaps: true
       },
-      launch: false,
-      capture: true,
-      port: 8081,
-      excludeSourceMaps: true
-    }, options);
+      options
+    );
   }
 
   apply(compiler) {
@@ -37,13 +40,15 @@ module.exports = class MonitorStats {
         .reduce((arr, el) => arr.concat(el))
         .filter(file => /\.js($|\?)/.test(file))
         .filter(file => compilation.assets[file])
-        .forEach((file) => {
+        .forEach(file => {
           const source = compilation.assets[file].source();
           const minified = source.split(/\r\n|\r|\n/).length < 25;
-          const miniSize = minified ? false : babel.transform(source, { compact: true }).code.length;
+          const miniSize = minified
+            ? false
+            : babel.transform(source, { compact: true }).code.length;
           const obj = {
             name: file,
-            minified,
+            minified
           };
           if (miniSize) obj.miniSize = miniSize;
           isMinified.push(obj);
@@ -60,7 +65,7 @@ module.exports = class MonitorStats {
         .filter(file => compilation.assets[file])
         .reduce((concat, file) => {
           const sourceCSS = compilation.assets[file].source();
-          return concat += sourceCSS;
+          return (concat += sourceCSS);
         }, '');
       unPureSize = css.length;
       const js = compilation.chunks
@@ -70,7 +75,7 @@ module.exports = class MonitorStats {
         .filter(file => compilation.assets[file])
         .reduce((concat, file) => {
           const sourceJs = compilation.assets[file].source();
-          return concat += sourceJs;
+          return (concat += sourceJs);
         }, '');
 
       const purified = purifycss(js || '', css || '', { minify: false });
@@ -79,7 +84,7 @@ module.exports = class MonitorStats {
     });
 
     // CHECK IF TARGET DIRECTORY EXISTS...
-    const targetDir = path.dirname(target)
+    const targetDir = path.dirname(target);
     if (!fs.existsSync(targetDir)) {
       // ...make directory if it does not
       mkdirp.sync(targetDir);
@@ -93,7 +98,7 @@ module.exports = class MonitorStats {
       data = [];
     }
 
-    compiler.plugin('done', (stats) => {
+    compiler.plugin('done', stats => {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
@@ -108,8 +113,8 @@ module.exports = class MonitorStats {
         ) {
           console.log('Writing new build');
           // Add minified data
-          parsed.assets.forEach((asset) => {
-            isMinified.forEach((minify) => {
+          parsed.assets.forEach(asset => {
+            isMinified.forEach(minify => {
               if (asset.name === minify.name) {
                 asset.miniSize = minify.miniSize;
                 asset.minified = minify.minified;
