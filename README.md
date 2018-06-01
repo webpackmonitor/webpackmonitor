@@ -1,3 +1,6 @@
+_Please note that Webpack Monitor is **NOT** currently maintained - sorry_ 😢
+
+
 <div align="center">
   <a href="https://github.com/webpackmonitor/webpackmonitor">
     <img src="https://roachjc.github.io/wpmlogo-smed.png">
@@ -5,6 +8,7 @@
 </div>
 
 # Webpack Monitor
+
 Webpack Monitor is a configurable Webpack plugin that captures relevant statistics on your production builds, and an interactive analysis tool that helps developers better understand bundle composition and identify and prioritize optimization strategies.
 
 [![NPM version][npm-image]][npm-url] [![Downloads][downloads-image]][npm-url]
