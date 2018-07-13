@@ -6,7 +6,7 @@ module.exports = (stats, target, options) => {
     return true;
   });
 
-  return {
+  const result = {
     timeStamp: Date.now(),
     time: stats.time,
     hash: stats.hash,
@@ -32,4 +32,20 @@ module.exports = (stats, target, options) => {
         : []
     }))
   };
+
+  if (stats.modules) {
+    stats.modules.forEach(module => {
+      if (module.chunks) {
+        module.chunks.forEach(chunk => {
+          result.chunks[chunk].modules.push({
+            name: module.name,
+            size: module.size,
+            id: module.id,
+          });
+        });
+      }
+    });
+  }
+
+  return result;
 };
