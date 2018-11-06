@@ -1,7 +1,22 @@
 import React from 'react';
+import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
+import App from './App';
 import Header from './containers/Header';
 import Main from './containers/Main';
 import build from './../monitor/stats.json';
+
+
+// App retrieves data with fetch from getstats route on plugin server
+render(
+  (
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  ),
+  document.getElementById('root'),
+);
+
 
 class App extends React.Component {
   constructor() {

@@ -7,6 +7,7 @@ const WebpackMonitor = require('./plugin/npm-module/monitor');
 
 const PATHS = {
   app: path.join(__dirname, 'client/index.jsx'),
+  appDev: path.join(__dirname, 'client/index.dev.jsx'),
   build: path.join(__dirname, 'build')
 };
 
@@ -16,7 +17,6 @@ module.exports = env => {
       entry: {
         app: PATHS.app
       },
-
       resolve: {
         extensions: ['.js', 'json', '.jsx']
       },
@@ -57,6 +57,9 @@ module.exports = env => {
   ]);
 
   const development = {
+    entry: {
+      app: PATHS.appDev
+    },
     output: {
       path: PATHS.build,
       filename: '[name].js'
