@@ -1,9 +1,10 @@
 const express = require('express');
+const fs = require('fs');
 const path = require('path');
 const opener = require('opener');
 const colors = require('colors');
 
-module.exports = (data, port, update) => {
+module.exports = (target, port, update) => {
   const app = express();
   const url = `http://localhost:${port}/`;
   const options = {
@@ -18,7 +19,7 @@ module.exports = (data, port, update) => {
   });
 
   app.get('/getstats', (req, res) => {
-    res.json(data);
+    res.json(JSON.parse(fs.readFileSync(target, { encoding: 'utf8' })));
   });
 
   app.listen(port, () => {

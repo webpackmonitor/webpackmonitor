@@ -33,6 +33,21 @@ plugins: [
 `launch` will fire up a local server and launch the webpack monitor analysis tool  
 `port` optionally set the port for local server
 
+
+## Standalone server
+If you just want to display the stats, without having to rebuild your project, `webpack-monitor` publishes the `webpack-monitor` executable to just launch the server.
+
+```
+  Usage: webpack-monitor [options] [filename]
+
+  Options:
+
+    -V, --version     output the version number
+    -p --port [port]  The port to run the server on (default: 8081)
+    -f --filename     The json file to load stats from - Resolved relative to where the command is executed
+    -h, --help        output usage information
+```
+
 ## Contributing
 To contribute to `webpack-monitor`, fork the repository and clone it to your machine then install dependencies with `npm install`. If you're interested in joining the Webpack Monitor team as a contributor, feel free to message one of us directly!
 

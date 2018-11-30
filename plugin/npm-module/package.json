@@ -6,9 +6,11 @@
   "author": "Jon Roach, Gordon Yu, Balal Zuhair",
   "license": "MIT",
   "main": "monitor.js",
+  "bin": "./bin/webpack-monitor.js",
   "dependencies": {
     "babel-core": "^6.26.0",
     "colors": "^1.1.2",
+    "commander": "^2.19.0",
     "express": "^4.15.5",
     "mkdirp": "^0.5.1",
     "opener": "^1.4.3",

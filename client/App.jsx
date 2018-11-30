@@ -14,7 +14,7 @@ class App extends React.Component {
 
   // Get build data
   componentDidMount() {
-    fetch('/getstats')
+    fetch('getstats')
     .then(res => res.json())
     .then((build) => {
       this.setState({ build, activeBuild: build.length - 1 });

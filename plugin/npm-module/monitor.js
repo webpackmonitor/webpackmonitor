@@ -131,7 +131,7 @@ module.exports = class MonitorStats {
         }
       }
       fs.writeFile(target, JSON.stringify(data, null, 2), () => {
-        if (this.options.launch) server(data, this.options.port);
+        if (this.options.launch) server(target, this.options.port);
       });
     });
   }
