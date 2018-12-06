@@ -34,7 +34,7 @@ module.exports = class MonitorStats {
     let data;
 
     // CHECK MINIFICATION
-    compiler.plugin('emit', (compilation, cb) => {
+    compiler.hooks.emit.tapAsync('MonitorStats', (compilation, cb) => {
       compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
@@ -57,7 +57,7 @@ module.exports = class MonitorStats {
     });
 
     // CHECK UNPURE CSS
-    compiler.plugin('emit', (compilation, cb) => {
+    compiler.hooks.emit.tapAsync('MonitorStats', (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
@@ -98,7 +98,7 @@ module.exports = class MonitorStats {
       data = [];
     }
 
-    compiler.plugin('done', stats => {
+    compiler.hooks.done.tap('MonitorStats', stats => {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
