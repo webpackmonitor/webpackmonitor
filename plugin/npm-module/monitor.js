@@ -7,6 +7,9 @@ const mkdirp = require('mkdirp');
 const server = require('./utils/server');
 const parseStats = require('./utils/parser');
 
+// used for the webpack tap name
+const PLUGIN_NAME = 'WebpackMonitorPlugin';
+
 module.exports = class MonitorStats {
   constructor(options) {
     this.options = Object.assign(
@@ -34,7 +37,7 @@ module.exports = class MonitorStats {
     let data;
 
     // CHECK MINIFICATION
-    compiler.plugin('emit', (compilation, cb) => {
+    compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, cb) => {
       compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
@@ -57,7 +60,7 @@ module.exports = class MonitorStats {
     });
 
     // CHECK UNPURE CSS
-    compiler.plugin('emit', (compilation, cb) => {
+    compiler.hooks.emit.tapAsync(PLUGIN_NAME, (compilation, cb) => {
       const css = compilation.chunks
         .map(chunk => chunk.files)
         .reduce((arr, el) => arr.concat(el))
@@ -98,7 +101,7 @@ module.exports = class MonitorStats {
       data = [];
     }
 
-    compiler.plugin('done', stats => {
+    compiler.hooks.done.tapAsync(PLUGIN_NAME, (stats, cb) => {
       if (this.options.capture) {
         stats = stats.toJson(jsonOpts);
         const prev = data[data.length - 1];
@@ -132,7 +135,11 @@ module.exports = class MonitorStats {
       }
       fs.writeFile(target, JSON.stringify(data, null, 2), () => {
         if (this.options.launch) server(data, this.options.port);
+
+        cb();
       });
+
+      cb();
     });
   }
 };
