@@ -57,5 +57,8 @@
     "react-bootstrap": "^0.31.3",
     "react-dom": "^15.6.1",
     "react-router-dom": "^4.2.2"
+  },
+  "jest": {
+    "testURL": "http://localhost:3030"
   }
 }
